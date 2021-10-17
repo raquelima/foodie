@@ -1,92 +1,124 @@
 <?php
 
-// Sessionhandling starten
+// TODO - Sessionhandling starten
 session_start();
 
 // Datenbankverbindung
 include('include/dbconnector.inc.php');
 
-$error = '';
-$message = '';
-$username = $password = '';
+// Initialisierung
+$error = $message =  '';
+$firstname = $lastname = $email = $username = $password =  '';
 
+// Wurden Daten mit "POST" gesendet?
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-// Formular wurde gesendet und Besucher ist noch nicht angemeldet.
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vorname ausgefüllt?
+    if (isset($_POST['firstname'])) {
+        //trim and sanitize
+        $firstname = htmlspecialchars(trim($_POST['firstname']));
 
-    // username
+        //mindestens 1 Zeichen und maximal 30 Zeichen lang
+        if (empty($firstname) || strlen($firstname) > 30) {
+            $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte einen Vornamen ein.<br />";
+    }
+
+    // Nachname ausgefüllt?
+    if (isset($_POST['lastname'])) {
+        //trim and sanitize
+        $lastname = htmlspecialchars(trim($_POST['lastname']));
+
+        //mindestens 1 Zeichen und maximal 30 Zeichen lang
+        if (empty($lastname) || strlen($lastname) > 30) {
+            $error .= "Geben Sie bitte einen korrekten Nachname ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte einen Nachname ein.<br />";
+    }
+
+    // Email ausgefüllt?
+    if (isset($_POST['email'])) {
+        //trim an sanitize
+        $email = htmlspecialchars(trim($_POST['email']));
+
+        //mindestens 1 Zeichen und maximal 100 Zeichen lang, gültige Emailadresse
+        if (empty($email) || strlen($email) > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            $error .= "Geben Sie bitte eine korrekten Emailadresse ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte eine Emailadresse ein.<br />";
+    }
+
+    // Username ausgefüllt?
     if (isset($_POST['username'])) {
         //trim and sanitize
         $username = htmlspecialchars(trim($_POST['username']));
 
-        // Prüfung username
+        //mindestens 1 Zeichen , entsprich RegEX
         if (empty($username) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,30}/", $username)) {
-            $error .= "Der Benutzername entspricht nicht dem geforderten Format.<br />";
+            $error .= "Geben Sie bitte einen korrekten Usernamen ein.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte den Benutzername an.<br />";
+        $error .= "Geben Sie bitte einen Username ein.<br />";
     }
-    // password
+
+    // Passwort ausgefüllt
     if (isset($_POST['password'])) {
         //trim and sanitize
         $password = trim($_POST['password']);
-        // passwort gültig?
-        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
-            $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
+
+        //mindestens 1 Zeichen , entsprich RegEX
+        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
+            $error .= "Geben Sie bitte einen korrektes Password ein.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte das Passwort an.<br />";
+        $error .= "Geben Sie bitte ein Password ein.<br />";
     }
 
-    // kein Fehler
+    // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
     if (empty($error)) {
+        // Password haschen
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
         // Query erstellen
-        $query = "SELECT id, username, password from users where username = ?";
+        $query = "Insert into users (firstname, lastname, username, password, email) values (?,?,?,?,?)";
 
         // Query vorbereiten
         $stmt = $mysqli->prepare($query);
         if ($stmt === false) {
             $error .= 'prepare() failed ' . $mysqli->error . '<br />';
         }
+
         // Parameter an Query binden
-        if (!$stmt->bind_param("s", $username)) {
+        if (!$stmt->bind_param('sssss', $firstname, $lastname, $username, $password_hash, $email)) {
             $error .= 'bind_param() failed ' . $mysqli->error . '<br />';
         }
+
         // Query ausführen
         if (!$stmt->execute()) {
             $error .= 'execute() failed ' . $mysqli->error . '<br />';
         }
-        // Daten auslesen
-        $result = $stmt->get_result();
 
-        // Userdaten lesen
-        if ($row = $result->fetch_assoc()) {
-
-            // Passwort ok?
-            if (password_verify($password, $row['password'])) {
-
-                // Session personifizieren
-                $_SESSION['username'] = $username;
-                $_SESSION['loggedin'] = true;
-
-                // Session ID regenerieren
-                $_SESSION['userid'] = session_regenerate_id(true);
-
-                // weiterleiten auf admin.php
-                header("location: admin.php");
-
-                // Script beenden
-                die();
-            } else {
-                $error .= "Benutzername oder Passwort sind falsch";
-            }
-        } else {
-            $error .= "Benutzername oder Passwort sind falsch";
+        // kein Fehler!
+        if (empty($error)) {
+            $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br/ >";
+            // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
+            $username = $password = $firstname = $lastname = $email =  '';
+            // Verbindung schliessen
+            $mysqli->close();
+            // Weiterleiten auf login.php
+            header('Location: login.php');
+            // beenden des Scriptes
+            exit();
         }
     }
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,13 +126,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Registrierung</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
-</head>
 </head>
 
 <body>
@@ -134,30 +165,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </ul>
         </div>
     </nav>
-    
     <div class="container">
-        <h1>Login</h1>
+        <h1>Registrierung</h1>
         <p>
-            Bitte melden Sie sich mit Benutzernamen und Passwort an.
+            Bitte registrieren Sie sich, damit Sie diesen Dienst benutzen können.
         </p>
         <?php
-        // fehlermeldung oder nachricht ausgeben
-        if (!empty($message)) {
-            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
-        } else if (!empty($error)) {
+        // Ausgabe der Fehlermeldungen
+        if (!empty($error)) {
             echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+        } else if (!empty($message)) {
+            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
         }
         ?>
-        <form action="" method="POST">
+        <form action="" method="post">
+            <!-- vorname -->
+            <div class="form-group">
+                <label for="firstname">Vorname *</label>
+                <input type="text" name="firstname" class="form-control" id="firstname" value="<?php echo $firstname ?>" placeholder="Geben Sie Ihren Vornamen an." maxlength="30" required="true">
+            </div>
+            <!-- nachname -->
+            <div class="form-group">
+                <label for="lastname">Nachname *</label>
+                <input type="text" name="lastname" class="form-control" id="lastname" value="<?php echo $lastname ?>" placeholder="Geben Sie Ihren Nachnamen an" maxlength="30" required="true">
+            </div>
+            <!-- email -->
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" name="email" class="form-control" id="email" value="<?php echo $email ?>" placeholder="Geben Sie Ihre Email-Adresse an." maxlength="100" required="true">
+            </div>
+            <!-- benutzername -->
             <div class="form-group">
                 <label for="username">Benutzername *</label>
-                <input type="text" name="username" class="form-control" id="username" value="" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
+                <input type="text" name="username" class="form-control" id="username" value="<?php echo $username ?>" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
             </div>
             <!-- password -->
             <div class="form-group">
                 <label for="password">Password *</label>
                 <input type="password" name="password" class="form-control" id="password" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
             </div>
+            <!-- Send / Reset -->
             <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
             <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
         </form>

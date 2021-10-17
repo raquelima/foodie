@@ -139,11 +139,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Foodie</h1>
+                <h1 class="fw-light">Restaurant</h1>
                 <p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>
                 <p>
-                    <a href="registration.php" class="btn btn-primary my-2">Register</a>
-                    <a href="login.php" class="btn btn-secondary my-2">Log in</a>
+                    <a href="registration.php" class="btn btn-primary my-2">More</a>
                 </p>
             </div>
         </div>
@@ -164,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <p class="card-text">McDonald's®</p>
                             <p class="card-text">Burgers • American • Fast Food<br>Centralbahnstrasse 9, 4051</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="restaurant.php" class="stretched-link">View</a>
+                                <a href="#" class="stretched-link">View</a>
                                 <small class="text-muted">15-25 Min</small>
                             </div>
                         </div>
@@ -181,7 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <p class="card-text">Subway®</p>
                             <p class="card-text">Sandwich • American<br>Centralbahnpl. 6, 4051</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="restaurant.php" class="stretched-link">View</a>
+                                <a href="#" class="stretched-link">View</a>
                                 <small class="text-muted">30-40 Min</small>
                             </div>
                         </div>
@@ -198,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <p class="card-text">Burger King</p>
                             <p class="card-text">American • Fast Food • Burgers<br>Steinenvorstadt 51, 4051</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="restaurant.php" class="stretched-link">View</a>
+                                <a href="#" class="stretched-link">View</a>
                                 <small class="text-muted">35-45 Min</small>
                             </div>
                         </div>
