@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>Registrierung</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
 </head>
@@ -142,16 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ml-auto">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </ul>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ms-auto">
                 <?php
                 //wenn Session personalisiert
                 if (isset($_SESSION['loggedin'])) {
@@ -165,49 +156,53 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </ul>
         </div>
     </nav>
-    <div class="container">
-        <h1>Registrierung</h1>
-        <p>
-            Bitte registrieren Sie sich, damit Sie diesen Dienst benutzen können.
-        </p>
-        <?php
-        // Ausgabe der Fehlermeldungen
-        if (!empty($error)) {
-            echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
-        } else if (!empty($message)) {
-            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
-        }
-        ?>
-        <form action="" method="post">
-            <!-- vorname -->
-            <div class="form-group">
-                <label for="firstname">Vorname *</label>
-                <input type="text" name="firstname" class="form-control" id="firstname" value="<?php echo $firstname ?>" placeholder="Geben Sie Ihren Vornamen an." maxlength="30" required="true">
+    <div clas="container">
+        <div class="modal modal-signin position-static d-block" tabindex="-1" role="dialog" id="modalSignup">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-5 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h2 class="fw-bold mb-0">Register for free</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <?php
+                        // fehlermeldung oder nachricht ausgeben
+                        if (!empty($message)) {
+                            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
+                        } else if (!empty($error)) {
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+                        }
+                        ?>
+                        <form action="" method="POST">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="firstname" class="form-control rounded-4" id="firstname" value="<?php echo $firstname ?>" placeholder="First name" maxlength="30" required="true">
+                                <label for="firstname">First name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="lastname" class="form-control rounded-4" id="lastname" value="<?php echo $lastname ?>" placeholder="Last name" maxlength="30" required="true">
+                                <label for="lastname">Last name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" name="email" class="form-control rounded-4" id="email" value="<?php echo $email ?>" placeholder="name@example.com" maxlength="100" required="true">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="username" class="form-control rounded-4" id="username" value="<?php echo $username ?>" pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" placeholder="Password" maxlength="30" required="true">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" class="form-control rounded-4" id="password" value="<?php echo $password ?>" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" maxlength="255" required="true">
+                                <label for="password">Password</label>
+                            </div>
+                            <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn btn-info" name="button" value="submit" type="submit">Sign up</button>
+                            <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+                            <hr class="my-4">
+                        </form>
+                    </div>
+                </div>
             </div>
-            <!-- nachname -->
-            <div class="form-group">
-                <label for="lastname">Nachname *</label>
-                <input type="text" name="lastname" class="form-control" id="lastname" value="<?php echo $lastname ?>" placeholder="Geben Sie Ihren Nachnamen an" maxlength="30" required="true">
-            </div>
-            <!-- email -->
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" name="email" class="form-control" id="email" value="<?php echo $email ?>" placeholder="Geben Sie Ihre Email-Adresse an." maxlength="100" required="true">
-            </div>
-            <!-- benutzername -->
-            <div class="form-group">
-                <label for="username">Benutzername *</label>
-                <input type="text" name="username" class="form-control" id="username" value="<?php echo $username ?>" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
-            </div>
-            <!-- password -->
-            <div class="form-group">
-                <label for="password">Password *</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
-            </div>
-            <!-- Send / Reset -->
-            <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
-            <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
-        </form>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
