@@ -9,12 +9,12 @@
                 <?php
                 //wenn Session personalisiert
                 if (isset($_SESSION['loggedin'])) {
-                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
-                    header('Location: index.php');
+                    echo '<li class="nav-item"><a class="nav-link" href="include/logout.php">Logout</a></li>';
+                   
                 } else {
                     //wenn Session nicht personalisiert
-                    echo '<li class="nav-item"><a class="nav-link" href="registration.php">Registrierung</a></li>';
-                    echo '<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="" data-toggle="modal" data-target="#modalSignup">Register</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="" data-toggle="modal" data-target="#modalSignin">Login</a></li>';
                 }
                 ?>
             </ul>
