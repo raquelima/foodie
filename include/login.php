@@ -72,9 +72,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 die();
             } else {
                 $error .= "Benutzername oder Passwort sind falsch";
+                echo '<script>
+                window.onload = function(){
+                      document.getElementById("loginBtn").click(); // Click on the checkbox
+            
+                }
+            </script>';
             }
         } else {
             $error .= "Benutzername oder Passwort sind falsch";
+            echo '<script>
+                window.onload = function(){
+                      document.getElementById("loginBtn").click(); // Click on the checkbox
+            
+                }
+            </script>';
         }
     }
 }
@@ -112,5 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
             </div>
         </div>
+        
     </div>
 </div>

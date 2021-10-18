@@ -104,7 +104,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Verbindung schliessen
             $mysqli->close();
             // Weiterleiten auf login.php
-            header('Location: login.php');
+            echo '<script>
+            window.onload = function() {
+              location.replace("index.php")
+            }
+            </script>';
             // beenden des Scriptes
             exit();
         }

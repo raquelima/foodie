@@ -85,6 +85,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+include('include/dbconnectorRestaurants.inc.php');
+
+$query = "SELECT * FROM restaurants";
+
+$stmt = $mysqli->prepare($query);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+$restaurantExists = false;
+foreach ($result as $value) {
+    if(isset($_GET["id"]) && $_GET["id"] == $value["id"]){
+        $restaurantExists = true;
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -98,49 +113,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link rel="stylesheet" href="css/style.css">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
 </head>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.php">FOODIE</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<?php include('include/nav.php'); ?>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ml-auto">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </ul>
-        </div>
+<?php include('include/login.php'); ?>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <?php
-                //wenn Session personalisiert
-                if (isset($_SESSION['loggedin'])) {
-                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
-                } else {
-                    //wenn Session nicht personalisiert
-                    echo '<li class="nav-item"><a class="nav-link" href="registration.php">Registrierung</a></li>';
-                    echo '<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>';
-                }
-                ?>
-            </ul>
-        </div>
-    </nav>
+<?php include('include/registration.php'); ?>
 
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Restaurant</h1>
-                <p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>
+                <h1 class="fw-light"><?php
+                                        if (isset($_GET["id"]) && $restaurantExists) {
+                                            foreach ($result as $value) {
+                                                if ($value["id"] == $_GET["id"]) {
+                                                    echo $value["name"];
+                                                }
+                                            }
+                                        } else {
+                                            echo "<strong style='color: #9C3848;'>Oops...</strong> Restaurant not found!";
+                                            echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";    
+                                            die();
+                                        }
+                                        ?></h1>
+                <p class="lead text-muted"><?php
+                                            foreach ($result as $value) {
+                                                if ($value["id"] == $_GET["id"]) {
+                                                    echo $value["description"];
+                                                }
+                                            }
+                                            ?></p>
                 <p>
                     <a href="registration.php" class="btn btn-primary my-2">More</a>
                 </p>
@@ -205,7 +213,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
             </div>
-
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
