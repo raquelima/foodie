@@ -34,7 +34,10 @@ include('include/dbconnector.inc.php');
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Foodie</h1>
+                <svg class="bi me-2" width="200" height="200" role="img" aria-label="Bootstrap">
+                    <image href='images/6.png' height='100%' width='100%' />
+                </svg>
+                <p> </p>
                 <p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>
                 <p>
                     <a href="" class="btn btn-primary my-2" data-toggle="modal" data-target="#modalSignup">Register</a>
@@ -74,7 +77,7 @@ include('include/dbconnector.inc.php');
                             <p class='card-text'>", $value['name'], "</p>
                             <p class='card-text'>", $value["description"], "<br>", $value["place"], "</p>
                             <div class='d-flex justify-content-between align-items-center'>
-                            <a onclick='goTo(", $value["id"], ")' href='' class='stretched-link' >View</a>
+                            <a href='http://localhost/foodie/restaurant.php?id=", $value["id"], "' class='stretched-link' >View</a>
                             <small class='text-muted'>", $value["delivery-from"], "-", $value["delivery-until"], " Min</small>
                             </div>
                         </div>
@@ -95,20 +98,4 @@ include('include/dbconnector.inc.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
-<script>
-    function goTo(id) {
-        var myform = document.createElement("form");
-        myform.action = "restaurant.php";
-        myform.method = "post";
-
-
-        product = document.createElement("input");
-        product.value = id;
-        product.name = "restaurantID";
-
-        myform.appendChild(product);
-        myform.submit();
-    }
-</script>
-
 </html>

@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="modal fade modal-signin " tabindex="-1" role="dialog" id="modalSignin" aria-hidden="true" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content rounded-5 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
                 <h2 class="fw-bold mb-0">Sign in</h2>
@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="floatingPassword">Password</label>
                     </div>
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn btn-info" name="button" value="submit" type="submit">Sign in</button>
-                    <small class="text-muted">Use your Foodie account.<br>Don't have an Atlantic account? <a href="" class="" data-toggle="modal" data-target="#modalSignup">Create one</a></small>
+                    <small class="text-muted">Use your Foodie account.<br>Don't have a Foodie account? <a href="" class="" data-toggle="modal" data-target="#modalSignup">Create one</a></small>
                 </form>
             </div>
         </div>
