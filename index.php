@@ -17,13 +17,14 @@ include('include/dbconnector.inc.php');
     <title>Foodie</title>
 
     <link rel="shortcut icon" href="images/7.png" />
-    <link rel="stylesheet" href="css/style.css">
+    
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/admin-style.css">
+>>>>>>> d297247aa3482e5977ca156f64a05fa8a36ba65c
 </head>
 </head>
 
