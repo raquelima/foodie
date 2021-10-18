@@ -157,14 +157,9 @@ include('include/dbconnector.inc.php');
         } else {
             $error .= " Invalid until";
         }
-       echo 'name ', $restaurantName , ' website ',$website , ' description ', $description , ' address ', $address , ' from ', $from , ' until ', $until;
-       echo $error;
-       echo '<script>alert("Hello! ',$error,'I am an alert box!!")</script>';
 
+        if (empty($error)) {
 
-        if (!empty($error)) {
-
-            echo 'alert("Hello! I am an alert box!!")';
             $query = "INSERT INTO `restaurants` (`name`, `description`, `place`, `website`, `delivery-from`, `delivery-until`) VALUES (?, ?, ?, ?, ?, ?)";
 
             // Query vorbereiten
@@ -180,11 +175,11 @@ include('include/dbconnector.inc.php');
             if (!$stmt->execute()) {
                 $error .= 'execute() failed ' . $mysqli->error . '<br />';
             }
+            header("location: ");
         }
     }
 
-    ?>
-    <?php
+    
     $result->free();
 
     $query = "SELECT * FROM restaurants";
