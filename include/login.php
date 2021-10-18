@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // kein Fehler
     if (empty($error)) {
         // Query erstellen
-        $query = "SELECT id, username, password from users where username = ?";
+        $query = "SELECT id, username, password, admin from users where username = ?";
 
         // Query vorbereiten
         $stmt = $mysqli->prepare($query);
@@ -61,6 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Session personifizieren
                 $_SESSION['username'] = $username;
                 $_SESSION['loggedin'] = true;
+                $_SESSION['isAdmin'] = $row['admin'];
+                
 
                 // Session ID regenerieren
                 $_SESSION['userid'] = session_regenerate_id(true);

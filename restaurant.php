@@ -8,7 +8,7 @@ session_start();
 
 
 
-include('include/dbconnectorRestaurants.inc.php');
+include('include/dbconnector.inc.php');
 
 $query = "SELECT * FROM restaurants";
 
@@ -120,7 +120,6 @@ $_SESSION['products'] = $products;
 
             <div>
                 <?php
-                include('include/dbconnectorRestaurants.inc.php');
 
                 $result->free();
 
