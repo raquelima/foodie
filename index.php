@@ -23,8 +23,8 @@ include('include/dbconnector.inc.php');
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="css/admin-style.css">
->>>>>>> d297247aa3482e5977ca156f64a05fa8a36ba65c
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 </head>
 
