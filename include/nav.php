@@ -27,7 +27,7 @@
                     } else {
                         //wenn Session nicht personalisiert
                         echo '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalSignup">Sign-up</button>';
-                        echo '<button id="loginBtn" type="button" class="btn btn-outline-light me-2" data-toggle="modal" data-target="#modalSignin">Login</button>';
+                        echo '<button id="loginBtn" type="button" class="btn btn-outline-light me-2" data-toggle="modal" data-target="#modalSignin"  style="margin-left: 15px;">Login</button>';
                     }
                     ?>
                 </div>

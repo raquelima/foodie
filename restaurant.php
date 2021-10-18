@@ -4,87 +4,10 @@
 session_start();
 
 // Datenbankverbindung
-include('include/dbconnector.inc.php');
-
-$error = '';
-$message = '';
-$username = $password = '';
 
 
-// Formular wurde gesendet und Besucher ist noch nicht angemeldet.
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // username
-    if (isset($_POST['username'])) {
-        //trim and sanitize
-        $username = htmlspecialchars(trim($_POST['username']));
 
-        // Prüfung username
-        if (empty($username) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,30}/", $username)) {
-            $error .= "Der Benutzername entspricht nicht dem geforderten Format.<br />";
-        }
-    } else {
-        $error .= "Geben Sie bitte den Benutzername an.<br />";
-    }
-    // password
-    if (isset($_POST['password'])) {
-        //trim and sanitize
-        $password = trim($_POST['password']);
-        // passwort gültig?
-        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
-            $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
-        }
-    } else {
-        $error .= "Geben Sie bitte das Passwort an.<br />";
-    }
-
-    // kein Fehler
-    if (empty($error)) {
-        // Query erstellen
-        $query = "SELECT id, username, password from users where username = ?";
-
-        // Query vorbereiten
-        $stmt = $mysqli->prepare($query);
-        if ($stmt === false) {
-            $error .= 'prepare() failed ' . $mysqli->error . '<br />';
-        }
-        // Parameter an Query binden
-        if (!$stmt->bind_param("s", $username)) {
-            $error .= 'bind_param() failed ' . $mysqli->error . '<br />';
-        }
-        // Query ausführen
-        if (!$stmt->execute()) {
-            $error .= 'execute() failed ' . $mysqli->error . '<br />';
-        }
-        // Daten auslesen
-        $result = $stmt->get_result();
-
-        // Userdaten lesen
-        if ($row = $result->fetch_assoc()) {
-
-            // Passwort ok?
-            if (password_verify($password, $row['password'])) {
-
-                // Session personifizieren
-                $_SESSION['username'] = $username;
-                $_SESSION['loggedin'] = true;
-
-                // Session ID regenerieren
-                $_SESSION['userid'] = session_regenerate_id(true);
-
-                // weiterleiten auf admin.php
-                header("location: admin.php");
-
-                // Script beenden
-                die();
-            } else {
-                $error .= "Benutzername oder Passwort sind falsch";
-            }
-        } else {
-            $error .= "Benutzername oder Passwort sind falsch";
-        }
-    }
-}
 include('include/dbconnectorRestaurants.inc.php');
 
 $query = "SELECT * FROM restaurants";
@@ -96,10 +19,11 @@ $stmt->execute();
 $result = $stmt->get_result();
 $restaurantExists = false;
 foreach ($result as $value) {
-    if(isset($_GET["id"]) && $_GET["id"] == $value["id"]){
+    if (isset($_GET["id"]) && $_GET["id"] == $value["id"]) {
         $restaurantExists = true;
     }
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -109,7 +33,17 @@ foreach ($result as $value) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title><?php
+            if (isset($_GET["id"]) && $restaurantExists) {
+                foreach ($result as $value) {
+                    if ($value["id"] == $_GET["id"]) {
+                        echo "Foodie | ", $value["name"];
+                    }
+                }
+            } else {
+                echo "404 Not Found";
+            }
+            ?></title>
 
     <link rel="stylesheet" href="css/style.css">
     <!-- Bootstrap -->
@@ -120,11 +54,11 @@ foreach ($result as $value) {
 </head>
 
 <body>
-<?php include('include/nav.php'); ?>
+    <?php include('include/nav.php'); ?>
 
-<?php include('include/login.php'); ?>
+    <?php include('include/login.php'); ?>
 
-<?php include('include/registration.php'); ?>
+    <?php include('include/registration.php'); ?>
 
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -138,7 +72,7 @@ foreach ($result as $value) {
                                             }
                                         } else {
                                             echo "<strong style='color: #9C3848;'>Oops...</strong> Restaurant not found!";
-                                            echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";    
+                                            echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
                                             die();
                                         }
                                         ?></h1>
@@ -150,7 +84,20 @@ foreach ($result as $value) {
                                             }
                                             ?></p>
                 <p>
-                    <a href="registration.php" class="btn btn-primary my-2">More</a>
+                    <?php
+
+                    $website = "";
+                    if (isset($_GET["id"]) && $restaurantExists) {
+                        foreach ($result as $value) {
+                            if ($value["id"] == $_GET["id"]) {
+                                $website = $value["website"];
+                            }
+                        }
+                    }
+
+                    echo '<a href="', $website, '"  target="_blank" class="btn btn-primary my-2">More</a>'
+                    ?>
+
                 </p>
             </div>
         </div>
