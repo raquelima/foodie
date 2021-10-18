@@ -37,7 +37,6 @@ foreach ($_POST as $key => $value) {
     }
 }
 $_SESSION['products'] = $products;
-print_r($_SESSION)
 ?>
 <!DOCTYPE html>
 <html lang="en">
