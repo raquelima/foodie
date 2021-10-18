@@ -23,11 +23,12 @@
                     <?php
                     //wenn Session personalisiert
                     if (isset($_SESSION['loggedin'])) {
-                        echo '<a type="" class="btn btn-outline-light me-2" href="include/logout.php">Logout</a>';
+                        include('include/loggedinNav.php'); 
+                        
                     } else {
                         //wenn Session nicht personalisiert
                         echo '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalSignup">Sign-up</button>';
-                        echo '<button id="loginBtn" type="button" class="btn btn-outline-light me-2" data-toggle="modal" data-target="#modalSignin"  style="margin-left: 15px;">Login</button>';
+                        echo '<button id="loginBtn" type="button" class="btn btn-outline-light me-2" data-toggle="modal" data-target="#modalSignin" style="margin-left: 15px;">Login</button>';
                     }
                     ?>
                 </div>

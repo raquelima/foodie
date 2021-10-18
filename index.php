@@ -16,7 +16,7 @@ include('include/dbconnector.inc.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Foodie</title>
 
-    <link rel="shortcut icon" href="images/7.png"/>
+    <link rel="shortcut icon" href="images/7.png" />
     <link rel="stylesheet" href="css/style.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -35,15 +35,24 @@ include('include/dbconnector.inc.php');
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <svg class="bi me-2" width="200" height="200" role="img" aria-label="Bootstrap">
+                <svg class="bi me-2" width="200" height="200" role="img" aria-label="Foodie">
                     <image href='images/6.png' height='100%' width='100%' />
                 </svg>
                 <p> </p>
-                <p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>
-                <p>
-                    <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
-                    <a href="" class="btn btn-dark my-2" data-toggle="modal" data-target="#modalSignin">Login</a>
-                </p>
+                <?php
+                //wenn Session personalisiert
+                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+                    echo '<p class="lead text-muted">Willkommen ', $_SESSION['username'],'!</p>';
+                } else {
+                    //wenn Session nicht personalisiert
+                    echo '<p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>';
+                    echo '<p>
+                        <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
+                        <a href="" class="btn btn-dark my-2" data-toggle="modal" data-target="#modalSignin">Login</a>
+                    </p>';
+                }
+                ?>
+
             </div>
         </div>
     </section>
@@ -98,4 +107,5 @@ include('include/dbconnector.inc.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
+
 </html>
