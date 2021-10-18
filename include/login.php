@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error .= "Benutzername oder Passwort sind falsch";
                 echo '<script>
                 window.onload = function(){
-                      document.getElementById("loginBtn").click(); // Click on the checkbox
+                      document.getElementById("loginBtn").click(); // Click on the login button
             
                 }
             </script>';
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error .= "Benutzername oder Passwort sind falsch";
             echo '<script>
                 window.onload = function(){
-                      document.getElementById("loginBtn").click(); // Click on the checkbox
+                      document.getElementById("loginBtn").click(); // Click on the login button
             
                 }
             </script>';
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content rounded-5 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
-                <h2 class="fw-bold mb-0">Sign in</h2>
+                <h2 class="fw-bold mb-0">Log in</h2>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
