@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <input type="password" name="password" class="form-control rounded-4" id="password" value="<?php echo $password ?>" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" maxlength="255" required="true">
                         <label for="password">Password</label>
                     </div>
-                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn btn-info" name="button" value="submit" type="submit">Log in</button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-warning btn btn-info" name="button" value="submit" type="submit">Sign up</button>
                     <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
                     <hr class="my-4">
                 </form>

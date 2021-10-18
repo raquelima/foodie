@@ -16,6 +16,7 @@ include('include/dbconnector.inc.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Foodie</title>
 
+    <link rel="shortcut icon" href="images/7.png"/>
     <link rel="stylesheet" href="css/style.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -40,8 +41,8 @@ include('include/dbconnector.inc.php');
                 <p> </p>
                 <p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>
                 <p>
-                    <a href="" class="btn btn-primary my-2" data-toggle="modal" data-target="#modalSignup">Register</a>
-                    <a href="" class="btn btn-secondary my-2" data-toggle="modal" data-target="#modalSignin">Log in</a>
+                    <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
+                    <a href="" class="btn btn-dark my-2" data-toggle="modal" data-target="#modalSignin">Login</a>
                 </p>
             </div>
         </div>
@@ -88,7 +89,6 @@ include('include/dbconnector.inc.php');
 
                 ?>
 
-                <a href="" onclick="goTo(4)">resr</a>
 
             </div>
 

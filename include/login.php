@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="password" name="password" class="form-control rounded-4" id="password" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255" required="true">
                         <label for="floatingPassword">Password</label>
                     </div>
-                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn btn-info" name="button" value="submit" type="submit">Sign in</button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-warning btn btn-info" name="button" value="submit" type="submit">Log in</button>
                     <small class="text-muted">Use your Foodie account.<br>Don't have a Foodie account? <a href="" class="" data-toggle="modal" data-target="#modalSignup">Create one</a></small>
                 </form>
             </div>
