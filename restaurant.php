@@ -4,10 +4,6 @@
 session_start();
 
 // Datenbankverbindung
-
-
-
-
 include('include/dbconnector.inc.php');
 
 $query = "SELECT * FROM restaurants";
@@ -38,6 +34,7 @@ foreach ($_POST as $key => $value) {
 }
 $_SESSION['products'] = $products;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

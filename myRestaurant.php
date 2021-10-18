@@ -17,7 +17,7 @@ include('include/dbconnector.inc.php');
     <title>Foodie</title>
 
     <link rel="shortcut icon" href="images/7.png" />
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Font Awesome -->
@@ -36,30 +36,6 @@ include('include/dbconnector.inc.php');
 
     <?php include('include/registration.php'); ?>
 
-    <section class="text-center ">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <svg class="bi me-2" width="250" height="250" role="img" aria-label="Foodie">
-                    <image href='images/6.png' height='100%' width='100%' />
-                </svg>
-                <p> </p>
-                <?php
-                //wenn Session personalisiert
-                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
-                    echo '<p class="lead text-muted">Willkommen ', $_SESSION['username'], '!</p>';
-                } else {
-                    //wenn Session nicht personalisiert
-                    echo '<p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>';
-                    echo '<p>
-                        <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
-                        <a href="" class="btn btn-dark my-2" data-toggle="modal" data-target="#modalSignin">Login</a>
-                    </p>';
-                }
-                ?>
-
-            </div>
-        </div>
-    </section>
 
     <div class="album py-4 bg-light">
         <div class="container">
@@ -105,10 +81,10 @@ include('include/dbconnector.inc.php');
 
         </div>
     </div>
-<?php
-    include('include/admin-restaurant.php')
 
-?>    
+    <?php include('include/admin-restaurant.php') ?>
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
