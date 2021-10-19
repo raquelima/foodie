@@ -14,7 +14,14 @@ include('include/dbconnector.inc.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Foodie</title>
+    <title><?php
+            if (isset($_GET["id"]) && $restaurantExists) {
+                foreach ($result as $value) {
+                    echo "Restaurant Manager";
+                }
+            } else {
+                echo "404 Not Found";
+            } ?></title>
 
     <link rel="shortcut icon" href="images/7.png" />
 
@@ -30,6 +37,19 @@ include('include/dbconnector.inc.php');
 </head>
 
 <body>
+
+    <?php
+    if (empty($_SESSION) && !isset($_SESSION['isAdmin']) || !$_SESSION['isAdmin']) {
+        echo '<section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">';
+        echo "<strong style='color: #9C3848;'>Oops...</strong> Access not granted <br>";
+        echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
+        echo '</h1></div></div>';
+        die();
+    }   
+    ?>
     <?php include('include/nav.php'); ?>
 
     <?php include('include/login.php'); ?>
