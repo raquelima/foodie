@@ -156,14 +156,7 @@ include('include/dbconnector.inc.php');
                 <form class="form-horizontal row" method="POST" action="">
                     <div class="form-icon "><i class="fa fa-plus-square" aria-hidden="true"></i></div>
                     <div class="form-group col-md-6 ">
-                    <label>Restaurants</label>
-                    <select class="form-control" type="" name="restaurantName" required="">
-                    <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="fiat">Fiat</option>
-  <option value="audi">Audi</option>
-</select>
-
+                    
                     </div>
                     <div class="form-group col-md-6 ">
                         <label>Restaurant Name</label>
@@ -171,7 +164,7 @@ include('include/dbconnector.inc.php');
                     </div>
                     <div class="form-group col-md-6">
                         <label>Website</label>
-                        <input class="form-control" type="Name" name="website" required="" placeholder="Website">
+                        <input class="form-control" type="Name" name="website" required="" placeholder="Website (https://www.myRestaurant.com)">
                     </div>
                     <div class="form-group col-md-12">
                         <label>Description</label>
