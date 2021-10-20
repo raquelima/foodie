@@ -29,39 +29,62 @@ include('include/dbconnector.inc.php');
 </head>
 </head>
 
-<body>
+<body class="bg-light">
     <?php include('include/nav.php'); ?>
 
     <?php include('include/login.php'); ?>
 
     <?php include('include/registration.php'); ?>
     <?php include('include/map.php'); ?>
+    <?php
+    
+    ?>
     <div class="album py-5 bg-light">
         <main class="container">
             <div class="col-md-12">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">>
+                <?php
+        if (empty($_SESSION) || !$_SESSION["loggedin"]) {
+        echo '<script>
+        window.onload = function() {
+          location.replace("index.php")
+        }
+        </script>';
+    }
+                $query = "SELECT * FROM orders WHERE {$_SESSION['id']} = userID;";
+
+                $stmt = $mysqli->prepare($query);
+
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+                $count = 0;
+                foreach ($result as $value) {
+                    $count++;
+                    $sec = strtotime($value['orderDate']);
+                    $newdate = date("d. M. Y H:i", $sec);
+                    echo "<div class='row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative'>
+                    <div class='col-auto d-none d-lg-block'>
+                        <svg class='bd-placeholder-img' width='200' height='250' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'>>
                             <title>Placeholder</title>
-                            <image href="images/pommes-icon.png" height="100%" width="100%" />
+                            <image href='images/pommes-icon.png' height='100%' width='100%' />
                         </svg>
 
                     </div>
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <h3 class="mb-3">Ihre 1. Bestellung</h3>
+                    <div class='col p-4 d-flex flex-column position-static'>
+                        <h3 class='mb-3'>Your {$count}. Order</h3>
 
-                        <p class="card-text mb-auto">Bestellungsnummer #00001</p>
-                        <div class="mb-1 text-muted">
-                            <p> Bestellt am 20.10.2021 20:00</p>
-                            <p style="display: inline; text-align: left;">42.25 CHF</p>
+                        <p class='card-text mb-auto'>Order number: #", str_pad($value['orderID'], 5, '0', STR_PAD_LEFT), "</p>
+                        <div class='mb-1 text-muted'>
+                            <p> Purchased on the {$newdate}</p>
+                            <p style='display: inline; text-align: left;'>", number_format((float)$value['orderPrice'], 2, '.', ''), " CHF</p>
 
-                            <form style="float: right;"><button type="button" style="display: inline; text-align: right;" class="btn btn-warning" data-toggle="modal" data-target="#modalVM">Map</button></form>
+                            <form style='float: right;'><button type='button' onclick='updateMap(`{$value['orderAddress']}`)' style='display: inline; text-align: right;' class='btn btn-warning' data-toggle='modal' data-target='#modalVM' >Map</button></form>
                         </div>
                         <div>
-                            <button id="detail1" onclick="showDetail(1)" class="btn btn-warning">Details</button>
-                            <div id="food1" style="display: none;">
-                                <p>1x Big Mac <br> 1x Pommes Frites <br> 3x Coffee Star Bucks <br> 2x Subway <br> 1x burger</p>
-                                <button id="less1" onclick="showLess(1)" class="btn btn-warning">Show Less</button>
+                            <button id='detail{$value['orderID']}' onclick='showDetail({$value['orderID']})' class='btn btn-warning'>Details</button>
+                            <div id='food{$value['orderID']}' style='display: none;'>
+                                <p>{$value['orderText']}</p>
+                                <button id='less{$value['orderID']}' onclick='showLess({$value['orderID']})' class='btn btn-warning'>Show Less</button>
                             </div>
                         </div>
 
@@ -69,33 +92,9 @@ include('include/dbconnector.inc.php');
 
 
 
-                </div>
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">>
-                            <title>Placeholder</title>
-                            <image href="images/pommes-icon.png" height="100%" width="100%" />
-                        </svg>
-
-                    </div>
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <h3 class="mb-3">', $value["foodName"], '</h3>
-
-                        <p class="card-text mb-auto">', $value["foodDescription"], '</p>
-                        <div class="mb-1 text-muted">
-                            <p style="display: inline; text-align: left;">', number_format((float)$value['price'], 2, '.', ''), ' CHF</p>
-                            <form style="float: right;"><button type="button" style="display: inline; text-align: right;" class="btn btn-default" data-toggle="modal" data-target="#modalVM">Map</button></form>
-                        </div>
-                        <div>
-                            <button id="detail2" onclick="showDetail(2)" class="btn btn-warning">Details</button>
-                            <div id="food2" style="display: none;">
-                                <p>test2 <br> test2 <br> test2 <br> test2 <br> test2</p>
-                                <button id="less2" onclick="showLess(2)" class="btn btn-warning">Show Less</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                </div>";
+                }
+                ?>
 
             </div>
     </div>
@@ -106,6 +105,8 @@ include('include/dbconnector.inc.php');
 </body>
 
 <script>
+    let map = "";
+
     function showDetail(id) {
         document.getElementById("food" + id).style.display = "block";
         document.getElementById("detail" + id).style.display = "none";
@@ -114,6 +115,12 @@ include('include/dbconnector.inc.php');
     function showLess(id) {
         document.getElementById("food" + id).style.display = "none";
         document.getElementById("detail" + id).style.display = "block";
+    }
+
+    function updateMap(address) {
+        map = "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+        document.getElementById('map').src = map;
+
     }
 </script>
 
