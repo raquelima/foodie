@@ -4,12 +4,12 @@
     text-align: center;
     padding: 20px 10px 20px;
     margin: 50px 0 0;
-    border: 5px solid #d63031;
+    border: 5px solid #fdb92e;
     border-radius: 10px;
 }
 .form-horizontal .form-icon{
     color: #fff;
-    background-color: #d63031;
+    background-color: #fdb92e;
     font-size: 60px;
     line-height: 120px;
     height: 120px;
@@ -31,7 +31,7 @@
 
 .form-horizontal .btn{
     color: #fff;
-    background-color: #d63031;
+    background-color: #fdb92e;
     font-size: 16px;
     font-weight: 700;
     text-transform: capitalize;
