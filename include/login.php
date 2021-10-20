@@ -59,13 +59,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $row['password'])) {
 
                 // Session personifizieren
+                $_SESSION['id'] = $row['id'];
                 $_SESSION['username'] = $username;
                 $_SESSION['loggedin'] = true;
                 $_SESSION['isAdmin'] = $row['admin'];
                 
 
                 // Session ID regenerieren
-                $_SESSION['userid'] = session_regenerate_id(true);
+               session_regenerate_id(true);
 
                 // weiterleiten auf index.php
                 header("location: index.php");

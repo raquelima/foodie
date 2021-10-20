@@ -48,19 +48,55 @@ include('include/dbconnector.inc.php');
 
                     </div>
                     <div class="col p-4 d-flex flex-column position-static">
+                        <h3 class="mb-3">Ihre 1. Bestellung</h3>
+
+                        <p class="card-text mb-auto">Bestellungsnummer #00001</p>
+                        <div class="mb-1 text-muted">
+                            <p> Bestellt am 20.10.2021 20:00</p>
+                            <p style="display: inline; text-align: left;">42.25 CHF</p>
+
+                            <form style="float: right;"><button type="button" style="display: inline; text-align: right;" class="btn btn-warning" data-toggle="modal" data-target="#modalVM">Map</button></form>
+                        </div>
+                        <div>
+                            <button id="detail1" onclick="showDetail(1)" class="btn btn-warning">Details</button>
+                            <div id="food1" style="display: none;">
+                                <p>1x Big Mac <br> 1x Pommes Frites <br> 3x Coffee Star Bucks <br> 2x Subway <br> 1x burger</p>
+                                <button id="less1" onclick="showLess(1)" class="btn btn-warning">Show Less</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">>
+                            <title>Placeholder</title>
+                            <image href="images/pommes-icon.png" height="100%" width="100%" />
+                        </svg>
+
+                    </div>
+                    <div class="col p-4 d-flex flex-column position-static">
                         <h3 class="mb-3">', $value["foodName"], '</h3>
 
                         <p class="card-text mb-auto">', $value["foodDescription"], '</p>
                         <div class="mb-1 text-muted">
                             <p style="display: inline; text-align: left;">', number_format((float)$value['price'], 2, '.', ''), ' CHF</p>
                             <form style="float: right;"><button type="button" style="display: inline; text-align: right;" class="btn btn-default" data-toggle="modal" data-target="#modalVM">Map</button></form>
-
-
+                        </div>
+                        <div>
+                            <button id="detail2" onclick="showDetail(2)" class="btn btn-warning">Details</button>
+                            <div id="food2" style="display: none;">
+                                <p>test2 <br> test2 <br> test2 <br> test2 <br> test2</p>
+                                <button id="less2" onclick="showLess(2)" class="btn btn-warning">Show Less</button>
+                            </div>
                         </div>
 
                     </div>
-
                 </div>
+
             </div>
     </div>
 
@@ -68,5 +104,17 @@ include('include/dbconnector.inc.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
+
+<script>
+    function showDetail(id) {
+        document.getElementById("food" + id).style.display = "block";
+        document.getElementById("detail" + id).style.display = "none";
+    }
+
+    function showLess(id) {
+        document.getElementById("food" + id).style.display = "none";
+        document.getElementById("detail" + id).style.display = "block";
+    }
+</script>
 
 </html>
