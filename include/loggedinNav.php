@@ -9,6 +9,7 @@
     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
         <li><a class="dropdown-item" href="index.php">Home</a></li>
         <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+        <li><a class="dropdown-item" href="orders.php">My orders</a></li>
         <?php
             if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
                 echo '<li><a class="dropdown-item" href="myRestaurant.php">Restaurant</a></li>';

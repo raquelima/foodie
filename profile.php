@@ -28,115 +28,190 @@ include('include/dbconnector.inc.php');
 <body>
     <?php include('include/nav.php'); ?>
 
-    <div class="container bootstrap snippets bootdeys" style="margin-top: 150px;">
-        <div class="row" id="user-profile">
-            <div class="col-lg-3 col-md-4 col-sm-4">
-                <div class="main-box clearfix">
-                    <h2>John Doe </h2>
-                    <img src="http://dipsinternational.com/wp-content/uploads/2017/03/user-icon-fontawesome.png" alt="" class="profile-img img-responsive center-block">
-                    <div class="profile-label">
-                        <span class="label label-danger">Admin</span>
+    <div class='container bootstrap snippets bootdeys' style='margin-top: 150px;'>
+        <?php
+        // fehlermeldung oder nachricht ausgeben
+        if (!empty($message)) {
+            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
+        } else if (!empty($error)) {
+            echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+        }
+        ?>
+        <div class='row' id='user-profile'>
+            <?php
+
+            $query = "SELECT * FROM users WHERE {$_SESSION['id']}=id;";
+
+
+            $stmt = $mysqli->prepare($query);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            foreach ($result as $value) {
+                echo "<div class='col-lg-3 col-md-4 col-sm-4'>
+                <div class='main-box clearfix'>
+                    <h2>{$value['firstname']} {$value['lastname']} </h2>
+                    <img src='http://dipsinternational.com/wp-content/uploads/2017/03/user-icon-fontawesome.png' alt='' class='profile-img img-responsive center-block'>
+                    <div class='profile-label'>";
+
+                if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
+                    echo "<span class='label label-danger'>Admin</span>";
+                } else {
+                    echo "<span class='label label-danger'>User</span>";
+                }
+                echo "
+                        
                     </div>
 
-                    <div class="profile-since">
+                    <div class='profile-since'>
                         Member since: Jan 2012
                     </div>
 
-                    <div class="profile-details">
-                        <ul class="fa-ul">
-                            <li><i class="fa-li fa fa-truck"></i>Orders: <span>456</span></li>
+                    <div class='profile-details'>
+                        <ul class='fa-ul'>
+                            <li><i class='fa-li fa fa-truck'></i>Orders: <span>456</span></li>
 
                         </ul>
                     </div>
 
-                    <div class="profile-message-btn center-block text-center">
-                        <a href="#" class="btn btn-warning edit-profile">
-                            <i class="fa fa-pencil-square fa-lg"></i> Edit profile
-                        </a>
+                    <div class='profile-message-btn center-block text-center'>
+                        <button id='editBtn' onclick='showUpdate()' href='' class='btn btn-warning edit-profile'>
+                            <i class='fa fa-pencil-square fa-lg'></i> Edit profile
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-9 col-md-8 col-sm-8">
-                <div class="main-box clearfix">
-                    <div class="profile-header">
+            <div class='col-lg-9 col-md-8 col-sm-8'>
+                <div class='main-box clearfix'>
+                    <div class='profile-header'>
                         <h3><span>User info</span></h3>
                     </div>
+                    <div class='row gutters'>
+                        <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
+                            <h6 class='mb-3 text-primary'>Personal Details</h6>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group'>
+                                <label for='firstname'>First Name</label>
+                                <input type='text' class='form-control' id='firstname' value='{$value['firstname']}' placeholder='' disabled>
+                            </div>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group'>
+                                <label for='lastname'>Last Name</label>
+                                <input type='text' class='form-control' id='lastname' value='{$value['lastname']}' placeholder='' disabled>
+                            </div>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group'>
+                                <label for='email'>Email</label>
+                                <input type='email' class='form-control' id='email' value='{$value['email']}' placeholder='' disabled>
+                            </div>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group' style='margin-top: 10px;'>
+                                <label for='username'>Username</label>
+                                <input type='text' class='form-control' id='username' value='{$value['username']}' placeholder='' disabled>
+                            </div>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group' style='margin-top: 10px;'>
+                                <label for='password'>Password</label>
+                                <input type='password' class='form-control' id='password' placeholder='Password' disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row gutters'>
+                        <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
+                            <h6 class='mb-3 text-primary'>Address</h6>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group'>
+                                <label for='street'>Street</label>
+                                <input type='name' class='form-control' id='street' placeholder='Enter Street' disabled>
+                            </div>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group'>
+                                <label for='city'>City</label>
+                                <input type='name' class='form-control' id='city' placeholder='Enter City' disabled>
+                            </div>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group' style='margin-top: 10px;'>
+                                <label for='state'>State</label>
+                                <input type='text' class='form-control' id='state' placeholder='Enter State' disabled>
+                            </div>
+                        </div>
+                        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
+                            <div class='form-group' style='margin-top: 10px;'>
+                                <label for='zip'>Zip Code</label>
+                                <input type='text' class='form-control' id='zip' placeholder='Zip Code' disabled>
+                            </div>
+                        </div>
 
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mb-3 text-primary">Personal Details</h6>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="eMail">Email</label>
-                                <input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group" style="margin-top: 10px;">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter username">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group" style="margin-top: 10px;">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Phone">
-                            </div>
-                        </div>
                     </div>
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mb-3 text-primary">Address</h6>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="Street">Street</label>
-                                <input type="name" class="form-control" id="Street" placeholder="Enter Street">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="ciTy">City</label>
-                                <input type="name" class="form-control" id="ciTy" placeholder="Enter City">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group" style="margin-top: 10px;">
-                                <label for="sTate">State</label>
-                                <input type="text" class="form-control" id="sTate" placeholder="Enter State">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group" style="margin-top: 10px;">
-                                <label for="zIp">Zip Code</label>
-                                <input type="text" class="form-control" id="zIp" placeholder="Zip Code">
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="text-right">
-                                <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
-                                <button type="button" id="submit" name="submit" class="btn btn-primary">Update</button>
+                    <div class='row gutters'>
+                        <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
+                            <div id='update' class='text-right' style='display: none;'>
+                                <button type='button' id='submit' name='submit' class='btn btn-primary' >Update</button>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-            </div>
+            </div>";
+            }
+            ?>
+
         </div>
     </div>
-    </div>
+
+    <script>
+        function showUpdate() {
+            const targetDiv = document.getElementById("update");
+
+            const username = document.getElementById("username");
+
+            if (username.disabled != true) {
+                username.disabled = true;
+                document.getElementById("firstname").disabled = true;
+                document.getElementById("lastname").disabled = true;
+                document.getElementById("email").disabled = true;
+                document.getElementById("password").disabled = true;
+                document.getElementById("street").disabled = true;
+                document.getElementById("city").disabled = true;
+                document.getElementById("state").disabled = true;
+                document.getElementById("zip").disabled = true;
+
+            } else {
+                username.disabled = false;
+                document.getElementById("firstname").disabled = false;
+                document.getElementById("lastname").disabled = false;
+                document.getElementById("email").disabled = false;
+                document.getElementById("password").disabled = false;
+                document.getElementById("street").disabled = false;
+                document.getElementById("city").disabled = false;
+                document.getElementById("state").disabled = false;
+                document.getElementById("zip").disabled = false;
+
+            }
+
+
+            if (targetDiv.style.display !== "none") {
+                targetDiv.style.display = "none";
+            } else {
+                targetDiv.style.display = "block";
+            }
+
+
+        }
+    </script>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
