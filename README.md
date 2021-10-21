@@ -19,3 +19,6 @@ Alle Dateien im Hauptordner kopiert man dann in sein Webroot. Somit kann die Web
 ### Datenbank
 Um jetzt Daten anzuzeigen gibt es unter [./database/](./database/) eine restaurant.sql File. Diese muss jetzt in die Datenbank importiert werden. Nach dem Import werden auf der Webseite alle Daten angzeigt. Die Datenbank beinaltet alle Tables (restaurants, food, users, orders). Ebenfalls wird ein Datenbank User namens Admin erstellt.
 
+<hr>
+
+Projekt von Raquel Lima [@raquelima](https://github.com/raquelima) und Elias Mattern [@CoalPlays](https://github.com/CoalPlays)
