@@ -30,14 +30,13 @@ include('include/dbconnector.inc.php');
 </head>
 
 <body>
-    
     <?php include('include/nav.php'); ?>
 
     <?php include('include/login.php'); ?>
 
     <?php include('include/registration.php'); ?>
 
-    <section class="text-center overflow-hidden ">
+    <section class="text-center ">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <svg class="bi me-2" width="250" height="250" role="img" aria-label="Foodie">
