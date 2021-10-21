@@ -76,6 +76,18 @@ include('include/dbconnector.inc.php');
                 <div class='col-md-7 col-lg-8'>
                     <h4 class='mb-3'>Billing address</h4>
                     <form class='needs-validation' novalidate>
+
+                        <div class="col-md-3">
+                            <label for="title" class="form-label">Title</label>
+                            <select class="form-select" id="title" required>
+                                <option value="">Choose...</option>
+                                <option>Herr</option>
+                                <option>Frau</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please provide a valid title.
+                            </div>
+                        </div>
                         <?php
 
                         $query = "SELECT * FROM users WHERE {$_SESSION['id']}=id;";
