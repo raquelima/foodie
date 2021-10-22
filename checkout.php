@@ -2,7 +2,7 @@
 
 // Sessionhandling starten
 session_start();
-
+print_r($_POST);
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 

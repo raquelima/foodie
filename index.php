@@ -5,7 +5,6 @@ session_start();
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,6 +82,11 @@ include('include/dbconnector.inc.php');
 
 
                 foreach ($result as $value) {
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+                        $btn= "<a href='restaurant.php?id={$value['id']}' class='text-warning stretched-link'>";
+                    }else{
+                        $btn= " <a class='text-warning stretched-link' onclick='errorLogin()'>" ;
+                    }
 
                     echo "<div class='col'>
                     <div class='card shadow-sm'>
@@ -95,7 +99,7 @@ include('include/dbconnector.inc.php');
                             <p class='card-text'>", $value['name'], "</p>
                             <p class='card-text'>", $value["description"], "<br>", $value["place"], "</p>
                             <div class='d-flex justify-content-between align-items-center'>
-                            <a href='restaurant.php?id=", $value["id"], "' class='text-warning stretched-link' >View</a>
+                            {$btn}View</a>
                             <small class='text-muted'>", $value["delivery-from"], "-", $value["delivery-until"], " Min</small>
                             </div>
                         </div>
@@ -115,5 +119,9 @@ include('include/dbconnector.inc.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
-
+<script> 
+    function errorLogin() {
+        alert("You must be logged in to visit Restaurants")
+    }
+</script>
 </html>

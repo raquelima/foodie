@@ -3,6 +3,10 @@
 // Sessionhandling starten
 session_start();
 
+if (!isset($_SESSION['products'])) {
+    $_SESSION['products'] = array();
+}
+
 // Datenbankverbindung
 include('include/dbconnector.inc.php');
 
@@ -19,20 +23,20 @@ foreach ($result as $value) {
         $restaurantExists = true;
     }
 }
-
 $products = array();
-
-if (isset($_SESSION["products"]) && !empty($_SESSION["products"])) {
-    $products = $_SESSION["products"];
-}
-foreach ($_POST as $key => $value) {
-    if (array_key_exists($key, $products)) {
-        unset($products[$key]);
-    } else {
-        $products[$key] = $value;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_SESSION["products"])) {
+        $products = $_SESSION["products"];
     }
+    foreach ($_POST as $key => $value) {
+        if (!empty($_SESSION['products']) && array_key_exists($key, $products)) {
+            unset($products[$key]);
+        } else {
+            $products[$key] = $value;
+        }
+    }
+    $_SESSION['products'] = $products;
 }
-$_SESSION['products'] = $products;
 ?>
 
 <!DOCTYPE html>
@@ -73,11 +77,27 @@ $_SESSION['products'] = $products;
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light"><?php
+                                        $result->free();
+                                        $query = "SELECT * FROM restaurants";
+
+                                        $stmt = $mysqli->prepare($query);
+
+                                        $stmt->execute();
+
+                                        $result = $stmt->get_result();
                                         if (isset($_GET["id"]) && $restaurantExists) {
-                                            foreach ($result as $value) {
-                                                if ($value["id"] == $_GET["id"]) {
-                                                    echo $value["name"];
+                                            if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+                                                foreach ($result as $value) {
+                                                    if ($value["id"] == $_GET["id"]) {
+                                                        echo $value["name"];
+                                                    }
                                                 }
+                                            } else {
+                                                echo "<script>
+                                                window.onload = function() {
+                                                    window.location.href = 'index.php';
+                                                }
+                                                 </script>";
                                             }
                                         } else {
                                             echo "<strong style='color: #9C3848;'>Oops...</strong> Restaurant not found!";
@@ -86,25 +106,30 @@ $_SESSION['products'] = $products;
                                         }
                                         ?></h1>
                 <p class="lead text-muted"><?php
-                                            foreach ($result as $value) {
-                                                if ($value["id"] == $_GET["id"]) {
-                                                    echo $value["description"];
+                                            if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+
+                                                foreach ($result as $value) {
+                                                    if ($value["id"] == $_GET["id"]) {
+                                                        echo $value["description"];
+                                                    }
                                                 }
                                             }
                                             ?></p>
                 <p>
                     <?php
+                    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
 
-                    $website = "";
-                    if (isset($_GET["id"]) && $restaurantExists) {
-                        foreach ($result as $value) {
-                            if ($value["id"] == $_GET["id"]) {
-                                $website = $value["website"];
+                        $website = "";
+                        if (isset($_GET["id"]) && $restaurantExists) {
+                            foreach ($result as $value) {
+                                if ($value["id"] == $_GET["id"]) {
+                                    $website = $value["website"];
+                                }
                             }
                         }
-                    }
 
-                    echo '<a href="', $website, '"  target="_blank" class="btn btn-warning my-2">More</a>'
+                        echo '<a href="', $website, '"  target="_blank" class="btn btn-warning my-2">More</a>';
+                    }
                     ?>
 
                 </p>
@@ -129,14 +154,15 @@ $_SESSION['products'] = $products;
                 $result = $stmt->get_result();
 
                 foreach ($result as $value) {
-                    $products = $_SESSION["products"];
-                    $button= "";
-                    if (array_key_exists(preg_replace('/\s+/', '_', $value["foodName"]), $products)) {
-                        $button ="<button type='submit' class='btn btn-success' name='{$value['foodName']}' value='{$value['foodID']}'>Remove Item</button>";
-                    }else{
-                        $button ="<button type='submit' class='btn btn-warning' name='{$value['foodName']}' value='{$value['foodID']}'>Add to shoppingcart</button>";
-                    }
-                    echo '
+                    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+                        $products = $_SESSION["products"];
+                        $button = "";
+                        if (!empty($products) && array_key_exists(preg_replace('/\s+/', '_', $value["foodID"]), $products)) {
+                            $button = "<button type='submit' class='btn btn-success' name='{$value['foodID']}' value='{$value['foodName']}'>Remove from Cart</button>";
+                        } else {
+                            $button = "<button type='submit' class='btn btn-warning' name='{$value['foodID']}' value='{$value['foodName']}'>Add to shoppingcart</button>";
+                        }
+                        echo '
                     <div class="col-md-12">
                         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col-auto d-none d-lg-block">
@@ -152,7 +178,7 @@ $_SESSION['products'] = $products;
                                 <p class="card-text mb-auto">', $value["foodDescription"], '</p>
                                 <div class="mb-1 text-muted"  ><p style="display: inline; text-align: left;">', number_format((float)$value['price'], 2, '.', ''), ' CHF</p> 
                                 <form style="float: right;" action="" method="POST">
-                                 ',$button,'
+                                 ', $button, '
                                 </form>
 
                                 </div>
@@ -162,6 +188,7 @@ $_SESSION['products'] = $products;
                         </div>
                     </div>
                 ';
+                    }
                 } ?>
             </div>
 
