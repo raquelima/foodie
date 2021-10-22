@@ -1,6 +1,15 @@
-<?php include('include/shoppingCart.php'); ?>
+<?php include('include/shoppingCart.php'); 
+if (isset($_POST['removedFood']) && is_numeric($_POST['removedFood'])) {
+    echo '<script>
+                window.onload = function(){
+                      document.getElementById("cartBTN").click(); // Click on the cart button
+            
+                }
+            </script>';
+}
+?>
 <div class="d-flex align-items-center">
-    <a class="text-reset me-3" href="" data-toggle="modal" data-target="#modalShoppingCart">
+    <a class="text-reset me-3" href="" id="cartBTN" data-toggle="modal" data-target="#modalShoppingCart">
         <i class="fas fa-shopping-cart"></i>
     </a>
     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

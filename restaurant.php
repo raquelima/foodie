@@ -73,6 +73,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include('include/registration.php'); ?>
 
+    <?php include('include/addFoodModal.php'); ?>
+
+    <?php include('include/deleteRestaurantModal.php'); ?>
+
+    <?php include('include/editRestaurant.php'); ?>
+
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
@@ -118,7 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>
                     <?php
                     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
-
                         $website = "";
                         if (isset($_GET["id"]) && $restaurantExists) {
                             foreach ($result as $value) {
@@ -126,9 +131,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $website = $value["website"];
                                 }
                             }
+                            
                         }
 
-                        echo '<a href="', $website, '"  target="_blank" class="btn btn-warning my-2">More</a>';
+                        echo '<a href="', $website, '"  target="_blank" class="btn btn-warning my-2">More</a><br>';
+                        if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
+                            echo "<h1>Hey <strong style='color: #9C3848;'>Admin</strong> :)</h1><br> <h5>Here you can edit this Restaurant! <br></h5>";
+                        
+                            echo '<button type="button" class="btn btn-success my-2 m-2" data-toggle="modal" data-target="#modalEditRestaurant">Edit Restaurant</button>';
+                            echo '<button type="button" class="btn btn-success my-2 m-2" data-toggle="modal" data-target="#modalAddFood">Add Food</button>';
+                            echo '<button type="button" class="btn btn-danger my-2 m-2" data-toggle="modal" data-target="#modalDelete">Delete Restaurant</button>';
+                        } 
                     }
                     ?>
 

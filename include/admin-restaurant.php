@@ -111,11 +111,11 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label>Description</label>
-                        <input class="form-control" type="" name="description" required="" placeholder="Description">
+                        <input class="form-control" type="" name="description" required="" placeholder="Description" maxlength="512">
                     </div>
                     <div class="form-group col-md-12">
                         <label>Address</label>
-                        <input class="form-control" type="name" name="address" required="" placeholder="Address">
+                        <input class="form-control" type="name" name="address" required="" placeholder="Address" maxlength="256">
                     </div>
                     <div class="form-group col-md-2">
                         <label>Delivery From</label>
