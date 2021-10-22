@@ -2,7 +2,10 @@
 
 // Sessionhandling starten
 session_start();
+
+//turn Streing into array qith food id
 $products = explode(" ", trim($_POST['orderText']));
+
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 
@@ -57,7 +60,7 @@ include('include/dbconnector.inc.php');
                             $stmt->execute();
 
                             $result = $stmt->get_result();
-                            
+
                             foreach ($result as $food) {
                                 $totalPrice += $food['price'];
                                 $totalPrice = number_format((float)$totalPrice, 2, '.', '');
@@ -81,11 +84,11 @@ include('include/dbconnector.inc.php');
                 </div>
                 <div class='col-md-7 col-lg-8'>
                     <h4 class='mb-3'>Shipping address</h4>
-                    <form class='needs-validation' novalidate>
+                    <form class='needs-validation' action="orderConfirmation.php" method="POST">
 
                         <div class="col-md-3">
                             <label for="title" class="form-label">Title</label>
-                            <select class="form-select" id="title" required>
+                            <select class="form-select" name="title" required>
                                 <option value="">Choose...</option>
                                 <option>Herr</option>
                                 <option>Frau</option>
@@ -117,16 +120,16 @@ include('include/dbconnector.inc.php');
 
                             echo "<div class='row g-3'>
                             <div class='col-sm-6'>
-                                <label for='firstName' class='form-label'>First name</label>
-                                <input type='text' class='form-control' id='firstName' value='{$firstname}' placeholder='' maxlength='30'required>
+                                <label for='firstname' class='form-label'>First name</label>
+                                <input type='text' class='form-control' name='firstname' value='{$firstname}' placeholder='' maxlength='30'required>
                                 <div class='invalid-feedback'>
                                     Valid first name is required.
                                 </div>
                             </div>
 
                             <div class='col-sm-6'>
-                                <label for='lastName' class='form-label'>Last name</label>
-                                <input type='text' class='form-control' id='lastName' placeholder='' value='{$lastname}' maxlength='30' required>
+                                <label for='lastname' class='form-label'>Last name</label>
+                                <input type='text' class='form-control' name='lastname' placeholder='' value='{$lastname}' maxlength='30' required>
                                 <div class='invalid-feedback'>
                                     Valid last name is required.
                                 </div>
@@ -134,7 +137,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-12'>
                                 <label for='address' class='form-label'>Street</label>
-                                <input type='text' class='form-control' id='address' placeholder='Binningerstrasse 9' value='{$street}' maxlength='100' required>
+                                <input type='text' class='form-control' name='street' placeholder='Binningerstrasse 9' value='{$street}' maxlength='100' required>
                                 <div class='invalid-feedback'>
                                     Please enter your shipping address.
                                 </div>
@@ -142,7 +145,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-md-4'>
                                 <label for='state' class='form-label'>State</label>
-                                <input type='text' class='form-control' id='state' placeholder='' value='{$state}' maxlength='30' required>
+                                <input type='text' class='form-control' name='state' placeholder='' value='{$state}' maxlength='30' required>
                                 <div class='invalid-feedback'>
                                     State required.
                                 </div>
@@ -150,15 +153,15 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-md-4'>
                                 <label for='city' class='form-label'>City</label>
-                                <input type='text' class='form-control' id='city' placeholder='' value='{$city}' maxlength='30' required>
+                                <input type='text' class='form-control' name='city' placeholder='' value='{$city}' maxlength='30' required>
                                 <div class='invalid-feedback'>
-                                    city required.
+                                    City required.
                                 </div>
                             </div>
 
                             <div class='col-md-4'>
                                 <label for='zip' class='form-label'>Zip</label>
-                                <input type='text' class='form-control' id='zip' placeholder='' value='{$zip}' maxlength='4' required>
+                                <input type='text' class='form-control' name='zip' placeholder='' value='{$zip}' maxlength='4' required>
                                 <div class='invalid-feedback'>
                                     Zip code required.
                                 </div>
@@ -171,7 +174,7 @@ include('include/dbconnector.inc.php');
                         <hr class="my-4">
 
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="same-address">
+                            <input type="checkbox" class="form-check-input" name="same-address">
                             <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
                         </div>
 
@@ -179,21 +182,10 @@ include('include/dbconnector.inc.php');
 
                         <h4 class="mb-3">Payment</h4>
 
-                        <div class="my-3">
-                            <div class="form-check">
-                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-                                <label class="form-check-label" for="credit">Credit card</label>
-                            </div>
-                            <div class="form-check">
-                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="debit">Debit card</label>
-                            </div>
-                        </div>
-
                         <div class="row gy-3">
                             <div class="col-md-6">
                                 <label for="cc-name" class="form-label">Name on card</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                                <input type="text" class="form-control" name="cc-name" placeholder="" maxlength="30" required>
                                 <small class="text-muted">Full name as displayed on card</small>
                                 <div class="invalid-feedback">
                                     Name on card is required
@@ -202,7 +194,7 @@ include('include/dbconnector.inc.php');
 
                             <div class="col-md-6">
                                 <label for="cc-number" class="form-label">Credit card number</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                                <input type="text" class="form-control" name="cc-number" placeholder="" maxlength="16"required>
                                 <div class="invalid-feedback">
                                     Credit card number is required
                                 </div>
@@ -210,7 +202,7 @@ include('include/dbconnector.inc.php');
 
                             <div class="col-md-3">
                                 <label for="cc-expiration" class="form-label">Expiration</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                                <input type="text" class="form-control" name="cc-expiration" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Expiration date required
                                 </div>
@@ -218,16 +210,19 @@ include('include/dbconnector.inc.php');
 
                             <div class="col-md-3">
                                 <label for="cc-cvv" class="form-label">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                                <input type="text" class="form-control" name="cc-cvv" placeholder="" maxlength="3"required>
                                 <div class="invalid-feedback">
                                     Security code required
                                 </div>
                             </div>
+
+                            <input type=" text" name="orderText" value="<?php echo $_POST['orderText']; ?>" hidden>
+
                         </div>
 
                         <hr class="my-4">
 
-                        <button class="w-100 btn btn-primary btn-lg" type="">Pay</button>
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Pay</button>
                     </form>
                 </div>
             </div>

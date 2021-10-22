@@ -1,4 +1,4 @@
-    <header class="p-3 bg-dark text-white">
+    <header class="p-3 text-white " style="background-color:rgb(33,37,41); ">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                     <svg class="bi me-2" width="120" height="50" role="img" aria-label="Bootstrap">

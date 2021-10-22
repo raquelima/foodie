@@ -236,8 +236,23 @@ if ($row = $result->fetch_assoc()) {
         }
         ?>
 
+        
+
         <div class='row' id='user-profile'>
             <?php
+            $query = "SELECT * FROM orders WHERE {$_SESSION['id']} = userID;";
+
+            $stmt = $mysqli->prepare($query);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $count = 0;
+            foreach ($result as $value) {
+                $count++;
+            }
+
+            $result->free();
 
             $query = "SELECT * FROM users WHERE {$_SESSION['id']}=id;";
 
@@ -279,7 +294,7 @@ if ($row = $result->fetch_assoc()) {
 
                     <div class='profile-details'>
                         <ul class='fa-ul'>
-                            <li><i class='fa-li fa fa-truck'></i>Orders: <span>456</span></li>
+                            <li><i class='fa-li fa fa-truck'></i>Orders: <span>{$count}</span></li>
 
                         </ul>
                     </div>

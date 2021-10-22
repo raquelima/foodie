@@ -3,6 +3,14 @@
 // Sessionhandling starten
 session_start();
 
+if (empty($_SESSION) || !$_SESSION["loggedin"]) {
+    echo '<script>
+    window.onload = function() {
+      location.replace("index.php")
+    }
+    </script>';
+}
+
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 
@@ -24,32 +32,20 @@ include('include/dbconnector.inc.php');
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/admin-style.css">
 
 </head>
 </head>
 
-<body class="bg-light">
+<body >
     <?php include('include/nav.php'); ?>
 
-    <?php include('include/login.php'); ?>
-
-    <?php include('include/registration.php'); ?>
     <?php include('include/map.php'); ?>
-    <?php
-    
-    ?>
+   
     <div class="album py-5 bg-light">
         <main class="container">
             <div class="col-md-12">
                 <?php
-        if (empty($_SESSION) || !$_SESSION["loggedin"]) {
-        echo '<script>
-        window.onload = function() {
-          location.replace("index.php")
-        }
-        </script>';
-    }
+        
                 $query = "SELECT * FROM orders WHERE {$_SESSION['id']} = userID;";
 
                 $stmt = $mysqli->prepare($query);
