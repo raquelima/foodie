@@ -14,10 +14,10 @@ Um diese Webseite betriebsbereit zu machen, holt man sich erstmal alle Daten von
 
 
 ### Webseite
-Alle Dateien im Hauptordner kopiert man dann in sein Webroot. Somit kann die Webseite aufgerufen werden. Jedoch können noch keine Daten angezeigt werden.
+Alle Dateien im Hauptordner kopiert man dann in sein Webroot. Der Webservice muss online sein. Somit kann die Webseite aufgerufen werden. Jedoch können noch keine Daten angezeigt werden.
 
 ### Datenbank
-Um jetzt Daten anzuzeigen gibt es unter [./database/](./database/) eine restaurant.sql File. Diese muss jetzt in die Datenbank importiert werden. Nach dem Import werden auf der Webseite alle Daten angzeigt. Die Datenbank beinaltet alle Tables (restaurants, food, users, orders). Ebenfalls wird ein Datenbank User namens Admin erstellt.
+Um jetzt Daten anzuzeigen gibt es unter [./database/](./database/) eine restaurant.sql File. Diese muss jetzt in die Datenbank importiert werden. Nach dem Import werden auf der Webseite alle Daten angzeigt. Die Datenbank beinhaltet alle Tables (restaurants, food, users, orders). Ebenfalls wird ein Datenbank User namens Admin erstellt.
 
 <hr>
 
