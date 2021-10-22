@@ -2,7 +2,7 @@
 
 // Sessionhandling starten
 session_start();
-print_r($_POST);
+$products = explode(" ", trim($_POST['orderText']));
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 
@@ -43,38 +43,43 @@ include('include/dbconnector.inc.php');
                 <div class='col-md-5 col-lg-4 order-md-last'>
                     <h4 class='d-flex justify-content-between align-items-center mb-3'>
                         <span class='text-primary'>Your cart</span>
-                        <span class='badge bg-primary rounded-pill'>3</span>
+                        <span class='badge bg-primary rounded-pill'><?php echo count($products) ?></span>
                     </h4>
                     <ul class='list-group mb-3'>
-                        <li class='list-group-item d-flex justify-content-between lh-sm'>
-                            <div>
-                                <h6 class='my-0'>Product name</h6>
-                                <small class='text-muted'>Brief description</small>
-                            </div>
-                            <span class='text-muted'>12 CHF</span>
-                        </li>
-                        <li class='list-group-item d-flex justify-content-between lh-sm'>
-                            <div>
-                                <h6 class='my-0'>Second product</h6>
-                                <small class='text-muted'>Brief description</small>
-                            </div>
-                            <span class='text-muted'>8 CHF</span>
-                        </li>
-                        <li class='list-group-item d-flex justify-content-between lh-sm'>
-                            <div>
-                                <h6 class='my-0'>Third item</h6>
-                                <small class='text-muted'>Brief description</small>
-                            </div>
-                            <span class='text-muted'>5 CHF</span>
-                        </li>
-                        <li class='list-group-item d-flex justify-content-between'>
-                            <span>Total (CHF)</span>
-                            <strong>$20</strong>
-                        </li>
+                        <?php
+                        foreach ($products as $key => $value) {
+
+                            $query = "select * from food where foodID = {$value};";
+
+                            $stmt = $mysqli->prepare($query);
+
+                            $stmt->execute();
+
+                            $result = $stmt->get_result();
+                            
+                            foreach ($result as $food) {
+                                $totalPrice += $food['price'];
+                                $totalPrice = number_format((float)$totalPrice, 2, '.', '');
+                                $price = number_format((float)$food['price'], 2, '.', '');
+                                echo " <li class='list-group-item d-flex justify-content-between lh-sm'>
+                                            <div>
+                                                <h6 class='my-0'>{$food['foodName']}</h6>
+                                            </div>
+                                            <span class='text-muted'>{$price} CHF</span>
+                                        </li>";
+                            }
+                        }
+                        ?>
                     </ul>
+
+                    <li class='list-group-item d-flex justify-content-between'>
+                        <span>Total</span>
+                        <strong><?php echo $totalPrice; ?> CHF</strong>
+                    </li>
+
                 </div>
                 <div class='col-md-7 col-lg-8'>
-                    <h4 class='mb-3'>Billing address</h4>
+                    <h4 class='mb-3'>Shipping address</h4>
                     <form class='needs-validation' novalidate>
 
                         <div class="col-md-3">
@@ -221,7 +226,7 @@ include('include/dbconnector.inc.php');
 
                         <hr class="my-4">
 
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Pay</button>
+                        <button class="w-100 btn btn-primary btn-lg" type="">Pay</button>
                     </form>
                 </div>
             </div>

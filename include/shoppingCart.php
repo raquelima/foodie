@@ -67,7 +67,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
         </table>
         <div class="d-flex justify-content-end">
           <h5>Total: <span class="price text-success"><?php
-                                                          $price = 0;
+                                                      $price = 0;
 
                                                       if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
                                                         foreach ($_SESSION['products'] as $key => $value) {
@@ -92,48 +92,27 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
       <div class="modal-footer border-top-0 d-flex justify-content-between">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <form action="checkout.php" method="POST">
-          <input type="number" name="price" value="<?php
-                                                    $price = 0;
-                                                    if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
-                                                      foreach ($_SESSION['products'] as $key => $value) {
-                                                        $result->free();
 
-                                                        $query = "select * from food where foodID = {$key};";
+          <input type=" text" name="orderText" value="<?php
+                                                      $ids = "";
+                                                      if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
+                                                        foreach ($_SESSION['products'] as $key => $value) {
+                                                          $result->free();
 
-                                                        $stmt = $mysqli->prepare($query);
+                                                          $query = "select * from food where foodID = {$key};";
 
-                                                        $stmt->execute();
+                                                          $stmt = $mysqli->prepare($query);
 
-                                                        $result = $stmt->get_result();
-                                                        $price = 0;
-                                                        foreach ($result as $food) {
-                                                          $price += $food['price'];
+                                                          $stmt->execute();
+
+                                                          $result = $stmt->get_result();
+                                                          foreach ($result as $food) {
+                                                            $ids .= "{$food['foodID']} ";
+                                                          }
                                                         }
                                                       }
-                                                    }
-                                                    echo $price;
-                                                    ?>" hidden>
-
-          <input type="text" name="orderText" value="<?php
-                                                    $ids = "";
-                                                    if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
-                                                      foreach ($_SESSION['products'] as $key => $value) {
-                                                        $result->free();
-
-                                                        $query = "select * from food where foodID = {$key};";
-
-                                                        $stmt = $mysqli->prepare($query);
-
-                                                        $stmt->execute();
-
-                                                        $result = $stmt->get_result();
-                                                        foreach ($result as $food) {
-                                                          $ids .= "{$food['foodID']} ";
-                                                        }
-                                                      }
-                                                    }
-                                                    echo $ids;
-                                                    ?>" hidden>
+                                                      echo $ids;
+                                                      ?>" hidden>
           <button type="submit" class="btn btn-warning">Checkout</button>
         </form>
 
