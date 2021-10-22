@@ -105,14 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <?php
-                // fehlermeldung oder nachricht ausgeben
-                if (!empty($message)) {
-                    echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
-                } else if (!empty($error)) {
-                    echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
-                }
-                ?>
+                
                 <div class="form-floating mb-3">
                     <p>Are you sure you want to <strong style='color: #9C3848;'>DELETE</strong> this restaurant?</p>
                 </div>
