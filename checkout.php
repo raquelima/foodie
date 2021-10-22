@@ -47,6 +47,7 @@ include('include/dbconnector.inc.php');
                     </h4>
                     <ul class='list-group mb-3'>
                         <?php
+                        $totalPrice = 0;
                         foreach ($products as $key => $value) {
 
                             $query = "select * from food where foodID = {$value};";
