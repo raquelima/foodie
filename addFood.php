@@ -38,9 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $error .= "Invalid food price";
         }
-echo $error;
+        $restaurantID = $_POST['addFoodForm'];
+
         if (empty($error)) {
-            $restaurantID = $_POST['addFoodForm'];
             $query = "INSERT INTO food (restaurantID, foodName, foodDescription, price) VALUES (?, ?, ?, ?);";
 
             $stmt = $mysqli->prepare($query);
@@ -66,12 +66,12 @@ echo $error;
         if (!empty($error)) {
             echo "<script>
              window.onload = function() {
-             window.location.href = 'http://localhost/foodie/index.php?err=".$error."';
+             window.location.href = 'http://localhost/foodie/restaurant.php?id={$restaurantID}&err=" . $error . "';
             }
             </script>";
         }
     }
-}else{
+} else {
     echo "<script>
              window.onload = function() {
              window.location.href = 'http://localhost/foodie/index.php';

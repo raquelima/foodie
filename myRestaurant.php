@@ -69,7 +69,7 @@ include('include/dbconnector.inc.php');
             $error .= " Invalid Restaurant Name";
         }
         if (isset($_POST['website'])) {
-            $website = trim($_POST['website']);
+            $website = trim(htmlspecialchars($_POST['website']));
             if (empty($website) || strlen($website) > 256) {
                 $error .= " Invalid website";
             }
