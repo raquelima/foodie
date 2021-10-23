@@ -79,7 +79,7 @@ if ($row = $result->fetch_assoc()) {
         // Passwort ausgefüllt
         if (isset($_POST['password'])) {
             //trim and sanitize
-            $password = trim($_POST['password']);
+            $password = htmlspecialchars(trim($_POST['password']));
             if (password_verify($password, $row['password'])) {
             } else {
                 $error .= "Geben Sie bitte das richtige Passwort ein.<br />";
@@ -94,10 +94,12 @@ if ($row = $result->fetch_assoc()) {
 
         // Neues Passwort 
         //trim and sanitize
-        if (isset($_POST['newPassword'])) {
-            $newPassword = trim($_POST['newPassword']);
-        }
 
+        if (isset($_POST['newPassword'])) {
+            $newPassword = htmlspecialchars(trim($_POST['newPassword']));
+
+        }
+        
         //mindestens 1 Zeichen , entsprich RegEX
         if (!empty($newPassword) && !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $newPassword)) {
             $error .= "Geben Sie bitte einen korrektes neues Passwort ein.<br />";
@@ -106,7 +108,7 @@ if ($row = $result->fetch_assoc()) {
         // street ausgefüllt
         if (isset($_POST['street'])) {
             //trim and sanitize
-            $street = trim($_POST['street']);
+            $street = htmlspecialchars(trim($_POST['street']));
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($street) || strlen($street) > 100) {
@@ -119,7 +121,7 @@ if ($row = $result->fetch_assoc()) {
         // city ausgefüllt
         if (isset($_POST['city'])) {
             //trim and sanitize
-            $city = trim($_POST['city']);
+            $city = htmlspecialchars(trim($_POST['city']));
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($city) || strlen($city) > 30) {
@@ -132,7 +134,7 @@ if ($row = $result->fetch_assoc()) {
         // state ausgefüllt
         if (isset($_POST['state'])) {
             //trim and sanitize
-            $state = trim($_POST['state']);
+            $state = htmlspecialchars(trim($_POST['state']));
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($state) || strlen($state) > 30) {
@@ -145,7 +147,7 @@ if ($row = $result->fetch_assoc()) {
         // zip ausgefüllt
         if (isset($_POST['zip'])) {
             //trim and sanitize
-            $zip = trim($_POST['zip']);
+            $zip = htmlspecialchars(trim($_POST['zip']));
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($zip) || strlen($zip) > 4) {
