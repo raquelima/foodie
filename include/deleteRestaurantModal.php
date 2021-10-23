@@ -99,12 +99,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="modal fade" tabindex="-1" role="dialog" id="modalDelete" aria-hidden="true" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-lg rounded-5 shadow">
-            <div class="modal-header p-5 pb-4 border-bottom-0">
+            <div class="modal-header px-5 pt-5 border-bottom-0">
                 <h2 class="fw-bold mb-0">Delete Restaurant</h2>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body p-5 pt-0">
+            <div class="modal-body px-5 pb-5">
                 
                 <div class="form-floating mb-3">
                     <p>Are you sure you want to <strong style='color: #9C3848;'>DELETE</strong> this restaurant?</p>

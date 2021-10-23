@@ -58,7 +58,8 @@ include('include/dbconnector.inc.php');
 
                     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
 
-                        echo "<a href='myRestaurant.php' class='btn btn-dark my-2 text-warning'>Create Restaurant</a>";
+                        include('include/addRestaurantModal.php');
+                        echo "<a href='' class='btn btn-dark my-2 text-warning' data-toggle='modal' data-target='#addRestaurantModal'>Create Restaurant</a>";
                     }
                 } else {
                     //wenn Session nicht personalisiert

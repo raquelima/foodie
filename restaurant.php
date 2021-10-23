@@ -87,12 +87,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include('include/deleteRestaurantModal.php'); ?>
 
-
     <?php include('include/map.php'); ?>
 
-
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
+    <section class="pt-5 text-center container">
+        <div class="row pt-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light"><?php
                                         $result->free();
@@ -152,7 +150,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             echo "<h1>Hey <strong style='color: #9C3848;'>Admin</strong> :)</h1><br> <h5>Here you can edit this Restaurant! <br></h5>";
 
                             echo '<button type="button" class="btn btn-success my-2 m-2" data-toggle="modal" data-target="#modalEditRestaurant">Edit Restaurant</button>';
-                            echo '<button type="button" class="btn btn-success my-2 m-2" data-toggle="modal" data-target="#modalAddFood">Add Food</button>';
                             echo '<button type="button" class="btn btn-danger my-2 m-2" data-toggle="modal" data-target="#modalDelete">Delete Restaurant</button>';
                         }
                     }
@@ -162,9 +159,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </section>
-    <div class="album py-5 bg-light">
+    <div class="album pb-5 bg-light">
         <main class="container">
-
+            <p style="text-align: right;">
+                <?php
+                if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
+                    echo '<button type="button" class="btn btn-dark my-2 m-2" data-toggle="modal" data-target="#modalAddFood">Add Food</button>';
+                }
+                ?>
+            </p>
 
             <div>
                 <?php

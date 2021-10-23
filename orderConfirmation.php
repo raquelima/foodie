@@ -15,6 +15,122 @@ foreach ($_SESSION['products'] as $key => $value) {
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
+
+ // Wurden Daten mit "POST" gesendet?
+ if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+    // Adresse ausgefüllt?
+    if (isset($_POST['firstname'])) {
+        //trim and sanitize
+        $firstname = htmlspecialchars(trim($_POST['firstname']));
+
+        //mindestens 1 Zeichen und maximal 30 Zeichen lang
+        if (empty($firstname) || strlen($firstname) > 30) {
+            $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte einen Vornamen ein.<br />";
+    }
+
+    // Nachname ausgefüllt?
+    if (isset($_POST['lastname'])) {
+        //trim and sanitize
+        $lastname = htmlspecialchars(trim($_POST['lastname']));
+
+        //mindestens 1 Zeichen und maximal 30 Zeichen lang
+        if (empty($lastname) || strlen($lastname) > 30) {
+            $error .= "Geben Sie bitte einen korrekten Nachname ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte einen Nachname ein.<br />";
+    }
+
+    // street ausgefüllt
+    if (isset($_POST['street'])) {
+        //trim and sanitize
+        $street = htmlspecialchars(trim($_POST['street']));
+
+        //mindestens 1 Zeichen und maximal 100 Zeichen lang
+        if (empty($street) || strlen($street) > 100) {
+            $error .= "Geben Sie bitte eine korrektes Strasse ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte eine Strasse ein.<br />";
+    }
+
+    // city ausgefüllt
+    if (isset($_POST['city'])) {
+        //trim and sanitize
+        $city = htmlspecialchars(trim($_POST['city']));
+
+        //mindestens 1 Zeichen und maximal 100 Zeichen lang
+        if (empty($city) || strlen($city) > 30) {
+            $error .= "Geben Sie bitte eine korrektes city ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte eine city ein.<br />";
+    }
+
+    // state ausgefüllt
+    if (isset($_POST['state'])) {
+        //trim and sanitize
+        $state = htmlspecialchars(trim($_POST['state']));
+
+        //mindestens 1 Zeichen und maximal 100 Zeichen lang
+        if (empty($state) || strlen($state) > 30) {
+            $error .= "Geben Sie bitte eine korrektes state ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte eine state ein.<br />";
+    }
+
+    // zip ausgefüllt
+    if (isset($_POST['zip'])) {
+        //trim and sanitize
+        $zip = htmlspecialchars(trim($_POST['zip']));
+
+        //mindestens 1 Zeichen und maximal 100 Zeichen lang
+        if (empty($zip) || strlen($zip) > 4) {
+            $error .= "Geben Sie bitte eine korrektes zip ein.<br />";
+        }
+    } else {
+        $error .= "Geben Sie bitte eine zip ein.<br />";
+    }
+
+    // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
+    if (empty($error)) {
+
+        // Query erstellen
+        $query = "INSERT INTO orders (userID, orderDate, orderText, orderPrice, orderAddress) VALUES (?, ?, ?, ?, ?);";
+
+        // Query vorbereiten
+        $stmt = $mysqli->prepare($query);
+        if ($stmt === false) {
+            $error .= 'prepare() failed ' . $mysqli->error . '<br />';
+        }
+
+        // Parameter an Query binden
+        if (!$stmt->bind_param('issds', $userID, $orderDate, $orderText, $orderPrice, $orderAddress)) {
+            $error .= 'bind_param() failed ' . $mysqli->error . '<br />';
+        }
+
+        // Query ausführen
+        if (!$stmt->execute()) {
+            $error .= 'execute() failed ' . $mysqli->error . '<br />';
+        }
+
+        // kein Fehler!
+        if (empty($error)) {
+            $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br/ >";
+            // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
+            $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
+            // Verbindung schliessen
+            $mysqli->close();
+            // beenden des Scriptes
+            exit();
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,8 +162,8 @@ include('include/dbconnector.inc.php');
                 <div class="card">
                     <div class="text-center logo p-5"> <img src="images/6.png" width="100" height="100"> </div>
                     <div class="invoice p-5">
-                        <h5>Your order Confirmed!</h5>
-                        <span class="font-weight-bold d-block mt-4">Hello, <?php echo $_POST['firstname'] ?> </span>
+                        <h5>Your order confirmed!</h5>
+                        <span class="font-weight-bold d-block mt-4">Hello, <?php echo $firstname?> </span>
                         <span>You order has been confirmed and will be shipped in hour!</span>
                         <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
                             <table class="table table-borderless">
@@ -81,11 +197,11 @@ include('include/dbconnector.inc.php');
                                         </td>
                                         <td>
                                             <div class="py-2">
-                                                <span class="d-block text-muted">Shipping Address</span> <span><?php echo $_POST['title'] ?></span>
-                                                <span class="d-block"><?php echo $_POST['firstname'], " ", $_POST['lastname'] ?></span>
-                                                <span class="d-block"><?php echo $_POST['street'] ?></span>
-                                                <span class="d-block"><?php echo $_POST['zip'], ", ", $_POST['city'] ?></span>
-                                                <span class="d-block"><?php echo $_POST['state'] ?></span>
+                                                <span class="d-block text-muted">Shipping Address</span> <span><?php echo $title ?></span>
+                                                <span class="d-block"><?php echo $firstname, " ", $lastname ?></span>
+                                                <span class="d-block"><?php echo $street ?></span>
+                                                <span class="d-block"><?php echo $zip, ", ", $city ?></span>
+                                                <span class="d-block"><?php echo $state ?></span>
                                             </div>
                                         </td>
                                     </tr>
@@ -126,7 +242,7 @@ include('include/dbconnector.inc.php');
                             $userID = $_SESSION['id'];
                             $orderDate = date("Y-m-d h:i:s");
                             $orderPrice = $totalPrice;
-                            $orderAddress = $_POST['street'] . " " . $_POST['zip'] . " " . $_POST['city'] . " " . $_POST['state'];
+                            $orderAddress = $street . " " . $zip . " " . $city . " " . $state;
 
                             ?>
                         </div>
@@ -151,61 +267,6 @@ include('include/dbconnector.inc.php');
             </div>
         </div>
     </div>
-
-    <?php
-    // Wurden Daten mit "POST" gesendet?
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-        // Adresse ausgefüllt?
-        if (isset($_POST['firstname'])) {
-            //trim and sanitize
-            $firstname = htmlspecialchars(trim($_POST['firstname']));
-
-            //mindestens 1 Zeichen und maximal 30 Zeichen lang
-            if (empty($firstname) || strlen($firstname) > 30) {
-                $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
-            }
-        } else {
-            $error .= "Geben Sie bitte einen Vornamen ein.<br />";
-        }
-
-        // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
-        if (empty($error)) {
-
-            // Query erstellen
-            $query = "INSERT INTO orders (userID, orderDate, orderText, orderPrice, orderAddress) VALUES (?, ?, ?, ?, ?);";
-
-            // Query vorbereiten
-            $stmt = $mysqli->prepare($query);
-            if ($stmt === false) {
-                $error .= 'prepare() failed ' . $mysqli->error . '<br />';
-            }
-
-            // Parameter an Query binden
-            if (!$stmt->bind_param('issds', $userID, $orderDate, $orderText, $orderPrice, $orderAddress)) {
-                $error .= 'bind_param() failed ' . $mysqli->error . '<br />';
-            }
-
-            // Query ausführen
-            if (!$stmt->execute()) {
-                $error .= 'execute() failed ' . $mysqli->error . '<br />';
-            }
-
-            // kein Fehler!
-            if (empty($error)) {
-                $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br/ >";
-                // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
-                $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
-                // Verbindung schliessen
-                $mysqli->close();
-
-
-                // beenden des Scriptes
-                exit();
-            }
-        }
-    }
-    ?>
 
 </body>
 

@@ -121,7 +121,7 @@ include('include/dbconnector.inc.php');
                             echo "<div class='row g-3'>
                             <div class='col-sm-6'>
                                 <label for='firstname' class='form-label'>First name</label>
-                                <input type='text' class='form-control' name='firstname' value='{$firstname}' placeholder='' maxlength='30'required>
+                                <input type='text' class='form-control' name='firstname' value='{$firstname}' placeholder='' maxlength='30' required>
                                 <div class='invalid-feedback'>
                                     Valid first name is required.
                                 </div>
@@ -161,7 +161,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-md-4'>
                                 <label for='zip' class='form-label'>Zip</label>
-                                <input type='text' class='form-control' name='zip' placeholder='' value='{$zip}' maxlength='4' required>
+                                <input type='number' class='form-control' name='zip' placeholder='' value='{$zip}' min='1000' max='9999' maxlength='4' required>
                                 <div class='invalid-feedback'>
                                     Zip code required.
                                 </div>
@@ -185,7 +185,7 @@ include('include/dbconnector.inc.php');
                         <div class="row gy-3">
                             <div class="col-md-6">
                                 <label for="cc-name" class="form-label">Name on card</label>
-                                <input type="text" class="form-control" name="cc-name" placeholder="" maxlength="30" required>
+                                <input type="text" class="form-control" name="cc-name" maxlength="30" required>
                                 <small class="text-muted">Full name as displayed on card</small>
                                 <div class="invalid-feedback">
                                     Name on card is required
@@ -194,15 +194,15 @@ include('include/dbconnector.inc.php');
 
                             <div class="col-md-6">
                                 <label for="cc-number" class="form-label">Credit card number</label>
-                                <input type="text" class="form-control" name="cc-number" placeholder="" maxlength="16"required>
+                                <input type="number" step="1" class="form-control" name="cc-number" min="1000000000000000" max="9999999999999999" minlength="16" maxlength="16" required>
                                 <div class="invalid-feedback">
-                                    Credit card number is required
+                                    Valid credit card number is required
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <label for="cc-expiration" class="form-label">Expiration</label>
-                                <input type="text" class="form-control" name="cc-expiration" placeholder="" required>
+                                <input class="inputCard" name="expiry" id="expiry" type="month" required/>
                                 <div class="invalid-feedback">
                                     Expiration date required
                                 </div>
@@ -210,9 +210,9 @@ include('include/dbconnector.inc.php');
 
                             <div class="col-md-3">
                                 <label for="cc-cvv" class="form-label">CVV</label>
-                                <input type="text" class="form-control" name="cc-cvv" placeholder="" maxlength="3"required>
+                                <input type="number" step="1" class="form-control" name="cc-cvv" min="100" max="999" minlength="3" maxlength="3" required>
                                 <div class="invalid-feedback">
-                                    Security code required
+                                    Valid security code required
                                 </div>
                             </div>
 

@@ -156,6 +156,7 @@ if ($row = $result->fetch_assoc()) {
         } else {
             $error .= "Geben Sie bitte eine zip ein.<br />";
         }
+
         foreach ($result as $value) {
             // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
             if (empty($error) && password_verify($password, $row['password'])) {
@@ -239,8 +240,6 @@ if ($row = $result->fetch_assoc()) {
         }
         ?>
 
-        
-
         <div class='row' id='user-profile'>
             <?php
             $query = "SELECT * FROM orders WHERE {$_SESSION['id']} = userID;";
@@ -289,10 +288,6 @@ if ($row = $result->fetch_assoc()) {
                 }
                 echo "
                         
-                    </div>
-
-                    <div class='profile-since'>
-                        Member since: Jan 2012
                     </div>
 
                     <div class='profile-details'>
