@@ -23,7 +23,6 @@ if ($row = $result->fetch_assoc()) {
 
     // Wurden Daten mit "POST" gesendet?
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        print_r($_POST);
         // Vorname ausgefüllt?
         if (isset($_POST['firstname'])) {
             //trim and sanitize
@@ -95,8 +94,12 @@ if ($row = $result->fetch_assoc()) {
 
         // Neues Passwort 
         //trim and sanitize
-        $newPassword = htmlspecialchars(trim($_POST['newPassword']));
 
+        if (isset($_POST['newPassword'])) {
+            $newPassword = htmlspecialchars(trim($_POST['newPassword']));
+
+        }
+        
         //mindestens 1 Zeichen , entsprich RegEX
         if (!empty($newPassword) && !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $newPassword)) {
             $error .= "Geben Sie bitte einen korrektes neues Passwort ein.<br />";
