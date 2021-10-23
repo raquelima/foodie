@@ -7,7 +7,7 @@ $error = $message =  '';
 $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
 
 //turn String into array with food id
-$orderText = explode(" ", trim($_POST['orderText']));
+$orderArray = explode(" ", trim($_POST['orderText']));
 
 foreach ($_SESSION['products'] as $key => $value) {
    unset($_SESSION['products'][$key]);
@@ -95,7 +95,7 @@ include('include/dbconnector.inc.php');
                         <div class='products mt-3 mb-3 '>
                             <?php
                             $totalPrice = 0;
-                            foreach ($orderText as $key => $value) {
+                            foreach ($orderArray as $key => $value) {
 
                                 $query = "select * from food where foodID = {$value};";
 

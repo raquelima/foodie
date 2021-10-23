@@ -137,7 +137,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-12'>
                                 <label for='address' class='form-label'>Street</label>
-                                <input type='text' class='form-control' name='street' placeholder='Binningerstrasse 9' value='{$street}' maxlength='100' required>
+                                <input type='text' class='form-control' name='street' placeholder='' value='{$street}' maxlength='100' required>
                                 <div class='invalid-feedback'>
                                     Please enter your shipping address.
                                 </div>
