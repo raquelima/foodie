@@ -41,7 +41,11 @@ include('include/dbconnector.inc.php');
                 <h2>Checkout form</h2>
                 <p class='lead'>All the items you would like to purchase</p>
             </div>
-
+            <?php if (empty($_POST["orderText"])) {
+                echo "<strong style='color: #9C3848;'>Error: </strong>No Items found! <br>";
+                echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
+                die();
+            } ?>
             <div class='row g-5'>
                 <div class='col-md-5 col-lg-4 order-md-last'>
                     <h4 class='d-flex justify-content-between align-items-center mb-3'>
@@ -50,6 +54,7 @@ include('include/dbconnector.inc.php');
                     </h4>
                     <ul class='list-group mb-3'>
                         <?php
+
                         $totalPrice = 0;
                         foreach ($products as $key => $value) {
 
@@ -205,7 +210,7 @@ include('include/dbconnector.inc.php');
 
                             <div class="col-md-3">
                                 <label for="cc-expiration" class="form-label">Expiration</label>
-                                <input class="inputCard" name="expiry" id="expiry" type="month" required/>
+                                <input class="inputCard" name="expiry" id="expiry" type="month" required />
                                 <div class="invalid-feedback">
                                     Expiration date required
                                 </div>

@@ -7,12 +7,9 @@ include('include/dbconnector.inc.php');
 $error = $message =  '';
 $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
 //turn String into array with food id
-$orderArray = explode(" ", trim($_POST['orderText']));
-
-
-
-
-
+if(isset($_POST['orderText'])){
+    $orderArray = explode(" ", trim($_POST['orderText']));
+}
 
 
 // Wurden Daten mit "POST" gesendet?
@@ -178,6 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <div class="row d-flex justify-content-center">
             <div class="col-md-8">
                 <?php
+                if (empty($_POST)) {
+                    echo "<strong style='color: #9C3848;'>Error: </strong>No order found! <br>";
+                    echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
+                    die();
+                }
                 if (!empty($error)) {
                     echo "<strong style='color: #9C3848;'>Error: </strong>{$error} <br>";
                     echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
