@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 30 Zeichen lang
         if (empty($firstname) || strlen($firstname) > 30) {
-            $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
+            $error .= "Please enter a valid first name.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte einen Vornamen ein.<br />";
+        $error .= "Please enter a first name.<br />";
     }
 
     // Nachname ausgefüllt?
@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 30 Zeichen lang
         if (empty($lastname) || strlen($lastname) > 30) {
-            $error .= "Geben Sie bitte einen korrekten Nachname ein.<br />";
+            $error .= "Please enter a valid last name.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte einen Nachname ein.<br />";
+        $error .= "Please enter a last name.<br />";
     }
 
     // Email ausgefüllt?
@@ -40,10 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang, gültige Emailadresse
         if (empty($email) || strlen($email) > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-            $error .= "Geben Sie bitte eine korrekten Emailadresse ein.<br />";
+            $error .= "Please enter a valid email.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte eine Emailadresse ein.<br />";
+        $error .= "Please enter an email.<br />";
     }
 
     // Username ausgefüllt?
@@ -53,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen , entsprich RegEX
         if (empty($username) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,30}/", $username)) {
-            $error .= "Geben Sie bitte einen korrekten Usernamen ein.<br />";
+            $error .= "Please enter a valid username.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte einen Username ein.<br />";
+        $error .= "Please enter a username.<br />";
     }
 
     // Passwort ausgefüllt
@@ -65,11 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $password = htmlspecialchars(trim($_POST['password']));
 
         //mindestens 1 Zeichen , entsprich RegEX
-        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
-            $error .= "Geben Sie bitte einen korrektes Password ein.<br />";
+        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))[.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
+            $error .= "Please enter a valid password.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte ein Password ein.<br />";
+        $error .= "Please enter a username.<br />";
     }
 
     // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         // Query erstellen
-        $query = "Insert into users (firstname, lastname, username, password, email) values (?,?,?,?,?)";
+        $query = "Insert into users (firstname, lastname, username, password, em) values (?,?,?,?,?)";
 
         // Query vorbereiten
         $stmt = $mysqli->prepare($query);
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // kein Fehler!
         if (empty($error)) {
-            $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br/ >";
+            $message .= "The data was successfully written to the database<br/ >";
             // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
             $username = $password = $firstname = $lastname = $email =  '';
             // Verbindung schliessen

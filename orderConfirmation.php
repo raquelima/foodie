@@ -2,17 +2,19 @@
 
 // Sessionhandling starten
 session_start();
-print_r($_POST);
+
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 $error = $message =  '';
 $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
+
 //turn String into array with food id
 $orderArray = explode(" ", trim($_POST['orderText']));
 
 foreach ($_SESSION['products'] as $key => $value) {
     unset($_SESSION['products'][$key]);
 }
+
 $userID = $_SESSION['id'];
 
 foreach ($orderArray as $key => $value) {
@@ -32,9 +34,6 @@ foreach ($orderArray as $key => $value) {
     }
 }
 
-
-
-
 // Wurden Daten mit "POST" gesendet?
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $orderPrice = $food['price'];
@@ -46,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 30 Zeichen lang
         if (empty($firstname) || strlen($firstname) > 30) {
-            $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
+            $error .= "Please enter a valid first name.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte einen Vornamen ein.<br />";
+        $error .= "Please enter a first name.<br />";
     }
 
     // Nachname ausgefüllt?
@@ -59,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 30 Zeichen lang
         if (empty($lastname) || strlen($lastname) > 30) {
-            $error .= "Geben Sie bitte einen korrekten Nachname ein.<br />";
+            $error .= "Please enter a valid last name.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte einen Nachname ein.<br />";
+        $error .= "Please enter a last name.<br />";
     }
 
     // street ausgefüllt
@@ -72,10 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
         if (empty($street) || strlen($street) > 100) {
-            $error .= "Geben Sie bitte eine korrektes Strasse ein.<br />";
+            $error .= "Please enter a valid street.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte eine Strasse ein.<br />";
+        $error .= "Please enter a street.<br />";
     }
 
     // city ausgefüllt
@@ -85,10 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
         if (empty($city) || strlen($city) > 30) {
-            $error .= "Geben Sie bitte eine korrektes city ein.<br />";
+            $error .= "Please enter a valid city.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte eine city ein.<br />";
+        $error .= "Please enter a city.<br />";
     }
 
     // state ausgefüllt
@@ -98,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
         if (empty($state) || strlen($state) > 30) {
-            $error .= "Geben Sie bitte eine korrektes state ein.<br />";
+            $error .= "Please enter a valid state.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte eine state ein.<br />";
+        $error .= "Please enter a state.<br />";
     }
 
     // zip ausgefüllt
@@ -111,10 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
         if (empty($zip) || strlen($zip) > 4) {
-            $error .= "Geben Sie bitte eine korrektes zip ein.<br />";
+            $error .= "Please enter a valid zip.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte eine zip ein.<br />";
+        $error .= "Please enter a zip.<br />";
     }
 
     // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank

@@ -14,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Prüfung username
         if (empty($username) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,30}/", $username)) {
-            $error .= "Der Benutzername entspricht nicht dem geforderten Format.<br />";
+            $error .= "The username does not match the required format.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte den Benutzername an.<br />";
+        $error .= "Please enter the username.<br />";
     }
     // password
     if (isset($_POST['password'])) {
@@ -25,10 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = trim($_POST['password']);
         // passwort gültig?
         if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
-            $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
+            $error .= "The password does not match the required format.<br />";
         }
     } else {
-        $error .= "Geben Sie bitte das Passwort an.<br />";
+        $error .= "Please enter the password.<br />";
     }
 
     // kein Fehler
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Script beenden
                 die();
             } else {
-                $error .= "Benutzername oder Passwort sind falsch";
+                $error .= "Username or password are incorrect";
                 echo '<script>
                 window.onload = function(){
                       document.getElementById("loginBtn").click(); // Click on the login button
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </script>';
             }
         } else {
-            $error .= "Benutzername oder Passwort sind falsch";
+            $error .= "Username or password are incorrect";
             echo '<script>
                 window.onload = function(){
                       document.getElementById("loginBtn").click(); // Click on the login button

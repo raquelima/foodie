@@ -5,6 +5,7 @@ session_start();
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
+
 // Initialisierung
 $error = $message =  '';
 $firstname = $lastname = $email = $username = $password = $street = $city = $state = $zip = $newPassword = '';
@@ -30,10 +31,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 30 Zeichen lang
             if (empty($firstname) || strlen($firstname) > 30) {
-                $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
+                $error .= "Please enter a valid first name.<br />";
             }
         } else {
-            $error .= "Geben Sie bitte einen Vornamen ein.<br />";
+            $error .= "Please enter a first name.<br />";
         }
 
         // Nachname ausgefüllt?
@@ -43,10 +44,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 30 Zeichen lang
             if (empty($lastname) || strlen($lastname) > 30) {
-                $error .= "Geben Sie bitte einen korrekten Nachname ein.<br />";
+                $error .= "Please enter a valid last name.<br />";
             }
         } else {
-            $error .= "Geben Sie bitte einen Nachname ein.<br />";
+            $error .= "Please enter a last name.<br />";
         }
 
         // Email ausgefüllt?
@@ -56,10 +57,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang, gültige Emailadresse
             if (empty($email) || strlen($email) > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-                $error .= "Geben Sie bitte eine korrekten Emailadresse ein.<br />";
+                $error .= "Please enter a valid email name.<br />";
             }
         } else {
-            $error .= "Geben Sie bitte eine Emailadresse ein.<br />";
+            $error .= "Please enter an email.<br />";
         }
 
         // Username ausgefüllt?
@@ -69,10 +70,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen , entsprich RegEX
             if (empty($username) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,30}/", $username)) {
-                $error .= "Geben Sie bitte einen korrekten Usernamen ein.<br />";
+                $error .= "Please enter a valid username.<br />";
             }
         } else {
-            $error .= "Geben Sie bitte einen Username ein.<br />";
+            $error .= "Please enter a username.<br />";
         }
 
 
@@ -82,14 +83,14 @@ if ($row = $result->fetch_assoc()) {
             $password = htmlspecialchars(trim($_POST['password']));
             if (password_verify($password, $row['password'])) {
             } else {
-                $error .= "Geben Sie bitte das richtige Passwort ein.<br />";
+                $error .= "Please enter the correct password.<br />";
             }
             //mindestens 1 Zeichen , entsprich RegEX
             if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
-                $error .= "Geben Sie bitte einen korrektes Password ein.<br />";
+                $error .= "Please enter a valid password. <br />";
             }
         } else {
-            $error .= "Geben Sie bitte ein Password ein.<br />";
+            $error .= "Please enter a password.<br />";
         }
 
         // Neues Passwort 
@@ -97,12 +98,11 @@ if ($row = $result->fetch_assoc()) {
 
         if (isset($_POST['newPassword'])) {
             $newPassword = htmlspecialchars(trim($_POST['newPassword']));
-
         }
-        
+
         //mindestens 1 Zeichen , entsprich RegEX
         if (!empty($newPassword) && !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $newPassword)) {
-            $error .= "Geben Sie bitte einen korrektes neues Passwort ein.<br />";
+            $error .= "Please enter a NEW valid password.<br />";
         }
 
         // street ausgefüllt
@@ -112,10 +112,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($street) || strlen($street) > 100) {
-                $error .= "Geben Sie bitte eine korrektes Strasse ein.<br />";
+                $error .= "Please enter a valid street.<br />";
             }
         } else {
-            $error .= "Geben Sie bitte eine Strasse ein.<br />";
+            $error .= "Please enter a street.<br />";
         }
 
         // city ausgefüllt
@@ -125,10 +125,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($city) || strlen($city) > 30) {
-                $error .= "Geben Sie bitte eine korrektes city ein.<br />";
+                $error .= "Please enter a valid city.<br />";
             }
         } else {
-            $error .= "Geben Sie bitte eine city ein.<br />";
+            $error .= "Please enter a city.<br />";
         }
 
         // state ausgefüllt
@@ -138,10 +138,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($state) || strlen($state) > 30) {
-                $error .= "Geben Sie bitte eine korrektes state ein.<br />";
+                $error .= "Please enter a valid state.<br />";
             }
         } else {
-            $error .= "Geben Sie bitte eine state ein.<br />";
+            $error .= "Please enter a state.<br />";
         }
 
         // zip ausgefüllt
@@ -151,10 +151,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($zip) || strlen($zip) > 4) {
-                $error .= "Geben Sie bitte eine korrektes zip ein.<br />";
+                $error .= "Please enter a valid zip. <br />";
             }
         } else {
-            $error .= "Geben Sie bitte eine zip ein.<br />";
+            $error .= "Please enter a zip.<br />";
         }
 
         foreach ($result as $value) {
@@ -188,7 +188,7 @@ if ($row = $result->fetch_assoc()) {
 
                 // kein Fehler!
                 if (empty($error)) {
-                    $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br/ >";
+                    $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br>";
                     // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
                     $username = $password = $firstname = $lastname = $email = $street = $city = $state = $zip = '';
                     // Verbindung schliessen

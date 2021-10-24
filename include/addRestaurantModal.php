@@ -5,7 +5,6 @@ $restaurantName = $website = $description = $address = $from = $until = '';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-
     if (isset($_POST['restaurantName'])) {
         $restaurantName = trim(htmlspecialchars($_POST['restaurantName']));
         if (empty($restaurantName) || strlen($restaurantName) > 60) {
@@ -72,26 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (!$stmt->execute()) {
             $error .= 'execute() failed ' . $mysqli->error . '<br />';
         }
-        echo '<script>
-            window.onload = function(){
-                window.location.href = "index.php";
-        
-            }
-        </script>';
     }
-}
-
-
-
-$query = "SELECT * FROM restaurants";
-
-$stmt = $mysqli->prepare($query);
-
-$stmt->execute();
-
-$result = $stmt->get_result();
-if (strlen($error)) {
-    echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
 }
 
 ?>

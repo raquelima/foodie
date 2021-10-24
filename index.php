@@ -11,9 +11,11 @@ if (isset($_GET["err"])) {
             }
             </script>";
 }
+
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +64,7 @@ include('include/dbconnector.inc.php');
                         echo "<a href='' class='btn btn-dark my-2 text-warning' data-toggle='modal' data-target='#addRestaurantModal'>Create Restaurant</a>";
                     }
                 } else {
-                    //wenn Session nicht personalisiert
+                    //wenn Session nicht personifiziert
                     echo '<p class="lead text-muted">Find the best restaurants that deliver.<br>Get contactless delivery for restaurant takeout, groceries, and more! Order food online at home!</p>';
                     echo '<p>
                         <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
@@ -80,8 +82,6 @@ include('include/dbconnector.inc.php');
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php
-
-
                 $query = "SELECT * FROM restaurants";
 
                 $stmt = $mysqli->prepare($query);
@@ -89,7 +89,6 @@ include('include/dbconnector.inc.php');
                 $stmt->execute();
 
                 $result = $stmt->get_result();
-
 
                 foreach ($result as $value) {
                     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {

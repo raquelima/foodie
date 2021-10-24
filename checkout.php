@@ -3,7 +3,7 @@
 // Sessionhandling starten
 session_start();
 
-//turn Streing into array qith food id
+//turn String into array with food id
 $products = explode(" ", trim($_POST['orderText']));
 
 //Datenbank verbinden
@@ -172,14 +172,6 @@ include('include/dbconnector.inc.php');
                         </div>";
                         }
                         ?>
-
-
-                        <hr class="my-4">
-
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="same-address">
-                            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-                        </div>
 
                         <hr class="my-4">
 
