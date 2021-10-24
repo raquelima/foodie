@@ -137,23 +137,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 ?>
                 <form action="" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="text" name="firstname" class="form-control rounded-4" id="firstname" value="<?php echo $firstname ?>" placeholder="First name" maxlength="30" required="true">
+                        <input type="text" name="firstname" class="form-control rounded-4" id="firstname"  placeholder="First name" maxlength="30" required="true">
                         <label for="firstname">First name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" name="lastname" class="form-control rounded-4" id="lastname" value="<?php echo $lastname ?>" placeholder="Last name" maxlength="30" required="true">
+                        <input type="text" name="lastname" class="form-control rounded-4" id="lastname"  placeholder="Last name" maxlength="30" required="true">
                         <label for="lastname">Last name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" name="email" class="form-control rounded-4" id="email" value="<?php echo $email ?>" placeholder="name@example.com" maxlength="100" required="true">
+                        <input type="email" name="email" class="form-control rounded-4" id="email"  placeholder="name@example.com" maxlength="100" required="true">
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control rounded-4" id="username" value="<?php echo $username ?>" pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" placeholder="Password" maxlength="30" required="true">
+                        <input type="text" name="username" class="form-control rounded-4" id="username"  pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" placeholder="Password" maxlength="30" required="true">
                         <label for="username">Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control rounded-4" id="password" value="<?php echo $password ?>" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" maxlength="255" required="true">
+                        <input type="password" name="password" class="form-control rounded-4" id="password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" maxlength="255" required="true">
                         <label for="password">Password</label>
                     </div>
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-warning btn btn-info" name="button" value="submit" type="submit">Sign up</button>
