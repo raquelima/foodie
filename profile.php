@@ -169,7 +169,6 @@ if ($row = $result->fetch_assoc()) {
 
                 // Query erstellen
                 $query = "UPDATE  users  SET firstname = ?, lastname = ?, username = ?, password = ?, email = ?, street = ?, city = ?, state = ?, zip = ? WHERE users.id = {$_SESSION['id']};";
-                //UPDATE `users` SET `firstname` = 'Elia', `lastname` = 'Matte', `username` = 'CoalPlay', `password` = '$2y$10$x/e0Q/6PgR0EY5F7gvKHpeH8DKBZca/IHCci.lzyW.xEPdku5.Lp', `email` = 'em2012@gmx.c', `street` = 'höldeliweg 2', `city` = 'Gelterkinde', `state` = 'Basellan', `zip` = '446' WHERE `users`.`id` = 1;
 
                 // Query vorbereiten
                 $stmt = $mysqli->prepare($query);

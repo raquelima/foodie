@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
 
                 // Session ID regenerieren
-               session_regenerate_id(true);
+                session_regenerate_id(true);
 
                 // weiterleiten auf index.php
                 header("location: index.php");

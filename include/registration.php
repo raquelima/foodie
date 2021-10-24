@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // Passwort ausgefüllt
     if (isset($_POST['password'])) {
         //trim and sanitize
-        $password = trim($_POST['password']);
+        $password = htmlspecialchars(trim($_POST['password']));
 
         //mindestens 1 Zeichen , entsprich RegEX
         if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
     if (empty($error)) {
+
         // Password haschen
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
