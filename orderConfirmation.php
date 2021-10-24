@@ -2,21 +2,43 @@
 
 // Sessionhandling starten
 session_start();
-
+print_r($_POST);
+//Datenbank verbinden
+include('include/dbconnector.inc.php');
 $error = $message =  '';
 $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
 //turn String into array with food id
 $orderArray = explode(" ", trim($_POST['orderText']));
 
 foreach ($_SESSION['products'] as $key => $value) {
-   unset($_SESSION['products'][$key]);
-  }
+    unset($_SESSION['products'][$key]);
+}
+$userID = $_SESSION['id'];
 
-//Datenbank verbinden
-include('include/dbconnector.inc.php');
+foreach ($orderArray as $key => $value) {
 
- // Wurden Daten mit "POST" gesendet?
- if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $query = "select * from food where foodID = {$value};";
+
+    $stmt = $mysqli->prepare($query);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    foreach ($result as $food) {
+        
+        $orderText .= $food['foodName'] . "<br>";
+       
+    }
+}
+
+
+
+
+// Wurden Daten mit "POST" gesendet?
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $orderPrice = $food['price'];
+    $orderDate = date("Y-m-d h:i:s");
     // Adresse ausgefüllt?
     if (isset($_POST['firstname'])) {
         //trim and sanitize
@@ -97,6 +119,7 @@ include('include/dbconnector.inc.php');
 
     // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
     if (empty($error)) {
+        $orderAddress = $street . " " . $zip . " " . $city . " " . $state;
 
         // Query erstellen
         $query = "INSERT INTO orders (userID, orderDate, orderText, orderPrice, orderAddress) VALUES (?, ?, ?, ?, ?);";
@@ -123,7 +146,6 @@ include('include/dbconnector.inc.php');
             // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
             $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
         }
-
     }
 }
 ?>
@@ -158,7 +180,7 @@ include('include/dbconnector.inc.php');
                     <div class="text-center logo p-5"> <img src="images/6.png" width="100" height="100"> </div>
                     <div class="invoice p-5">
                         <h5>Your order was confirmed!</h5>
-                        <span class="font-weight-bold d-block mt-4">Hello, <?php echo $firstname?> </span>
+                        <span class="font-weight-bold d-block mt-4">Hello, <?php echo $firstname ?> </span>
                         <span>You order has been confirmed and will be shipped in hour!</span>
                         <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
                             <table class="table table-borderless">
@@ -181,7 +203,7 @@ include('include/dbconnector.inc.php');
                                             $count = 0;
 
                                             foreach ($result as $value) {
-                                                $count ++;
+                                                $count++;
                                             }
 
                                             ?>
@@ -234,10 +256,9 @@ include('include/dbconnector.inc.php');
                                 }
                             }
 
-                            $userID = $_SESSION['id'];
                             $orderDate = date("Y-m-d h:i:s");
                             $orderPrice = $totalPrice;
-                            $orderAddress = $street . " " . $zip . " " . $city . " " . $state;
+                            
 
                             ?>
                         </div>
