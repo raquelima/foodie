@@ -2,7 +2,6 @@
 
 // Sessionhandling starten
 session_start();
-print_r($_POST);
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 $error = $message =  '';
@@ -10,35 +9,15 @@ $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
 //turn String into array with food id
 $orderArray = explode(" ", trim($_POST['orderText']));
 
-foreach ($_SESSION['products'] as $key => $value) {
-    unset($_SESSION['products'][$key]);
-}
-$userID = $_SESSION['id'];
 
-foreach ($orderArray as $key => $value) {
 
-    $query = "select * from food where foodID = {$value};";
-
-    $stmt = $mysqli->prepare($query);
-
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    foreach ($result as $food) {
-        
-        $orderText .= $food['foodName'] . "<br>";
-       
-    }
-}
 
 
 
 
 // Wurden Daten mit "POST" gesendet?
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $orderPrice = $food['price'];
-    $orderDate = date("Y-m-d h:i:s");
+
     // Adresse ausgefüllt?
     if (isset($_POST['firstname'])) {
         //trim and sanitize
@@ -119,6 +98,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
     if (empty($error)) {
+        foreach ($_SESSION['products'] as $key => $value) {
+            unset($_SESSION['products'][$key]);
+        }
+        $userID = $_SESSION['id'];
+        $orderDate = date("Y-m-d h:i:s");
+        foreach ($orderArray as $key => $value) {
+
+            $query = "select * from food where foodID = {$value};";
+
+            $stmt = $mysqli->prepare($query);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            foreach ($result as $food) {
+                $orderPrice = $food['price'];
+
+                $orderText .= $food['foodName'] . "<br>";
+            }
+        }
         $orderAddress = $street . " " . $zip . " " . $city . " " . $state;
 
         // Query erstellen
@@ -173,9 +173,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <body class='bg-light'>
 
+
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-8">
+                <?php
+                if (!empty($error)) {
+                    echo "<strong style='color: #9C3848;'>Error: </strong>{$error} <br>";
+                    echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
+                    die();
+                }
+                ?>
                 <div class="card">
                     <div class="text-center logo p-5"> <img src="images/6.png" width="100" height="100"> </div>
                     <div class="invoice p-5">
@@ -258,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                             $orderDate = date("Y-m-d h:i:s");
                             $orderPrice = $totalPrice;
-                            
+
 
                             ?>
                         </div>
