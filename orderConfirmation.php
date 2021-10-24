@@ -5,7 +5,6 @@ session_start();
 
 $error = $message =  '';
 $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
-
 //turn String into array with food id
 $orderArray = explode(" ", trim($_POST['orderText']));
 
@@ -18,7 +17,6 @@ include('include/dbconnector.inc.php');
 
  // Wurden Daten mit "POST" gesendet?
  if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
     // Adresse ausgefüllt?
     if (isset($_POST['firstname'])) {
         //trim and sanitize
@@ -124,11 +122,8 @@ include('include/dbconnector.inc.php');
             $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br/ >";
             // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
             $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
-            // Verbindung schliessen
-            $mysqli->close();
-            // beenden des Scriptes
-            exit();
         }
+
     }
 }
 ?>
@@ -197,7 +192,7 @@ include('include/dbconnector.inc.php');
                                         </td>
                                         <td>
                                             <div class="py-2">
-                                                <span class="d-block text-muted">Shipping Address</span> <span><?php echo $title ?></span>
+                                                <span class="d-block text-muted">Shipping Address</span> <span><?php echo $_POST["title"] ?></span>
                                                 <span class="d-block"><?php echo $firstname, " ", $lastname ?></span>
                                                 <span class="d-block"><?php echo $street ?></span>
                                                 <span class="d-block"><?php echo $zip, ", ", $city ?></span>

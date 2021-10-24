@@ -63,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
                 $_SESSION['loggedin'] = true;
                 $_SESSION['isAdmin'] = $row['admin'];
+                $_SESSION['products'] = array();
                 
 
                 // Session ID regenerieren

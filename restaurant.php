@@ -4,12 +4,19 @@
 session_start();
 
 if (isset($_GET["err"])) {
-    echo "<script>
-             window.onload = function() {
-                alert('{$_GET["err"]}')
-                window.location.href = 'http://localhost/foodie/restaurant.php?id={$_GET["id"]}';
-            }
-            </script>";
+    $err = htmlspecialchars(trim($_GET["err"]));
+    if (!empty($err)){
+        echo "<script>
+        window.onload = function() {
+           alert('{$err}')
+           window.location.href = 'http://localhost/foodie/restaurant.php?id={$_GET["id"]}';
+       }
+       </script>";
+    } 
+    
+}
+if (isset($_GET["id"])) {
+    $_GET["id"] = htmlspecialchars(trim($_GET["id"]));
 }
 
 if (!isset($_SESSION['products'])) {
@@ -102,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         $stmt->execute();
 
                                         $result = $stmt->get_result();
-                                        if (isset($_GET["id"]) && $restaurantExists) {
+                                        if (isset($_GET["id"]) && $restaurantExists && is_numeric($_GET["id"])) {
                                             if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
                                                 foreach ($result as $value) {
                                                     if ($value["id"] == $_GET["id"]) {
