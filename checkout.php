@@ -86,12 +86,15 @@ include('include/dbconnector.inc.php');
                     <h4 class='mb-3'>Shipping address</h4>
                     <form class='needs-validation' action="orderConfirmation.php" method="POST">
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 pb-2">
                             <label for="title" class="form-label">Title</label>
                             <select class="form-select" name="title" required>
                                 <option value="">Choose...</option>
-                                <option>Herr</option>
-                                <option>Frau</option>
+                                <option>Mr</option>
+                                <option>Mrs</option>
+                                <option>Miss</option>
+                                <option>Ms</option>
+                                <option>Mx</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please provide a valid title.

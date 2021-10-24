@@ -162,7 +162,7 @@ include('include/dbconnector.inc.php');
                 <div class="card">
                     <div class="text-center logo p-5"> <img src="images/6.png" width="100" height="100"> </div>
                     <div class="invoice p-5">
-                        <h5>Your order confirmed!</h5>
+                        <h5>Your order was confirmed!</h5>
                         <span class="font-weight-bold d-block mt-4">Hello, <?php echo $firstname?> </span>
                         <span>You order has been confirmed and will be shipped in hour!</span>
                         <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">

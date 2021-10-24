@@ -54,7 +54,7 @@ include('include/dbconnector.inc.php');
 
                 //wenn Session personalisiert
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
-                    echo '<p class="lead text-muted">Willkommen ', $_SESSION['username'], '!</p>';
+                    echo '<p class="lead text-muted">Welcome ', $_SESSION['username'], '!</p>';
 
                     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
 
@@ -63,7 +63,7 @@ include('include/dbconnector.inc.php');
                     }
                 } else {
                     //wenn Session nicht personalisiert
-                    echo '<p class="lead text-muted">Finde die besten Restaurants, die Lieferungen anbieten. Kontaktlose Lieferung von Bestellungen von Restaurants, Lebensmitteln und vieles mehr!</p>';
+                    echo '<p class="lead text-muted">Find the best restaurants that deliver.<br>Get contactless delivery for restaurant takeout, groceries, and more! Order food online at home!</p>';
                     echo '<p>
                         <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
                         <a href="" class="btn btn-dark my-2" data-toggle="modal" data-target="#modalSignin">Login</a>
@@ -124,6 +124,7 @@ include('include/dbconnector.inc.php');
 
         </div>
     </div>
+    <?php include('include/footer.php'); ?>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

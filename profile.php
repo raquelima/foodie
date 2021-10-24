@@ -403,6 +403,8 @@ if ($row = $result->fetch_assoc()) {
         </div>
     </div>
 
+    <?php include('include/footer.php'); ?>
+
     <script>
         function showUpdate() {
             const targetDiv = document.getElementById("update");
