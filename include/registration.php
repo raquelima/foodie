@@ -132,7 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if (!empty($message)) {
                     echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
                 } else if (!empty($error)) {
-                    echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+                    if(isset($_POST["registrationErr"])){
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+                    }
+                    
                 }
                 ?>
                 <form action="" method="POST">
@@ -155,8 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <div class="form-floating mb-3">
                         <input type="password" name="password" class="form-control rounded-4" id="password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" maxlength="255" required="true">
                         <label for="password">Password</label>
+                        <input type="text" hidden name="registrationErr" value="1">
                     </div>
-                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-warning btn btn-info" name="button" value="submit" type="submit">Sign up</button>
+                    <button class="w-100 btn btn-lg rounded-4 btn-warning" name="button" value="submit" type="submit">Sign up</button>
                     <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
                     <hr class="my-4">
                 </form>

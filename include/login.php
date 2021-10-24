@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // password
     if (isset($_POST['password'])) {
         //trim and sanitize
-        $password = trim($_POST['password']);
+        $password = htmlspecialchars(trim($_POST['password']));
         // passwort gültig?
         if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
             $error .= "The password does not match the required format.<br />";
@@ -111,7 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!empty($message)) {
                     echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
                 } else if (!empty($error)) {
-                    echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+                    if(isset($_POST["loginErr"])){
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+                    }
                 }
                 ?>
                 <form action="" method="POST">
@@ -122,6 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-floating mb-3">
                         <input type="password" name="password" class="form-control rounded-4" id="password" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255" required="true">
                         <label for="floatingPassword">Password</label>
+                        <input type="text" hidden name="loginErr" value="1">
                     </div>
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-warning btn btn-info" name="button" value="submit" type="submit">Log in</button>
                     <small class="text-muted">Use your Foodie account.<br>Don't have a Foodie account? <a href="" class="" data-toggle="modal" data-target="#modalSignup">Create one</a></small>

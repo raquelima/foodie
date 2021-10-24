@@ -1,4 +1,5 @@
 <?php
+$count = 0;
 if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SESSION['products'])) {
   unset($_SESSION['products'][$_POST['removedFood']]);
   echo "<script>
@@ -43,6 +44,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
 
                 $result = $stmt->get_result();
                 foreach ($result as $food) {
+                  $count++;
                   $price = number_format((float)$food['price'], 2, '.', '');
                   echo "<tr>
                     <td class='w-25'>
@@ -113,10 +115,23 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
                                                       }
                                                       echo $ids;
                                                       ?>" hidden>
-          <button type="submit" class="btn btn-warning">Checkout</button>
+          <button type="submit" id="checkout" class="btn btn-warning">Checkout</button>
         </form>
 
       </div>
     </div>
   </div>
+  <script>
+  window.onload = function() {
+    document.getElementById("checkout").disabled = <?php 
+        if($count == 0){
+          echo "true";
+        }elseif($count > 0){
+          echo "false";
+        }else{
+          echo "true";
+        }
+      ?>;
+  }
+</script>";
 </div>

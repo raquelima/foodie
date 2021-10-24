@@ -69,7 +69,7 @@ include('include/dbconnector.inc.php');
                     <div class='col p-4 d-flex flex-column position-static'>
                         <h3 class='mb-3'>Your {$count}. Order</h3>
 
-                        <p class='card-text mb-auto'>Order number: #", str_pad($value['orderID'], 5, '0', STR_PAD_LEFT), "</p>
+                        <p class='card-text mb-auto'>Order number: #", str_pad($value['orderID'], 6, '0', STR_PAD_LEFT), "</p>
                         <div class='mb-1 text-muted'>
                             <p> Purchased on the {$newdate}</p>
                             <p style='display: inline; text-align: left;'>", number_format((float)$value['orderPrice'], 2, '.', ''), " CHF</p>
