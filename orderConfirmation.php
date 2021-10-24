@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                         <td>
                                             <?php
 
-                                            $query = "SELECT * FROM orders;";
+                                            $query = "SELECT * FROM orders ORDER BY orderID DESC LIMIT 1;";
 
                                             $stmt = $mysqli->prepare($query);
 
@@ -211,11 +211,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             $count = 0;
 
                                             foreach ($result as $value) {
-                                                $count++;
+                                                $count = $value["orderID"];
                                             }
+                                            
 
                                             ?>
-                                            <div class="py-2"> <span class="d-block text-muted">Order No</span> <?php echo $count + 1; ?><span></span> </div>
+                                            <div class="py-2"> <span class="d-block text-muted">Order No</span> <?php echo "#",str_pad($count, 6, '0', STR_PAD_LEFT); ?><span></span> </div>
                                         </td>
                                         <td>
                                             <div class="py-2"> <span class="d-block text-muted">Payment</span> <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" width="20" /></span> </div>
