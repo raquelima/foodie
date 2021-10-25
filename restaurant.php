@@ -2,18 +2,16 @@
 
 // Sessionhandling starten
 session_start();
-
 if (isset($_GET["err"])) {
     $err = htmlspecialchars(trim($_GET["err"]));
-    if (!empty($err)){
+    if (!empty($err)) {
         echo "<script>
         window.onload = function() {
            alert('{$err}')
            window.location.href = 'http://localhost/foodie/restaurant.php?id={$_GET["id"]}';
        }
        </script>";
-    } 
-    
+    }
 }
 if (isset($_GET["id"])) {
     $_GET["id"] = htmlspecialchars(trim($_GET["id"]));
@@ -194,6 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
                         $products = $_SESSION["products"];
                         $button = "";
+                        $removeBtn = "<button type='submit' class='btn btn-danger ml-2' name='deleteFood' value='{$value['foodID']}'>Remove Food</button>";
                         if (!empty($products) && array_key_exists(preg_replace('/\s+/', '_', $value["foodID"]), $products)) {
                             $button = "<button type='submit' class='btn btn-success' name='{$value['foodID']}' value='{$value['foodName']}'>Remove from Cart</button>";
                         } else {
@@ -214,7 +213,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <p class="card-text mb-auto">', $value["foodDescription"], '</p>
                                 <div class="mb-1 text-muted"  ><p style="display: inline; text-align: left;">', number_format((float)$value['price'], 2, '.', ''), ' CHF</p> 
-                                <form style="float: right;" action="" method="POST">
+                                ';
+                        if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
+                            echo '<form style="float: right; display: inline" action="removeFood.php" method="POST">
+                                    <input type="text" name="restaurant" hidden value="', $_GET["id"], '">',
+                            $removeBtn, '
+                                    </form>';
+                        }
+                        echo '
+                                <form style="float: right; display: inline" action="" method="POST">
                                  ', $button, '
                                 </form>
 
@@ -228,6 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 } ?>
             </div>
+
 
             <?php include('include/footer.php'); ?>
 
