@@ -149,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                             }
                         }
-                        echo "<button type='button' onclick='updateMap(`{$address}`)' style='display: inline; text-align: right;' class='btn btn-warning mr-2' data-toggle='modal' data-target='#modalVM' >Find us</button> <br>";
+                        echo "<button type='button' onclick='updateMap(`{$address}`)' style='display: inline; text-align: right;' class='btn btn-warning mr-2' data-toggle='modal' data-target='#modalVM' >Find us</button>";
                         echo '<a href="', $website, '"  target="_blank" class="btn btn-warning my-2">More</a><br>';
                         if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
                             echo "<h1>Hey <strong style='color: #9C3848;'>Admin</strong> :)</h1><br> <h5>Here you can edit this Restaurant! <br></h5>";

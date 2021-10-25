@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error .= 'prepare() failed ' . $mysqli->error . '<br />';
             }
 
-            if (!$stmt->bind_param('issi', $restaurantID, $foodName, $foodDescription, $foodPrice)) {
+            if (!$stmt->bind_param('issd', $restaurantID, $foodName, $foodDescription, $foodPrice)) {
                 $error .= 'bind_param() failed ' . $mysqli->error . '<br />';
             }
 
