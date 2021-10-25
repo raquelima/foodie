@@ -23,7 +23,7 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
         $description = htmlspecialchars(trim($_POST['description']));
 
         // Prüfung username
-        if (empty($description) || strlen($description) > 512) {
+        if (empty($description) || strlen($description) > 40) {
             $editError .= "Invalid restaurant description. ";
         }
     } else {

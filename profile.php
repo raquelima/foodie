@@ -277,7 +277,7 @@ if ($row = $result->fetch_assoc()) {
                 echo "<div class='col-lg-3 col-md-4 col-sm-4'>
                 <div class='main-box clearfix'>
                     <h2>{$firstname} {$lastname} </h2>
-                    <img src='http://dipsinternational.com/wp-content/uploads/2017/03/user-icon-fontawesome.png' alt='' class='profile-img img-responsive center-block'>
+                    <img src='images/profile.jpeg' alt='' class='profile-img img-responsive center-block'>
                     <div class='profile-label'>";
 
                 if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {

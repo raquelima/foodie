@@ -37,7 +37,7 @@
                                 <label class='px-4'>Website</label>
                             </div>
                             <div class='form-floating mb-3'>
-                                <textarea name='description' style='height: 300px;' class='form-control rounded-4' placeholder='Description' required cols='30' rows='10'>{$value["description"]}</textarea>
+                                <textarea name='description' style='height: 300px;' class='form-control rounded-4' placeholder='Description' required cols='30' maxlength='40' rows='10'>{$value["description"]}</textarea>
                                 <label class='px-4'>Description</label>
                             </div>
                             <div class='form-floating mb-3'>

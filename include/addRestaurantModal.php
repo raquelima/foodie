@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     if (isset($_POST['description'])) {
         $description = trim(htmlspecialchars($_POST['description']));
-        if (empty($description) || strlen($description) > 256) {
+        if (empty($description) || strlen($description) > 40) {
             $error .= " Invalid description";
         }
     } else {
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <label class="px-4">Website</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea name="description" style="height: 300px;" class="form-control rounded-4" id="description" placeholder="Description" maxlength="256" cols="30" rows="10" required></textarea>
+                        <textarea name="description" style="height: 300px;" class="form-control rounded-4" id="description" placeholder="Description" maxlength="40" cols="30" rows="10" required></textarea>
                         <label class="px-4" for="description">Description</label>
                     </div>
                     <div class="form-floating mb-3">

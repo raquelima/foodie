@@ -35,6 +35,13 @@ include('include/dbconnector.inc.php');
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/admin-style.css">
 
+    <style type="text/css">
+        .bgimg {
+            background-image: url('images/banner1.png');
+            background-size: cover;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -44,7 +51,7 @@ include('include/dbconnector.inc.php');
 
     <?php include('include/registration.php'); ?>
 
-    <div class="text-center">
+    <div class="text-center bgimg">
         <div class="row py-lg-5 mx-auto">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <svg class="bi me-2" width="250" height="250" role="img" aria-label="Foodie">
@@ -55,7 +62,7 @@ include('include/dbconnector.inc.php');
 
                 //wenn Session personalisiert
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
-                    echo '<p class="lead text-muted">Welcome ', $_SESSION['username'], '!</p>';
+                    echo '<p class="lead text">Welcome ', $_SESSION['username'], '!</p>';
 
                     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
 
@@ -64,7 +71,7 @@ include('include/dbconnector.inc.php');
                     }
                 } else {
                     //wenn Session nicht personifiziert
-                    echo '<p class="lead text-muted">Find the best restaurants that deliver.<br>Get contactless delivery for restaurant takeout, groceries, and more! Order food online at home!</p>';
+                    echo '<p class="lead text">Find the best restaurants that deliver.<br>Get contactless delivery for restaurant takeout, groceries, and more!</p>';
                     echo '<p>
                         <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
                         <a href="" class="btn btn-dark my-2" data-toggle="modal" data-target="#modalSignin">Login</a>
@@ -103,7 +110,7 @@ include('include/dbconnector.inc.php');
                         </svg>
 
                         <div class='card-body'>
-                            <p class='card-text'>", $value['name'], "</p>
+                            <h6 class='card-text'>", $value['name'], "</h6>
                             <p class='card-text'>", $value["description"], "<br>", $value["place"], "</p>
                             <div class='d-flex justify-content-between align-items-center'>
                             {$btn}View</a>

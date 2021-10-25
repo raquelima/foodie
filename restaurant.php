@@ -77,6 +77,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
+
+    <style type="text/css">
+        .bgimg {
+            background-image: url('images/banner6.png');
+            background-size: cover;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -94,9 +102,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include('include/map.php'); ?>
 
-    <div class="pt-5 text-center container">
-        <div class="row pt-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
+    <div class="pt-5 text-center bgimg" style="height: 450px;">
+        <div class="row pt-lg-5 ">
+            <div class="col-md-3 mx-auto">
                 <h1 class="fw-light"><?php
                                         $result->free();
                                         $query = "SELECT * FROM restaurants";
@@ -126,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             die();
                                         }
                                         ?></h1>
-                <p class="lead text-muted"><?php
+                <p class="lead text-dark"><?php
                                             if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
 
                                                 foreach ($result as $value) {
