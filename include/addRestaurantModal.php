@@ -93,29 +93,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
                 }
                 ?>
-                <form class="row" action="" method="POST" id="addRestaurantForm">
+                <form class="row" action="#" method="POST" id="addRestaurantForm">
                     <div class="form-floating col-md-6 mb-3">
-                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" placeholder="Restaurant Name" maxlength="60" required="true">
+                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" placeholder="Restaurant Name" maxlength="60" required>
                         <label class="px-4" for="restaurantName">Restaurant Name</label>
                     </div>
                     <div class="form-floating col-md-6 mb-3">
-                        <input type="text" name="website" class="form-control rounded-4" id="website" placeholder="Website (https://www.myRestaurant.com)" maxlength="256" required="true">
+                        <input type="text" name="website" class="form-control rounded-4" id="website" placeholder="Website (https://www.myRestaurant.com)" maxlength="256" required>
                         <label class="px-4">Website</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea name="description" style="height: 300px;" class="form-control rounded-4" id="description" placeholder="Description" maxlength="256" required="true" cols="30" rows="10" required="true"></textarea>
+                        <textarea name="description" style="height: 300px;" class="form-control rounded-4" id="description" placeholder="Description" maxlength="256" cols="30" rows="10" required></textarea>
                         <label class="px-4" for="description">Description</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" name="address" class="form-control rounded-4" id="address" placeholder="Address" maxlength="256" required="true">
+                        <input type="text" name="address" class="form-control rounded-4" id="address" placeholder="Address" maxlength="256" required>
                         <label class="px-4">Address</label>
                     </div>
                     <div class="form-floating col-md-3 mb-3">
-                        <input type="number" name="from" class="form-control rounded-4" id="from" placeholder="From" min="0" max="500" required="true">
+                        <input type="number" name="from" class="form-control rounded-4" id="from" placeholder="From" min="0" max="500" required>
                         <label class="px-4">Delivery From</label>
                     </div>
                     <div class="form-floating col-md-3 mb-3">
-                        <input type="number" name="until" class="form-control rounded-4" id="until" placeholder="Until" required="true">
+                        <input type="number" name="until" class="form-control rounded-4" id="until" placeholder="Until" required>
                         <label class="px-4">Delivery Until</label>
                     </div>
                     <div class="form-floating col-md-6" style="text-align: right;">

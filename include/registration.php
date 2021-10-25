@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $password = htmlspecialchars(trim($_POST['password']));
 
         //mindestens 1 Zeichen , entsprich RegEX
-        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))[.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
+        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.\d+)(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z]).*$/", $password)) {
             $error .= "Please enter a valid password.<br />";
         }
     } else {
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         // Query erstellen
-        $query = "Insert into users (firstname, lastname, username, password, em) values (?,?,?,?,?)";
+        $query = "Insert into users (firstname, lastname, username, password, email) values (?,?,?,?,?)";
 
         // Query vorbereiten
         $stmt = $mysqli->prepare($query);
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 ?>
 
-<div class="modal fade modal-signup" tabindex="-1" role="dialog" id="modalSignup" aria-hidden="true" aria-labelledby="myModalLabel">
+<div class="modal fade modal-signup" tabindex="-1" role="dialog" id="modalSignup" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content rounded-5 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -138,26 +138,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                 }
                 ?>
-                <form action="" method="POST">
+                <form action="#" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="text" name="firstname" class="form-control rounded-4" id="firstname"  placeholder="First name" maxlength="30" required="true">
-                        <label for="firstname">First name</label>
+                        <input type="text" name="firstname" class="form-control rounded-4" id="firstname"  placeholder="First name" maxlength="30" required>
+                        <label>First name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" name="lastname" class="form-control rounded-4" id="lastname"  placeholder="Last name" maxlength="30" required="true">
-                        <label for="lastname">Last name</label>
+                        <input type="text" name="lastname" class="form-control rounded-4" id="lastname"  placeholder="Last name" maxlength="30" required>
+                        <label>Last name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" name="email" class="form-control rounded-4" id="email"  placeholder="name@example.com" maxlength="100" required="true">
-                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control rounded-4" id="email"  placeholder="name@example.com" maxlength="100" required>
+                        <label>Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control rounded-4" id="username"  pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" placeholder="Password" maxlength="30" required="true">
-                        <label for="username">Username</label>
+                        <input type="text" name="username" class="form-control rounded-4" id="username"  pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" placeholder="Password" maxlength="30" required>
+                        <label>Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control rounded-4" id="password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" maxlength="255" required="true">
-                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control rounded-4" id="password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" maxlength="255" required>
+                        <label>Password</label>
                         <input type="text" hidden name="registrationErr" value="1">
                     </div>
                     <button class="w-100 btn btn-lg rounded-4 btn-warning" name="button" value="submit" type="submit">Sign up</button>

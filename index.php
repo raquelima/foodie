@@ -36,7 +36,6 @@ include('include/dbconnector.inc.php');
     <link rel="stylesheet" href="css/admin-style.css">
 
 </head>
-</head>
 
 <body>
     <?php include('include/nav.php'); ?>
@@ -45,9 +44,9 @@ include('include/dbconnector.inc.php');
 
     <?php include('include/registration.php'); ?>
 
-    <section class="text-center " >
-        <div class="row py-lg-5 mx-auto" >
-            <div class="col-lg-6 col-md-8 mx-auto" >
+    <div class="text-center">
+        <div class="row py-lg-5 mx-auto">
+            <div class="col-lg-6 col-md-8 mx-auto">
                 <svg class="bi me-2" width="250" height="250" role="img" aria-label="Foodie">
                     <image href='images/6.png' height='100%' width='100%' />
                 </svg>
@@ -72,10 +71,9 @@ include('include/dbconnector.inc.php');
                     </p>';
                 }
                 ?>
-
             </div>
         </div>
-    </section>
+    </div>
 
     <div class="album py-4 bg-light">
         <div class="container">
@@ -128,11 +126,12 @@ include('include/dbconnector.inc.php');
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        function errorLogin() {
+            alert("You must be logged in to visit Restaurants")
+        }
+    </script>
 </body>
-<script>
-    function errorLogin() {
-        alert("You must be logged in to visit Restaurants")
-    }
-</script>
+
 
 </html>

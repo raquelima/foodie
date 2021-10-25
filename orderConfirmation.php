@@ -167,7 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link rel="stylesheet" href="css/admin-style.css">
 
 </head>
-</head>
 
 <body class='bg-light'>
 
@@ -188,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
                 ?>
                 <div class="card">
-                    <div class="text-center logo p-5"> <img src="images/6.png" width="100" height="100"> </div>
+                    <div class="text-center logo p-5"> <img src="images/6.png" alt="logo" width="100" height="100"> </div>
                     <div class="invoice p-5">
                         <h5>Your order was confirmed!</h5>
                         <span class="font-weight-bold d-block mt-4">Hello, <?php echo $firstname ?> </span>
@@ -222,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             <div class="py-2"> <span class="d-block text-muted">Order No</span> <?php echo "#",str_pad($count, 6, '0', STR_PAD_LEFT); ?><span></span> </div>
                                         </td>
                                         <td>
-                                            <div class="py-2"> <span class="d-block text-muted">Payment</span> <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" width="20" /></span> </div>
+                                            <div class="py-2"> <span class="d-block text-muted">Payment</span> <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="mastercard" width="20" /></span> </div>
                                         </td>
                                         <td>
                                             <div class="py-2">
@@ -276,18 +275,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         </div>
 
                         <div class="total mt-3 mb-3 ">
+                            <ul>
                             <li class='d-flex justify-content-between'>
                                 <span>Total</span>
                                 <strong><?php echo $totalPrice; ?> CHF</strong>
                             </li>
+                            </ul>
                         </div>
                         <div>
+                            <ul>
                             <li class='d-flex justify-content-between'>
                                 <p class="font-weight-bold mb-0">Thanks for choosing us!</p>
                                 <form action="orders.php">
                                     <button class="btn btn-warning btn-sm" type="submit">Go to orders</button>
                                 </form>
                             </li>
+                            </ul>
                         </div>
                         <span>Foodie</span>
                     </div>

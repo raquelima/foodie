@@ -10,7 +10,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
 }
 
 ?>
-<div class="modal fade" id="modalShoppingCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalShoppingCart" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content rounded-5 shadow">
       <div class="modal-header pb-4 border-bottom-0">
@@ -18,7 +18,6 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
           Your Shopping Cart
         </h5>
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </button>
       </div>
       <div class="modal-body">
         <table class="table table-image">
@@ -53,7 +52,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
                     <td>{$food['foodName']}</td>
                     <td>{$price} CHF</td>
                     <td>
-                    <form action='' method='POST'>
+                    <form action='#' method='POST'>
                     <button type='submit' class='btn btn-danger' name='removedFood' value='{$food['foodID']}'><i class='fa fa-times'></i></button>
                     </form>
                     </td>
@@ -95,7 +94,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <form action="checkout.php" method="POST">
 
-          <input type=" text" name="orderText" value="<?php
+          <input type="text" name="orderText" value="<?php
                                                       $ids = "";
                                                       if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
                                                         foreach ($_SESSION['products'] as $key => $value) {
