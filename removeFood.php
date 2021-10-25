@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }else{
+    // Weiterleitung wenn man kein POST hat auf die index seite
     echo "<script>
         window.onload = function() {
             window.location.href = 'index.php';

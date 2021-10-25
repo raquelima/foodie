@@ -2,11 +2,11 @@
 
 // Sessionhandling starten
 session_start();
-
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 $error = $message =  '';
-$userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
+$userID = $orderDate = $orderText = $orderAddress =  '';
+$orderPrice = 0;
 
 //turn String into array with food id
 if(isset($_POST['orderText'])){
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $zip = htmlspecialchars(trim($_POST['zip']));
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
-        if (empty($zip) || strlen($zip) > 4) {
+        if (empty($zip) || strlen($zip) > 4 || $zip < 1000) {
             $error .= "Please enter a valid zip.<br />";
         }
     } else {
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $result = $stmt->get_result();
 
             foreach ($result as $food) {
-                $orderPrice = $food['price'];
+                $orderPrice += $food['price'];
 
                 $orderText .= $food['foodName'] . "<br>";
             }
