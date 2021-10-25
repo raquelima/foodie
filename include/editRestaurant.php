@@ -1,4 +1,4 @@
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalEditRestaurant" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalEditRestaurant" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header px-5 pt-5 border-bottom-0">
@@ -29,28 +29,28 @@
                     echo "
                         <form class='row' method='POST' action='edit.php'>
                             <div class='form-floating col-md-6 mb-3'>
-                                <input type='text' name='restaurantName' class='form-control rounded-4' value='{$value["name"]}' placeholder='Restaurant Name' maxlength='60' required='true'>
-                                <label for='restaurantName' class='px-4'>Restaurant Name</label>
+                                <input type='text' name='restaurantName' class='form-control rounded-4' value='{$value["name"]}' placeholder='Restaurant Name' maxlength='60' required>
+                                <label class='px-4'>Restaurant Name</label>
                             </div>
                             <div class='form-floating col-md-6 mb-3'>
-                                <input type='text' name='website' class='form-control rounded-4' value='{$value["website"]}' maxlength='256' placeholder='Website (https://www.myRestaurant.com)' required='true'>
-                                <label for='website' class='px-4'>Website</label>
+                                <input type='text' name='website' class='form-control rounded-4' value='{$value["website"]}' maxlength='256' placeholder='Website (https://www.myRestaurant.com)' required>
+                                <label class='px-4'>Website</label>
                             </div>
                             <div class='form-floating mb-3'>
-                                <textarea type='text' name='description' style='height: 300px;' class='form-control rounded-4' placeholder='Description' required='true' cols='30' rows='10'>{$value["description"]}</textarea>
-                                <label for='description' class='px-4'>Description</label>
+                                <textarea name='description' style='height: 300px;' class='form-control rounded-4' placeholder='Description' required cols='30' rows='10'>{$value["description"]}</textarea>
+                                <label class='px-4'>Description</label>
                             </div>
                             <div class='form-floating mb-3'>
-                                <input type='text' name='address' class='form-control rounded-4' value='{$value["place"]}' maxlength='256' placeholder='Address' required='true'>
-                                <label for='address' class='px-4'>Address</label>
+                                <input type='text' name='address' class='form-control rounded-4' value='{$value["place"]}' maxlength='256' placeholder='Address' required>
+                                <label class='px-4'>Address</label>
                             </div>
                             <div class='form-floating col-md-3 mb-3'>
-                                <input type='number' name='deliveryFrom' class='form-control rounded-4' value='{$value["delivery-from"]}' placeholder='From' required='true' min='0' max='500'>
-                                <label for='deliveryFrom' class='px-4'>Delivery From</label>
+                                <input type='number' name='deliveryFrom' class='form-control rounded-4' value='{$value["delivery-from"]}' placeholder='From' required min='0' max='500'>
+                                <label class='px-4'>Delivery From</label>
                             </div>
                             <div class='form-floating col-md-3 mb-3'>
-                                <input type='number' name='deliveryUntil' class='form-control rounded-4' value='{$value["delivery-until"]}' placeholder='Until' required='true' min='0' max='500'>
-                                <label for='deliveryUntil' class='px-4'>Delivery Until</label>
+                                <input type='number' name='deliveryUntil' class='form-control rounded-4' value='{$value["delivery-until"]}' placeholder='Until' required min='0' max='500'>
+                                <label class='px-4'>Delivery Until</label>
                             </div>
                             <div class='form-floating col-md-6' style='text-align: right;'>
                             <button class='btn btn-lg btn-warning mt-1' name='editedRestaurant' value='{$_GET['id']}' type='submit'>Update Restaurant</button>
@@ -59,7 +59,7 @@
                         ";
                 }
                 ?>
-                </form>
+
 
             </div>
         </div>

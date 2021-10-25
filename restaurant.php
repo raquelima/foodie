@@ -78,7 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/aa92474866.js" crossorigin="anonymous"></script>
 </head>
-</head>
 
 <body>
     <?php include('include/editRestaurant.php'); ?>
@@ -95,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include('include/map.php'); ?>
 
-    <section class="pt-5 text-center container">
+    <div class="pt-5 text-center container">
         <div class="row pt-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light"><?php
@@ -150,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                             }
                         }
-                        echo "<button type='button' onclick='updateMap(`{$address}`)' style='display: inline; text-align: right;' class='btn btn-warning mr-2' data-toggle='modal' data-target='#modalVM' >Find us</button <br>";
+                        echo "<button type='button' onclick='updateMap(`{$address}`)' style='display: inline; text-align: right;' class='btn btn-warning mr-2' data-toggle='modal' data-target='#modalVM' >Find us</button> <br>";
                         echo '<a href="', $website, '"  target="_blank" class="btn btn-warning my-2">More</a><br>';
                         if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
                             echo "<h1>Hey <strong style='color: #9C3848;'>Admin</strong> :)</h1><br> <h5>Here you can edit this Restaurant! <br></h5>";
@@ -164,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </p>
             </div>
         </div>
-    </section>
+    </div>
     <div class="album pb-5 bg-light">
         <main class="container">
             <p style="text-align: right;">
@@ -202,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-md-12">
                         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">>
+                        <svg class="bd-placeholder-img" width="200" height="250" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
                                 <title>Placeholder</title>
                                 <image href="images/pommes-icon.png" height="100%" width="100%" />
                             </svg>
@@ -221,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </form>';
                         }
                         echo '
-                                <form style="float: right; display: inline" action="" method="POST">
+                                <form style="float: right; display: inline" action="#" method="POST">
                                  ', $button, '
                                 </form>
 
@@ -236,19 +235,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } ?>
             </div>
 
+        </main>
 
-            <?php include('include/footer.php'); ?>
+    </div>
 
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <?php include('include/footer.php'); ?>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script>
+            function updateMap(address) {
+                map = "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+                document.getElementById('map').src = map;
+
+            }
+        </script>
+
 </body>
-<script>
-    function updateMap(address) {
-        map = "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
-        document.getElementById('map').src = map;
-
-    }
-</script>
 
 </html>

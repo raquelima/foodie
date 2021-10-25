@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 ?>
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="addRestaurantModal" aria-hidden="true" aria-labelledby="myModalLabel">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="addRestaurantModal" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content modal-lg rounded-5 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <label class="px-4">Delivery From</label>
                     </div>
                     <div class="form-floating col-md-3 mb-3">
-                        <input type="number" name="until" class="form-control rounded-4" id="until" placeholder="Until" required>
+                        <input type="number" name="until" class="form-control rounded-4" id="until" placeholder="Until" min="0" max="500" required>
                         <label class="px-4">Delivery Until</label>
                     </div>
                     <div class="form-floating col-md-6" style="text-align: right;">

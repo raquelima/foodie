@@ -297,7 +297,7 @@ if ($row = $result->fetch_assoc()) {
                     </div>
 
                     <div class='profile-message-btn center-block text-center'>
-                        <button id='editBtn' onclick='showUpdate()' href='' class='btn btn-warning edit-profile'>
+                        <button id='editBtn' onclick='showUpdate()' class='btn btn-warning edit-profile'>
                             <i class='fa fa-pencil-square fa-lg'></i> Edit profile
                         </button>
                     </div>
@@ -309,7 +309,7 @@ if ($row = $result->fetch_assoc()) {
                     <div class='profile-header'>
                         <h3><span>User info</span></h3>
                     </div>
-                    <form id='profileForm' action='' method='POST'>
+                    <form id='profileForm' action='#' method='POST'>
 
                     <div class='row gutters'>
                         <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
@@ -318,37 +318,37 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='firstname'>First Name</label>
-                                <input type='text' class='form-control' name='firstname' id='firstname' value='{$firstname}' placeholder='' maxlength='30' required='true' disabled>
+                                <input type='text' class='form-control' name='firstname' id='firstname' value='{$firstname}' placeholder='' maxlength='30' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='lastname'>Last Name</label>
-                                <input type='text' class='form-control' name='lastname' id='lastname' value='{$lastname}' placeholder='' maxlength='30' required='true' disabled>
+                                <input type='text' class='form-control' name='lastname' id='lastname' value='{$lastname}' placeholder='' maxlength='30' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='email'>Email</label>
-                                <input type='text' class='form-control' name='email' id='email' value='{$email}' placeholder='' maxlength='100' required='true' disabled>
+                                <input type='text' class='form-control' name='email' id='email' value='{$email}' placeholder='' maxlength='100' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='username'>Username</label>
-                                <input type='text' class='form-control' name='username' id='username' value='{$username}' pattern='(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}' placeholder='' maxlength='30' required='true' disabled>
+                                <input type='text' class='form-control' name='username' id='username' value='{$username}' pattern='(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}' placeholder='' maxlength='30' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='password'>Password</label>
-                                <input type='password' class='form-control' name='password' value='{$password}' id='password' pattern='(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' placeholder='' maxlength='255' required='true' disabled>
+                                <input type='password' class='form-control' name='password' value='{$password}' id='password' pattern='(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' placeholder='' maxlength='255' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='newPassword'>New Password</label>
-                                <input type='password' class='form-control' name='newPassword' value='{$newPassword}' id='newPassword' pattern='(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' placeholder='' maxlength='255' required='true' disabled>
+                                <input type='password' class='form-control' name='newPassword' value='{$newPassword}' id='newPassword' pattern='(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' placeholder='' maxlength='255' required disabled>
                             </div>
                         </div>
                     </div>
@@ -388,7 +388,7 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
                             <div id='update' class='text-right' style='display: none;'>
                                 <button form='profileForm'  type='submit' class='btn btn-primary'>Update</button>
-                                <button onclick='newPassword()' type='' class='btn btn-secondary'>Change Password</button>
+                                <button onclick='newPassword()' class='btn btn-secondary'>Change Password</button>
                             </div>
                         </div>
                     </div>

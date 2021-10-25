@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="modalDelete" aria-hidden="true" aria-labelledby="myModalLabel">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalDelete" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-lg rounded-5 shadow">
             <div class="modal-header px-5 pt-5 border-bottom-0">
