@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include('include/map.php'); ?>
 
     <div class="pt-5 text-center bgimg" style="height: 450px;">
-        <div class="row pt-lg-5 ">
+        <div class="row pt-lg-5 mx-auto">
             <div class="col-md-3 mx-auto">
                 <h1 class="fw-light"><?php
                                         $result->free();
