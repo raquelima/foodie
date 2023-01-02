@@ -49,8 +49,6 @@ include('include/dbconnector.inc.php');
 
     <?php include('include/login.php'); ?>
 
-    <?php include('include/registration.php'); ?>
-
     <div class="text-center bgimg">
         <div class="row py-lg-5 mx-auto">
             <div class="col-lg-6 col-md-8 mx-auto">
@@ -73,7 +71,6 @@ include('include/dbconnector.inc.php');
                     //wenn Session nicht personifiziert
                     echo '<p class="lead text">Find the best restaurants that deliver.<br>Get contactless delivery for restaurant takeout, groceries, and more!</p>';
                     echo '<p>
-                        <a href="" class="btn btn-warning my-2" data-toggle="modal" data-target="#modalSignup">Sign-up</a>
                         <a href="" class="btn btn-dark my-2" data-toggle="modal" data-target="#modalSignin">Login</a>
                     </p>';
                 }
