@@ -35,7 +35,7 @@ include('include/dbconnector.inc.php');
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/admin-style.css">
 
-    <style type="text/css">
+    <style>
         .bgimg {
             background-image: url('images/banner1.png');
             background-size: cover;
