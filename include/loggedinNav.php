@@ -9,7 +9,7 @@ if (isset($_POST['removedFood']) && is_numeric($_POST['removedFood'])) {
 }
 ?>
 <div class="d-flex align-items-center">
-    <a class="text-reset me-3" href="" id="cartBTN" data-toggle="modal" data-target="#modalShoppingCart">
+    <a class="text-reset me-3 text-decoration-none" href="" id="cartBTN" data-toggle="modal" data-target="#modalShoppingCart">
         <span class="badge badge-pill " style="background-color:rgb(240, 173, 78); "><?php echo count($_SESSION['products']); ?></span>
         <i class="fas fa-shopping-cart"></i>
     </a>

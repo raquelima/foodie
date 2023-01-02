@@ -8,16 +8,24 @@ Seit Corona essen wir gerne von Zuhause. Deswegen bieten wir jetzt einen Lieferd
 
 <hr>
 
+## Voraussetzungen
+* [XAMPP (Windows)](https://www.apachefriends.org/download.html) oder [MAMP (Mac OS)](https://www.mamp.info/en/downloads/) ist installiert
+
 ## Installationsanleitung
 
-Um diese Webseite betriebsbereit zu machen, holt man sich erstmal alle Daten von unserem Git (https://github.com/raquelima/foodie)
+Um diese Webseite betriebsbereit zu machen, cloned man sich zuerst alle Daten von unserem Git (https://github.com/raquelima/foodie)
+
+Befehl: 
+```
+git clone https://github.com/raquelima/foodie
+```
 
 
 ### Webseite
-Alle Dateien im Hauptordner kopiert man dann in sein Webroot. Der Webservice muss online sein. Somit kann die Webseite aufgerufen werden. Jedoch können noch keine Daten angezeigt werden.
+Alle Dateien im Hauptordner kopiert man dann in sein Webroot (Bei XAMP oder MAMP ist es der htdocs Ordner). Der Webservice muss online sein. Somit kann die Webseite aufgerufen werden. Jedoch können noch keine Daten angezeigt werden.
 
 ### Datenbank
-Um jetzt Daten anzuzeigen gibt es unter [./database/](./database/) eine restaurant.sql File. Diese muss jetzt in die Datenbank importiert werden. Nach dem Import werden auf der Webseite alle Daten angzeigt. Die Datenbank beinhaltet alle Tables (restaurants, food, users, orders). Ebenfalls wird ein Datenbank User namens Admin erstellt.
+Um jetzt Daten anzuzeigen, gibt es unter [./database/](./database/) eine restaurants.sql File. Diese muss jetzt in die Datenbank importiert werden. Nach dem Import werden auf der Webseite alle Daten angezeigt. Die Datenbank beinhaltet alle Tables (restaurants, food, users, orders). Ebenfalls wird ein Datenbank User namens Admin erstellt.
 
 <hr>
 
