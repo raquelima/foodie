@@ -101,8 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include('include/login.php'); ?>
 
-    <?php include('include/registration.php'); ?>
-
     <?php include('include/addFoodModal.php'); ?>
 
     <?php include('include/deleteRestaurantModal.php'); ?>
