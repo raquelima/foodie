@@ -1,3 +1,18 @@
+<?php
+
+// Sessionhandling starten falls noch keine vorhanden ist
+if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']) {
+    echo '<script>
+    window.onload = function() {
+      location.replace("../index.php");
+    }
+    </script>';
+}
+error_reporting(0);
+?>
+<?php if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) : ?>
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalEditRestaurant" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -65,3 +80,4 @@
         </div>
     </div>
 </div>
+<?php endif; ?>

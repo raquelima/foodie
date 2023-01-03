@@ -1,4 +1,7 @@
-<?php include('include/shoppingCart.php');
+<?php
+error_reporting(0);
+
+include('include/shoppingCart.php');
 if (isset($_POST['removedFood']) && is_numeric($_POST['removedFood'])) {
     echo '<script>
                 window.onload = function(){

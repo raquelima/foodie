@@ -1,5 +1,17 @@
 <?php
 
+// Sessionhandling starten falls noch keine vorhanden ist
+if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']) {
+    echo '<script>
+    window.onload = function() {
+      location.replace("../index.php");
+    }
+    </script>';
+}
+error_reporting(0);
+
 $error = '';
 $message = '';
 $username = $password = '';
@@ -95,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
+<?php if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) : ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modalDelete" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -105,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="modal-body px-5 pb-5">
-                
+
                 <div class="form-floating mb-3">
                     <p>Are you sure you want to <strong style='color: #9C3848;'>DELETE</strong> this restaurant?</p>
                 </div>
@@ -118,3 +131,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </div>
 </div>
+<?php endif; ?>
