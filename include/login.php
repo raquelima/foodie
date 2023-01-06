@@ -118,11 +118,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
                 <form action="#" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control rounded-4" placeholder="Password" pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" maxlength="30" required>
+                        <input type="text" name="username" class="form-control rounded-4" placeholder="Password" pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,}" maxlength="30" required>
                         <label>Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control rounded-4" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255" required>
+                        <input type="password" name="password" class="form-control rounded-4" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                         <label>Password</label>
                         <input type="text" hidden name="loginErr" value="1">
                     </div>

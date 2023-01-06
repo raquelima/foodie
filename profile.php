@@ -30,7 +30,7 @@ if ($row = $result->fetch_assoc()) {
             $firstname = htmlspecialchars(trim($_POST['firstname']));
 
             //mindestens 1 Zeichen und maximal 30 Zeichen lang
-            if (empty($firstname) || strlen($firstname) > 30) {
+            if (empty($firstname) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,30}/", $firstname)) {
                 $error .= "Please enter a valid first name.<br />";
             }
         } else {
@@ -43,7 +43,7 @@ if ($row = $result->fetch_assoc()) {
             $lastname = htmlspecialchars(trim($_POST['lastname']));
 
             //mindestens 1 Zeichen und maximal 30 Zeichen lang
-            if (empty($lastname) || strlen($lastname) > 30) {
+            if (empty($lastname) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,30}/", $lastname)) {
                 $error .= "Please enter a valid last name.<br />";
             }
         } else {
@@ -55,8 +55,8 @@ if ($row = $result->fetch_assoc()) {
             //trim an sanitize
             $email = htmlspecialchars(trim($_POST['email']));
 
-            //mindestens 1 Zeichen und maximal 100 Zeichen lang, gültige Emailadresse
-            if (empty($email) || strlen($email) > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            //gültige Emailadresse
+            if (empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 $error .= "Please enter a valid email name.<br />";
             }
         } else {
@@ -85,7 +85,7 @@ if ($row = $result->fetch_assoc()) {
             } else {
                 $error .= "Please enter the correct password.<br />";
             }
-            //mindestens 1 Zeichen , entsprich RegEX
+            //entspricht RegEX
             if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
                 $error .= "Please enter a valid password. <br />";
             }
@@ -111,7 +111,7 @@ if ($row = $result->fetch_assoc()) {
             $street = htmlspecialchars(trim($_POST['street']));
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
-            if (empty($street) || strlen($street) > 100) {
+            if (empty($street) || !preg_match("/[a-zA-Z]+\\s[0-9]+/i", $street)) {
                 $error .= "Please enter a valid street.<br />";
             }
         } else {
@@ -124,7 +124,7 @@ if ($row = $result->fetch_assoc()) {
             $city = htmlspecialchars(trim($_POST['city']));
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
-            if (empty($city) || strlen($city) > 30) {
+            if (empty($city) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,30}/", $city)) {
                 $error .= "Please enter a valid city.<br />";
             }
         } else {
@@ -137,7 +137,7 @@ if ($row = $result->fetch_assoc()) {
             $state = htmlspecialchars(trim($_POST['state']));
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
-            if (empty($state) || strlen($state) > 30) {
+            if (empty($state) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,30}/", $state)) {
                 $error .= "Please enter a valid state.<br />";
             }
         } else {
@@ -149,8 +149,8 @@ if ($row = $result->fetch_assoc()) {
             //trim and sanitize
             $zip = htmlspecialchars(trim($_POST['zip']));
 
-            //mindestens 1 Zeichen und maximal 100 Zeichen lang
-            if (empty($zip) || strlen($zip) > 4) {
+            //maximal 4 Zeichen lang
+            if (empty($zip) || !preg_match("/[0-9]{4,6}/i", $zip)) {
                 $error .= "Please enter a valid zip. <br />";
             }
         } else {
@@ -318,13 +318,13 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='firstname'>First Name</label>
-                                <input type='text' class='form-control' name='firstname' id='firstname' value='{$firstname}' placeholder='' maxlength='30' required disabled>
+                                <input type='text' class='form-control' name='firstname' id='firstname' value='{$firstname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='lastname'>Last Name</label>
-                                <input type='text' class='form-control' name='lastname' id='lastname' value='{$lastname}' placeholder='' maxlength='30' required disabled>
+                                <input type='text' class='form-control' name='lastname' id='lastname' value='{$lastname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
@@ -336,19 +336,19 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='username'>Username</label>
-                                <input type='text' class='form-control' name='username' id='username' value='{$username}' pattern='(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}' placeholder='' maxlength='30' required disabled>
+                                <input type='text' class='form-control' name='username' id='username' value='{$username}' pattern='[A-Za-z]{6,30}' placeholder='' maxlength='30' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='password'>Password</label>
-                                <input type='password' class='form-control' name='password' value='{$password}' id='password' pattern='(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' placeholder='' maxlength='255' required disabled>
+                                <input type='password' class='form-control' name='password' value='{$password}' id='password' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,255}$' placeholder='' maxlength='255' required disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='newPassword'>New Password</label>
-                                <input type='password' class='form-control' name='newPassword' value='{$newPassword}' id='newPassword' pattern='(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' placeholder='' maxlength='255' required disabled>
+                                <input type='password' class='form-control' name='newPassword' value='{$newPassword}' id='newPassword' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,255}$' placeholder='' maxlength='255' required disabled>
                             </div>
                         </div>
                     </div>
@@ -359,25 +359,25 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group'>
                                 <label for='street'>Street</label>
-                                <input type='text' class='form-control' name='street' id='street' value='{$street}' placeholder='Enter Street' maxlength='100' disabled>
+                                <input type='text' class='form-control' name='street' id='street' value='{$street}' pattern='[a-zA-Z]+\s[0-9]+' placeholder='Enter Street' minlength='3' maxlength='255' disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group'>
                                 <label for='city'>City</label>
-                                <input type='text' class='form-control' name='city' id='city' value='{$city}' placeholder='Enter City' maxlength='30' disabled>
+                                <input type='text' class='form-control' name='city' id='city' value='{$city}' pattern='[A-Za-z]{3,30}' placeholder='Enter City' maxlength='30' disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='state'>State</label>
-                                <input type='text' class='form-control' name='state' id='state' value='{$state}' placeholder='Enter State' maxlength='30' disabled>
+                                <input type='text' class='form-control' name='state' id='state' value='{$state}' pattern='[A-Za-z]{3,30}' placeholder='Enter State' maxlength='30' disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='zip'>Zip Code</label>
-                                <input type='text' class='form-control' name='zip' id='zip' value='{$zip}' placeholder='Zip Code' maxlength='4' disabled>
+                                <input type='number' class='form-control' name='zip' id='zip' value='{$zip}' pattern='[0-9]{4,6}' placeholder='Zip Code' maxlength='6' disabled>
                             </div>
                         </div>
 
