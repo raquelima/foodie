@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
+
 //Set the session timeout
 $timeout = 900;
 
@@ -22,10 +23,20 @@ if (isset($_GET["err"])) {
             }
             </script>";
 }
+
 csrfProtector::init();
+
+ini_set("error_log", dirname(__FILE__)."/logs/error_log.txt");
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
+
+include("./vendor/autoload.php");
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+// Now add some handlers
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +83,7 @@ include('include/dbconnector.inc.php');
 
                 //wenn Session personalisiert
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+                    $logger->info("User is logged in");
                     echo '<p class="lead text">Welcome ', htmlspecialchars($_SESSION['username']), '!</p>';
 
                     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {

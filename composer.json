@@ -1,5 +1,6 @@
 {
     "require": {
-        "owasp/csrf-protector-php": "dev-master"
+        "owasp/csrf-protector-php": "dev-master",
+        "monolog/monolog": "^2.8"
     }
 }
