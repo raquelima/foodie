@@ -1,4 +1,7 @@
 <?php
+include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+
+include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 //Set the session timeout
 $timeout = 900;
 
@@ -9,6 +12,8 @@ ini_set( "session.gc_maxlifetime", $timeout );
 ini_set( "session.cookie_lifetime", $timeout );
 // Sessionhandling starten
 session_start();
+csrfProtector::init();
+
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 $error = $message =  '';

@@ -1,4 +1,6 @@
 <?php
+include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+
 //Set the session timeout
 $timeout = 900;
 
@@ -18,6 +20,7 @@ if (empty($_SESSION) || !$_SESSION["loggedin"]) {
     }
     </script>';
 }
+csrfProtector::init();
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');

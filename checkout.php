@@ -1,4 +1,6 @@
 <?php
+include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+
 
 //Set the session timeout
 $timeout = 900;
@@ -12,6 +14,7 @@ ini_set( "session.cookie_lifetime", $timeout );
 // Sessionhandling starten
 session_start();
 
+csrfProtector::init();
 //turn String into array with food id
 $products = explode(" ", trim($_POST['orderText']));
 

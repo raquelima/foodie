@@ -16,7 +16,7 @@
           echo "<iframe id='map' src='https://maps.google.com/maps?q={$test}&t=&z=13&ie=UTF8&iwloc=&output=embed'
             style='border:0' allowfullscreen></iframe>"
           ?>
-          
+
         </div>
 
       </div>
@@ -34,5 +34,3 @@
   </div>
 </div>
 <!--Modal: Name-->
-
-

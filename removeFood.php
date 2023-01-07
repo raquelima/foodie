@@ -1,4 +1,8 @@
 <?php
+include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+csrfProtector::init();
+
+
 include('include/dbconnector.inc.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['deleteFood']) && is_numeric($_POST['deleteFood'])) {

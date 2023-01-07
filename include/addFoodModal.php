@@ -9,6 +9,7 @@ if (!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']) {
     }
     </script>';
 }
+
 ?>
 <?php if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) : ?>
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalAddFood" aria-hidden="true" >

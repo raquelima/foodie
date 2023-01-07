@@ -1,4 +1,5 @@
 <?php
+
 // Sessionhandling starten falls noch keine vorhanden ist
 if(session_status() !== PHP_SESSION_ACTIVE) session_start();
 
@@ -40,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //trim and sanitize
         $description = trim(htmlspecialchars($_POST['description']));
 
-        if (empty($description) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,130}/", $description)) {
+        if (empty($description) || !preg_match("/(?=.*[a-z])[a-zA-Z]{3,130}/", $description)) {
             $error .= " Invalid description";
         }
     } else {
