@@ -35,7 +35,6 @@ include("./vendor/autoload.php");
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 $logger = new Logger('my_logger');
-// Now add some handlers
 $logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 ?>
 

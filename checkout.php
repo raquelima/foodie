@@ -15,6 +15,11 @@ ini_set( "session.cookie_lifetime", $timeout );
 session_start();
 
 csrfProtector::init();
+include("./vendor/autoload.php");
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 //turn String into array with food id
 $products = explode(" ", trim($_POST['orderText']));
 
@@ -74,6 +79,11 @@ include('include/dbconnector.inc.php');
                             $stmt = $mysqli->prepare($query);
 
                             $stmt->execute();
+                            if ($mysqli->error) {
+                                $logger->error($mysqli->error);
+                            } else {
+                                $logger->info("selected food");
+                            }
 
                             $result = $stmt->get_result();
 

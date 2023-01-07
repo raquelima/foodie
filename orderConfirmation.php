@@ -13,7 +13,12 @@ ini_set( "session.cookie_lifetime", $timeout );
 // Sessionhandling starten
 session_start();
 csrfProtector::init();
+include("./vendor/autoload.php");
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 $error = $message =  '';
@@ -120,6 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $stmt = $mysqli->prepare($query);
 
             $stmt->execute();
+            if ($mysqli->error) {
+                $logger->error($mysqli->error);
+            } else {
+                $logger->info("restaurant successfully deleted");
+            }
 
             $result = $stmt->get_result();
 
@@ -155,6 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $message .= "Die Daten wurden erfolgreich in die Datenbank geschrieben<br/ >";
             // Felder leeren und Weiterleitung auf anderes Script: z.B. Login!
             $userID = $orderDate = $orderText = $orderPrice = $orderAddress =  '';
+        } else {
+            $logger->error($error);
         }
     }
 }
@@ -220,6 +232,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                                             $stmt->execute();
 
+                                            if ($mysqli->error) {
+                                                $logger->error($mysqli->error);
+                                            } else {
+                                                $logger->info("order selected");
+                                            }
+
                                             $result = $stmt->get_result();
 
                                             $count = 0;
@@ -258,6 +276,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $stmt = $mysqli->prepare($query);
 
                                 $stmt->execute();
+
+                                if ($mysqli->error) {
+                                    $logger->error($mysqli->error);
+                                } else {
+                                    $logger->info("food selected");
+                                }
 
                                 $result = $stmt->get_result();
 

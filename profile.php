@@ -14,6 +14,12 @@ ini_set( "session.cookie_lifetime", $timeout );
 session_start();
 
 csrfProtector::init();
+include("./vendor/autoload.php");
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
@@ -29,6 +35,12 @@ $query = "SELECT * FROM users WHERE {$_SESSION['id']}=id;";
 $stmt = $mysqli->prepare($query);
 
 $stmt->execute();
+
+if ($mysqli->error) {
+    $logger->error($mysqli->error);
+} else {
+    $logger->info("user selected");
+}
 
 $result = $stmt->get_result();
 
@@ -196,7 +208,10 @@ if ($row = $result->fetch_assoc()) {
                 // Query ausführen
                 if (!$stmt->execute()) {
                     $error .= 'execute() failed ' . $mysqli->error . ' ';
+                    $logger -> error($mysqli->error);
                 }
+
+                
 
                 // kein Fehler!
                 if (empty($error)) {
@@ -213,6 +228,8 @@ if ($row = $result->fetch_assoc()) {
             </script>';
                     // beenden des Scriptes
                     exit();
+                } else {
+                    $logger->error($error);
                 }
             }
         }
@@ -259,6 +276,12 @@ if ($row = $result->fetch_assoc()) {
 
             $stmt->execute();
 
+            if ($mysqli->error) {
+                $logger->error($mysqli->error);
+            } else {
+                $logger->info("orders selected");
+            }
+
             $result = $stmt->get_result();
             $count = 0;
             foreach ($result as $value) {
@@ -273,6 +296,12 @@ if ($row = $result->fetch_assoc()) {
             $stmt = $mysqli->prepare($query);
 
             $stmt->execute();
+
+            if ($mysqli->error) {
+                $logger->error($mysqli->error);
+            } else {
+                $logger->info("user selected");
+            }
 
             $result = $stmt->get_result();
 

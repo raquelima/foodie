@@ -2,7 +2,11 @@
 include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
 csrfProtector::init();
-
+include("./vendor/autoload.php");
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 include('include/dbconnector.inc.php');
 $editError = '';
 $error = '';
@@ -101,6 +105,12 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
             $message .= 'Datensatz erfolgreich geändert.';
         }
 
+        if ($mysqli->error) {
+            $logger->error($mysqli->error);
+        } else {
+            $logger->info("restaurant successfully edited");
+        }
+
         echo "<script>
         window.onload = function() {
         window.location.href = 'http://localhost/foodie/restaurant.php?id={$restaurantID}';
@@ -108,6 +118,7 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
        </script>";
     }
     if (!empty($editError)) {
+        $logger->error($error);
         echo "<script>
         window.onload = function() {
         window.location.href = 'http://localhost/foodie/restaurant.php?id={$restaurantID}&err=" . $editError . "';

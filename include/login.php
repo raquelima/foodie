@@ -48,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Query ausführen
         if (!$stmt->execute()) {
             $error .= 'execute() failed ' . $mysqli->error . '<br />';
+            $logger->error($mysqli->error);
         }
         // Daten auslesen
         $result = $stmt->get_result();
@@ -92,6 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             </script>';
         }
+    } else {
+        $logger->error($error);
     }
 }
 
