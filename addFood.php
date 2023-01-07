@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $error .= "Invalid food price";
         }
-        $restaurantID = $_POST['addFoodForm'];
+        $restaurantID = htmlspecialchars($_POST['addFoodForm']);
 
         if (empty($error)) {
             $query = "INSERT INTO food (restaurantID, foodName, foodDescription, price) VALUES (?, ?, ?, ?);";

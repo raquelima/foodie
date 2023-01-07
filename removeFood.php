@@ -12,12 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo "<script>
         window.onload = function() {
-            window.location.href = 'restaurant.php?id={$_POST["restaurant"]}';
+            window.location.href = 'restaurant.php?id=", htmlspecialchars($_POST["restaurant"]), "';
         }
        </script>";
     }
-
-}else{
+} else {
     // Weiterleitung wenn man kein POST hat auf die index seite
     echo "<script>
         window.onload = function() {
@@ -25,4 +24,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
        </script>";
 }
-

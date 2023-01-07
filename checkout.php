@@ -66,12 +66,13 @@ include('include/dbconnector.inc.php');
                             $result = $stmt->get_result();
 
                             foreach ($result as $food) {
-                                $totalPrice += $food['price'];
+                                $totalPrice += htmlspecialchars($food['price']);
                                 $totalPrice = number_format((float)$totalPrice, 2, '.', '');
-                                $price = number_format((float)$food['price'], 2, '.', '');
+                                $price = number_format((float)htmlspecialchars($food['price']), 2, '.', '');
+                                $foodName = htmlspecialchars($food['foodName']);
                                 echo " <li class='list-group-item d-flex justify-content-between lh-sm'>
                                             <div>
-                                                <h6 class='my-0'>{$food['foodName']}</h6>
+                                                <h6 class='my-0'>{$foodName}</h6>
                                             </div>
                                             <span class='text-muted'>{$price} CHF</span>
                                         </li>";
@@ -117,14 +118,14 @@ include('include/dbconnector.inc.php');
                         $result = $stmt->get_result();
 
                         foreach ($result as $value) {
-                            $firstname = $value['firstname'];
-                            $lastname = $value['lastname'];
-                            $email = $value['email'];
-                            $username = $value['username'];
-                            $street = $value['street'];
-                            $city = $value['city'];
-                            $state = $value['state'];
-                            $zip = $value['zip'];
+                            $firstname = htmlspecialchars($value['firstname']);
+                            $lastname = htmlspecialchars($value['lastname']);
+                            $email = htmlspecialchars($value['email']);
+                            $username = htmlspecialchars($value['username']);
+                            $street = htmlspecialchars($value['street']);
+                            $city = htmlspecialchars($value['city']);
+                            $state = htmlspecialchars($value['state']);
+                            $zip = htmlspecialchars($value['zip']);
 
 
                             echo "<div class='row g-3'>
@@ -217,7 +218,7 @@ include('include/dbconnector.inc.php');
                                 </div>
                             </div>
 
-                            <input type="text" name="orderText" value="<?php echo $_POST['orderText']; ?>" hidden>
+                            <input type="text" name="orderText" value="<?php echo htmlspecialchars($_POST['orderText']); ?>" hidden>
 
                         </div>
 

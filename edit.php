@@ -73,7 +73,7 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
     } else {
         $editError .= "Invalid delivery duration";
     }
-    $restaurantID = $_POST['editedRestaurant'];
+    $restaurantID = htmlspecialchars($_POST['editedRestaurant']);
     if (empty($editError)) {
         // Query erstellen            
         $query = "UPDATE `restaurants` SET `name` = ?, `description` = ?, `place` = ?, `website` = ?, `delivery-from` = ?, `delivery-until` = ? WHERE `restaurants`.`id` = ?;";

@@ -9,8 +9,8 @@ $userID = $orderDate = $orderText = $orderAddress =  '';
 $orderPrice = 0;
 
 //turn String into array with food id
-if(isset($_POST['orderText'])){
-    $orderArray = explode(" ", trim($_POST['orderText']));
+if (isset($_POST['orderText'])) {
+    $orderArray = explode(" ", trim(htmlspecialchars($_POST['orderText'])));
 }
 
 // Wurden Daten mit "POST" gesendet?
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $firstname = htmlspecialchars(trim($_POST['firstname']));
 
         //mindestens 1 Zeichen und maximal 30 Zeichen lang
-        if (empty($firstname) || strlen($firstname) > 30) {
+        if (empty($firstname) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,30}/", $firstname)) {
             $error .= "Please enter a valid first name.<br />";
         }
     } else {
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $lastname = htmlspecialchars(trim($_POST['lastname']));
 
         //mindestens 1 Zeichen und maximal 30 Zeichen lang
-        if (empty($lastname) || strlen($lastname) > 30) {
+        if (empty($lastname) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,30}/", $lastname)) {
             $error .= "Please enter a valid last name.<br />";
         }
     } else {
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $street = htmlspecialchars(trim($_POST['street']));
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
-        if (empty($street) || strlen($street) > 100) {
+        if (empty($street) || !preg_match("/[a-zA-Z]+\\s[0-9]+/i", $street)) {
             $error .= "Please enter a valid street.<br />";
         }
     } else {
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $city = htmlspecialchars(trim($_POST['city']));
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
-        if (empty($city) || strlen($city) > 30) {
+        if (empty($city) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,30}/", $city)) {
             $error .= "Please enter a valid city.<br />";
         }
     } else {
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $state = htmlspecialchars(trim($_POST['state']));
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
-        if (empty($state) || strlen($state) > 30) {
+        if (empty($state) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,30}/", $state)) {
             $error .= "Please enter a valid state.<br />";
         }
     } else {
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $zip = htmlspecialchars(trim($_POST['zip']));
 
         //mindestens 1 Zeichen und maximal 100 Zeichen lang
-        if (empty($zip) || strlen($zip) > 4 || $zip < 1000) {
+        if (empty($zip) || !preg_match("/[0-9]{4,6}/i", $zip)) {
             $error .= "Please enter a valid zip.<br />";
         }
     } else {
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         foreach ($_SESSION['products'] as $key => $value) {
             unset($_SESSION['products'][$key]);
         }
-        $userID = $_SESSION['id'];
+        $userID = htmlspecialchars($_SESSION['id']);
         $orderDate = date("Y-m-d h:i:s");
         foreach ($orderArray as $key => $value) {
 
@@ -112,9 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $result = $stmt->get_result();
 
             foreach ($result as $food) {
-                $orderPrice += $food['price'];
+                $orderPrice += htmlspecialchars($food['price']);
 
-                $orderText .= $food['foodName'] . "<br>";
+                $orderText .= htmlspecialchars($food['foodName']) . "<br>";
             }
         }
         $orderAddress = $street . " " . $zip . " " . $city . " " . $state;
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     die();
                 }
                 if (!empty($error)) {
-                    echo "<strong style='color: #9C3848;'>Error: </strong>{$error} <br>";
+                    echo "<strong style='color: #9C3848;'>Error: </strong>", htmlspecialchars($error), "<br>";
                     echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
                     die();
                 }
@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <div class="text-center logo p-5"> <img src="images/6.png" alt="logo" width="100" height="100"> </div>
                     <div class="invoice p-5">
                         <h5>Your order was confirmed!</h5>
-                        <span class="font-weight-bold d-block mt-4">Hello, <?php echo $firstname ?> </span>
+                        <span class="font-weight-bold d-block mt-4">Hello, <?php echo htmlspecialchars($firstname) ?> </span>
                         <span>You order has been confirmed and will be shipped in hour!</span>
                         <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
                             <table class="table table-borderless">
@@ -213,19 +213,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             $count = 0;
 
                                             foreach ($result as $value) {
-                                                $count = $value["orderID"];
+                                                $count = htmlspecialchars($value["orderID"]);
                                             }
-                                            
+
 
                                             ?>
-                                            <div class="py-2"> <span class="d-block text-muted">Order No</span> <?php echo "#",str_pad($count, 6, '0', STR_PAD_LEFT); ?><span></span> </div>
+                                            <div class="py-2"> <span class="d-block text-muted">Order No</span> <?php echo "#", str_pad($count, 6, '0', STR_PAD_LEFT); ?><span></span> </div>
                                         </td>
                                         <td>
                                             <div class="py-2"> <span class="d-block text-muted">Payment</span> <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="mastercard" width="20" /></span> </div>
                                         </td>
                                         <td>
                                             <div class="py-2">
-                                                <span class="d-block text-muted">Shipping Address</span> <span><?php echo $_POST["title"] ?></span>
+                                                <span class="d-block text-muted">Shipping Address</span> <span><?php echo htmlspecialchars($_POST["title"]) ?></span>
                                                 <span class="d-block"><?php echo $firstname, " ", $lastname ?></span>
                                                 <span class="d-block"><?php echo $street ?></span>
                                                 <span class="d-block"><?php echo $zip, ", ", $city ?></span>
@@ -250,15 +250,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $result = $stmt->get_result();
 
                                 foreach ($result as $food) {
-                                    $totalPrice += $food['price'];
+                                    $totalPrice += htmlspecialchars($food['price']);
                                     $totalPrice = number_format((float)$totalPrice, 2, '.', '');
-                                    $price = number_format((float)$food['price'], 2, '.', '');
-                                    $orderText .= $food['foodName'] . "<br>";
+                                    $price = number_format((float)htmlspecialchars($food['price']), 2, '.', '');
+                                    $orderText .= htmlspecialchars($food['foodName']) . " ";
+                                    $foodName = htmlspecialchars($food['foodName']);
                                     echo " 
                                             <ul class='list-group mb-2'>
                                                 <li class='list-group-item d-flex justify-content-between lh-sm'>
                                                      <div>
-                                                        <h6 class='my-0'>{$food['foodName']}</h6>
+                                                        <h6 class='my-0'>{$foodName}</h6>
                                                      </div>
                                                      <span class='text-muted'>{$price} CHF</span>
                                                 </li>
@@ -276,20 +277,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                         <div class="total mt-3 mb-3 ">
                             <ul>
-                            <li class='d-flex justify-content-between'>
-                                <span>Total</span>
-                                <strong><?php echo $totalPrice; ?> CHF</strong>
-                            </li>
+                                <li class='d-flex justify-content-between'>
+                                    <span>Total</span>
+                                    <strong><?php echo $totalPrice; ?> CHF</strong>
+                                </li>
                             </ul>
                         </div>
                         <div>
                             <ul>
-                            <li class='d-flex justify-content-between'>
-                                <p class="font-weight-bold mb-0">Thanks for choosing us!</p>
-                                <form action="orders.php">
-                                    <button class="btn btn-warning btn-sm" type="submit">Go to orders</button>
-                                </form>
-                            </li>
+                                <li class='d-flex justify-content-between'>
+                                    <p class="font-weight-bold mb-0">Thanks for choosing us!</p>
+                                    <form action="orders.php">
+                                        <button class="btn btn-warning btn-sm" type="submit">Go to orders</button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                         <span>Foodie</span>
@@ -300,8 +301,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
 
     <script>
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
         }
     </script>
 

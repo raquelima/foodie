@@ -4,9 +4,10 @@
 session_start();
 
 if (isset($_GET["err"])) {
+    $err = htmlspecialchars($_GET["err"]);
     echo "<script>
              window.onload = function() {
-                alert('{$_GET["err"]}')
+                alert('{$err}')
                 window.location.href = 'http://localhost/foodie/index.php';
             }
             </script>";
@@ -60,7 +61,7 @@ include('include/dbconnector.inc.php');
 
                 //wenn Session personalisiert
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
-                    echo '<p class="lead text">Welcome ', $_SESSION['username'], '!</p>';
+                    echo '<p class="lead text">Welcome ', htmlspecialchars($_SESSION['username']), '!</p>';
 
                     if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
 
@@ -93,8 +94,9 @@ include('include/dbconnector.inc.php');
                 $result = $stmt->get_result();
 
                 foreach ($result as $value) {
+                    $id = htmlspecialchars($value['id']);
                     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
-                        $btn = "<a href='restaurant.php?id={$value['id']}' class='text-warning stretched-link'>";
+                        $btn = "<a href='restaurant.php?id={$id}' class='text-warning stretched-link'>";
                     } else {
                         $btn = " <a class='text-warning stretched-link' onclick='errorLogin()'>";
                     }
@@ -107,11 +109,11 @@ include('include/dbconnector.inc.php');
                         </svg>
 
                         <div class='card-body'>
-                            <h6 class='card-text'>", $value['name'], "</h6>
-                            <p class='card-text'>", $value["description"], "<br>", $value["place"], "</p>
+                            <h6 class='card-text'>", htmlspecialchars($value['name']), "</h6>
+                            <p class='card-text'>", htmlspecialchars($value["description"]), "<br>", htmlspecialchars($value["place"]), "</p>
                             <div class='d-flex justify-content-between align-items-center'>
                             {$btn}View</a>
-                            <small class='text-muted'>", $value["delivery-from"], "-", $value["delivery-until"], " Min</small>
+                            <small class='text-muted'>", htmlspecialchars($value["delivery-from"]), "-", htmlspecialchars($value["delivery-until"]), " Min</small>
                             </div>
                         </div>
                     </div>

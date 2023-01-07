@@ -55,8 +55,11 @@ include('include/dbconnector.inc.php');
                 $count = 0;
                 foreach ($result as $value) {
                     $count++;
-                    $sec = strtotime($value['orderDate']);
+                    $sec = strtotime(htmlspecialchars($value['orderDate']));
                     $newdate = date("d. M. Y H:i", $sec);
+                    $orderAddress = htmlspecialchars($value['orderAddress']);
+                    $orderID = htmlspecialchars($value['orderID']);
+                    $orderText = htmlspecialchars($value['orderText']);
                     echo "<div class='row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative'>
                     <div class='col-auto d-none d-lg-block'>
                         <svg class='bd-placeholder-img' width='200' height='250' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'>
@@ -68,18 +71,18 @@ include('include/dbconnector.inc.php');
                     <div class='col p-4 d-flex flex-column position-static'>
                         <h3 class='mb-3'>Your {$count}. Order</h3>
 
-                        <p class='card-text mb-auto'>Order number: #", str_pad($value['orderID'], 6, '0', STR_PAD_LEFT), "</p>
+                        <p class='card-text mb-auto'>Order number: #", str_pad(htmlspecialchars($value['orderID']), 6, '0', STR_PAD_LEFT), "</p>
                         <div class='mb-1 text-muted'>
                             <p> Purchased on the {$newdate}</p>
-                            <p style='display: inline; text-align: left;'>", number_format((float)$value['orderPrice'], 2, '.', ''), " CHF</p>
+                            <p style='display: inline; text-align: left;'>", number_format((float)htmlspecialchars($value['orderPrice']), 2, '.', ''), " CHF</p>
 
-                            <form style='float: right;'><button type='button' onclick='updateMap(`{$value['orderAddress']}`)' style='display: inline; text-align: right;' class='btn btn-warning' data-toggle='modal' data-target='#modalVM' >Map</button></form>
+                            <form style='float: right;'><button type='button' onclick='updateMap(`{$orderAddress}`)' style='display: inline; text-align: right;' class='btn btn-warning' data-toggle='modal' data-target='#modalVM' >Map</button></form>
                         </div>
                         <div>
-                            <button id='detail{$value['orderID']}' onclick='showDetail({$value['orderID']})' class='btn btn-warning'>Details</button>
-                            <div id='food{$value['orderID']}' style='display: none;'>
-                                <p>{$value['orderText']}</p>
-                                <button id='less{$value['orderID']}' onclick='showLess({$value['orderID']})' class='btn btn-warning'>Show Less</button>
+                            <button id='detail{$orderID}' onclick='showDetail({$orderID})' class='btn btn-warning'>Details</button>
+                            <div id='food{$orderID}' style='display: none;'>
+                                <p>{$orderText}</p>
+                                <button id='less{$orderID}' onclick='showLess({$orderID})' class='btn btn-warning'>Show Less</button>
                             </div>
                         </div>
 
