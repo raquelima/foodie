@@ -1,5 +1,12 @@
 <?php
+//Set the session timeout
+$timeout = 900;
 
+//Set the maxlifetime of the session
+ini_set( "session.gc_maxlifetime", $timeout );
+
+//Set the cookie lifetime of the session
+ini_set( "session.cookie_lifetime", $timeout );
 // Sessionhandling starten
 session_start();
 //Datenbank verbinden
