@@ -1,15 +1,18 @@
 <?php
-include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+include_once __DIR__ . '/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
 
 //Set the session timeout
 $timeout = 900;
 
 //Set the maxlifetime of the session
-ini_set( "session.gc_maxlifetime", $timeout );
+ini_set("session.gc_maxlifetime", $timeout);
 
 //Set the cookie lifetime of the session
-ini_set( "session.cookie_lifetime", $timeout );
+ini_set("session.cookie_lifetime", $timeout);
+
+//Set cookie to http only
+ini_set( 'session.cookie_httponly', 1 );
 
 // Sessionhandling starten
 session_start();
@@ -18,24 +21,25 @@ if (isset($_GET["err"])) {
     $err = htmlspecialchars($_GET["err"]);
     echo "<script>
              window.onload = function() {
-                alert('{$err}')
-                window.location.href = 'http://localhost/foodie/index.php';
+                window.location.href = 'http://localhost/foodie/fehlerseite.php?err={$err}';
             }
             </script>";
 }
 
 csrfProtector::init();
 
-ini_set("error_log", dirname(__FILE__)."/logs/error_log.txt");
+ini_set("error_log", dirname(__FILE__) . "/logs/error_log.txt");
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 
 include("./vendor/autoload.php");
+
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 $logger = new Logger('my_logger');
-$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
+$logger->pushHandler(new StreamHandler(dirname(__FILE__) . '/logs/log.txt', Logger::INFO));
 ?>
 
 <!DOCTYPE html>
@@ -113,6 +117,13 @@ $logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger
 
                 $stmt->execute();
 
+                if ($mysqli->error) {
+                    $logger->error($mysqli->error);
+                    header("location: fehlerseite.php?err=500&msg=Internal Server Error");
+                  } else {
+                    $logger->info("restaurant selected");
+                  }
+
                 $result = $stmt->get_result();
 
                 foreach ($result as $value) {
@@ -156,7 +167,7 @@ $logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
         function errorLogin() {
-            alert("You must be logged in to visit Restaurants")
+            window.location.href = 'http://localhost/foodie/fehlerseite.php?err=403&msg=Log in for restaurant access';
         }
     </script>
 </body>

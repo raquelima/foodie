@@ -1,25 +1,30 @@
 <?php
-include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+include_once __DIR__ . '/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
 
 //Set the session timeout
 $timeout = 900;
 
 //Set the maxlifetime of the session
-ini_set( "session.gc_maxlifetime", $timeout );
+ini_set("session.gc_maxlifetime", $timeout);
 
 //Set the cookie lifetime of the session
-ini_set( "session.cookie_lifetime", $timeout );
+ini_set("session.cookie_lifetime", $timeout);
+
+//Set cookie to http only
+ini_set( 'session.cookie_httponly', 1 );
 
 // Sessionhandling starten
 session_start();
 
 csrfProtector::init();
 include("./vendor/autoload.php");
+
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 $logger = new Logger('my_logger');
-$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
+$logger->pushHandler(new StreamHandler(dirname(__FILE__) . '/logs/log.txt', Logger::INFO));
 //turn String into array with food id
 $products = explode(" ", trim($_POST['orderText']));
 
@@ -81,6 +86,7 @@ include('include/dbconnector.inc.php');
                             $stmt->execute();
                             if ($mysqli->error) {
                                 $logger->error($mysqli->error);
+                                header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                             } else {
                                 $logger->info("selected food");
                             }
@@ -104,10 +110,10 @@ include('include/dbconnector.inc.php');
                     </ul>
 
                     <ul class='list-group mb-3'>
-                    <li class='list-group-item d-flex justify-content-between'>
-                        <span>Total</span>
-                        <strong><?php echo $totalPrice; ?> CHF</strong>
-                    </li>
+                        <li class='list-group-item d-flex justify-content-between'>
+                            <span>Total</span>
+                            <strong><?php echo $totalPrice; ?> CHF</strong>
+                        </li>
                     </ul>
 
                 </div>

@@ -1,14 +1,17 @@
 <?php
-include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+include_once __DIR__ . '/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
 //Set the session timeout
 $timeout = 900;
 
 //Set the maxlifetime of the session
-ini_set( "session.gc_maxlifetime", $timeout );
+ini_set("session.gc_maxlifetime", $timeout);
 
 //Set the cookie lifetime of the session
-ini_set( "session.cookie_lifetime", $timeout );
+ini_set("session.cookie_lifetime", $timeout);
+
+//Set cookie to http only
+ini_set( 'session.cookie_httponly', 1 );
 
 // Sessionhandling starten
 session_start();
@@ -16,7 +19,7 @@ session_start();
 if (empty($_SESSION) || !$_SESSION["loggedin"]) {
     echo '<script>
     window.onload = function() {
-      location.replace("index.php")
+        window.location.href = "http://localhost/foodie/index.php";
     }
     </script>';
 }
@@ -25,8 +28,9 @@ include("./vendor/autoload.php");
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 $logger = new Logger('my_logger');
-$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
+$logger->pushHandler(new StreamHandler(dirname(__FILE__) . '/logs/log.txt', Logger::INFO));
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
@@ -52,16 +56,16 @@ include('include/dbconnector.inc.php');
 
 </head>
 
-<body >
+<body>
     <?php include('include/nav.php'); ?>
 
     <?php include('include/map.php'); ?>
-   
+
     <div class="album py-5 bg-light">
         <main class="container">
             <div class="col-md-12">
                 <?php
-        
+
                 $query = "SELECT * FROM orders WHERE {$_SESSION['id']} = userID;";
 
                 $stmt = $mysqli->prepare($query);
@@ -70,6 +74,7 @@ include('include/dbconnector.inc.php');
 
                 if ($mysqli->error) {
                     $logger->error($mysqli->error);
+                    header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                 } else {
                     $logger->info("orders selected");
                 }
@@ -118,7 +123,7 @@ include('include/dbconnector.inc.php');
                 ?>
 
             </div>
-        </main>   
+        </main>
     </div>
 
     <?php include('include/footer.php'); ?>
@@ -128,24 +133,24 @@ include('include/dbconnector.inc.php');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
-    let map = "";
+        let map = "";
 
-    function showDetail(id) {
-        document.getElementById("food" + id).style.display = "block";
-        document.getElementById("detail" + id).style.display = "none";
-    }
+        function showDetail(id) {
+            document.getElementById("food" + id).style.display = "block";
+            document.getElementById("detail" + id).style.display = "none";
+        }
 
-    function showLess(id) {
-        document.getElementById("food" + id).style.display = "none";
-        document.getElementById("detail" + id).style.display = "block";
-    }
+        function showLess(id) {
+            document.getElementById("food" + id).style.display = "none";
+            document.getElementById("detail" + id).style.display = "block";
+        }
 
-    function updateMap(address) {
-        map = "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
-        document.getElementById('map').src = map;
+        function updateMap(address) {
+            map = "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+            document.getElementById('map').src = map;
 
-    }
-</script>
+        }
+    </script>
 </body>
 
 

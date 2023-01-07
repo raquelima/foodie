@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!$stmt->execute()) {
             $error .= 'execute() failed ' . $mysqli->error . '<br />';
             $logger->error($mysqli->error);
+            header("location: fehlerseite.php?err=500&msg=Internal Server Error");
         }
         // Daten auslesen
         $result = $stmt->get_result();
@@ -65,10 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['isAdmin'] = $row['admin'];
                 $_SESSION['products'] = array();
-                
+
 
                 // Session ID regenerieren
-               session_regenerate_id(true);
+                session_regenerate_id(true);
 
                 // weiterleiten auf index.php
                 header("location: index.php");
@@ -114,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!empty($message)) {
                     echo "<div class=\"alert alert-success\" role=\"alert\">" . htmlspecialchars($message) . "</div>";
                 } else if (!empty($error)) {
-                    if(isset($_POST["loginErr"])){
+                    if (isset($_POST["loginErr"])) {
                         echo "<div class=\"alert alert-danger\" role=\"alert\">" . htmlspecialchars($error) . "</div>";
                     }
                 }
@@ -125,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label>Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control rounded-4" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                        <input type="password" name="password" class="form-control rounded-4" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                         <label>Password</label>
                         <input type="text" hidden name="loginErr" value="1">
                     </div>
@@ -134,6 +135,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
             </div>
         </div>
-        
+
     </div>
 </div>

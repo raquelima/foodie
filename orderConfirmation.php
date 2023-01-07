@@ -1,15 +1,19 @@
 <?php
-include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+include_once __DIR__ . '/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
-include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+include_once __DIR__ . '/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 //Set the session timeout
 $timeout = 900;
 
 //Set the maxlifetime of the session
-ini_set( "session.gc_maxlifetime", $timeout );
+ini_set("session.gc_maxlifetime", $timeout);
 
 //Set the cookie lifetime of the session
-ini_set( "session.cookie_lifetime", $timeout );
+ini_set("session.cookie_lifetime", $timeout);
+
+//Set cookie to http only
+ini_set( 'session.cookie_httponly', 1 );
+
 // Sessionhandling starten
 session_start();
 csrfProtector::init();
@@ -17,8 +21,9 @@ include("./vendor/autoload.php");
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 $logger = new Logger('my_logger');
-$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
+$logger->pushHandler(new StreamHandler(dirname(__FILE__) . '/logs/log.txt', Logger::INFO));
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
 $error = $message =  '';
@@ -127,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $stmt->execute();
             if ($mysqli->error) {
                 $logger->error($mysqli->error);
+                header("location: fehlerseite.php?err=500&msg=Internal Server Error");
             } else {
                 $logger->info("restaurant successfully deleted");
             }
@@ -234,6 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                                             if ($mysqli->error) {
                                                 $logger->error($mysqli->error);
+                                                header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                                             } else {
                                                 $logger->info("order selected");
                                             }
@@ -279,6 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                                 if ($mysqli->error) {
                                     $logger->error($mysqli->error);
+                                    header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                                 } else {
                                     $logger->info("food selected");
                                 }
@@ -323,9 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <ul>
                                 <li class='d-flex justify-content-between'>
                                     <p class="font-weight-bold mb-0">Thanks for choosing us!</p>
-                                    <form action="orders.php">
-                                        <button class="btn btn-warning btn-sm" type="submit">Go to orders</button>
-                                    </form>
+                                    <button class="btn btn-warning btn-sm" onclick="window.location.href= './orders.php'">Go to orders</button>
                                 </li>
                             </ul>
                         </div>

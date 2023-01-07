@@ -1,14 +1,17 @@
 <?php
-include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
+include_once __DIR__ . '/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
 //Set the session timeout
 $timeout = 900;
 
 //Set the maxlifetime of the session
-ini_set( "session.gc_maxlifetime", $timeout );
+ini_set("session.gc_maxlifetime", $timeout);
 
 //Set the cookie lifetime of the session
-ini_set( "session.cookie_lifetime", $timeout );
+ini_set("session.cookie_lifetime", $timeout);
+
+//Set cookie to http only
+ini_set( 'session.cookie_httponly', 1 );
 
 // Sessionhandling starten
 session_start();
@@ -18,8 +21,9 @@ include("./vendor/autoload.php");
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 $logger = new Logger('my_logger');
-$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
+$logger->pushHandler(new StreamHandler(dirname(__FILE__) . '/logs/log.txt', Logger::INFO));
 //
 if (isset($_GET["err"])) {
     $err = htmlspecialchars(trim($_GET["err"]));
@@ -53,6 +57,7 @@ $stmt->execute();
 
 if ($mysqli->error) {
     $logger->error($mysqli->error);
+    header("location: fehlerseite.php?err=500&msg=Internal Server Error");
 } else {
     $logger->info("restaurants selected");
 }
@@ -145,6 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         if ($mysqli->error) {
                                             $logger->error($mysqli->error);
+                                            header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                                         } else {
                                             $logger->info("restaurants selected");
                                         }
@@ -160,14 +166,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             } else {
                                                 echo "<script>
                                                 window.onload = function() {
-                                                    window.location.href = 'index.php';
+                                                    window.location.href = 'http://localhost/foodie/index.php';
                                                 }
                                                  </script>";
                                             }
                                         } else {
-                                            echo "<strong style='color: #9C3848;'>Oops...</strong> Restaurant not found!";
-                                            echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
-                                            die();
+                                            header("location: fehlerseite.php?err=404&msg=Restaurant Not Found");
                                         }
                                         ?></h1>
                 <p class="lead text-dark"><?php
@@ -231,6 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($mysqli->error) {
                     $logger->error($mysqli->error);
+                    header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                 } else {
                     $logger->info("restaurant and food selected");
                 }

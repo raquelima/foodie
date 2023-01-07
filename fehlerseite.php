@@ -10,6 +10,9 @@ ini_set("session.gc_maxlifetime", $timeout);
 //Set the cookie lifetime of the session
 ini_set("session.cookie_lifetime", $timeout);
 
+//Set cookie to http only
+ini_set( 'session.cookie_httponly', 1 );
+
 // Sessionhandling starten
 session_start();
 
@@ -64,8 +67,12 @@ $logger->pushHandler(new StreamHandler(dirname(__FILE__) . '/logs/log.txt', Logg
                 <svg class="bi me-2" width="200" height="200" role="img" aria-label="Foodie">
                     <image href='images/browser.png' height='100%' width='100%' />
                 </svg>
-                <h3>400</h3>
-                <h1>Ups, something went wrong</h1>
+                <h3><?php echo htmlspecialchars($_GET['err']) ?></h3>
+                <h1><?php if (isset($_GET['msg'])) {
+                        echo htmlspecialchars($_GET['msg']);
+                    } else {
+                        echo 'Ups, something went wrong';
+                    } ?></h1>
             </div>
         </div>
     </div>

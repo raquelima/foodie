@@ -64,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($mysqli->error) {
                 $logger->error($mysqli->error);
+                header("location: fehlerseite.php?err=500&msg=Internal Server Error");
+
             } else {
                 $logger->info("food added");
             }

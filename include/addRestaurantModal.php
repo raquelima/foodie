@@ -1,14 +1,21 @@
 <?php
 
 // Sessionhandling starten falls noch keine vorhanden ist
-if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    //Set the session timeout
+    $timeout = 900;
 
-if (!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']) {
-    echo '<script>
-    window.onload = function() {
-      location.replace("../index.php");
-    }
-    </script>';
+    //Set the maxlifetime of the session
+    ini_set("session.gc_maxlifetime", $timeout);
+
+    //Set the cookie lifetime of the session
+    ini_set("session.cookie_lifetime", $timeout);
+
+    //Set cookie to http only
+    ini_set('session.cookie_httponly', 1);
+
+    // Sessionhandling starten
+    session_start();
 }
 
 $error = '';
@@ -94,6 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // Query ausführen
         if (!$stmt->execute()) {
             $error .= 'execute() failed ' . $mysqli->error . '<br />';
+            $logger->error($mysqli->error);
+            header("location: fehlerseite.php?err=500&msg=Internal Server Error");
         }
     } else {
         $logger->error($error);

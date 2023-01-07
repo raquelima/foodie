@@ -13,7 +13,7 @@ return array(
         "GET" => 2,
         "POST" => 2
     ),
-    "errorRedirectionPage" => "http://localhost/foodie/fehlerseite.php",
+    "errorRedirectionPage" => "http://localhost/foodie/fehlerseite.php?err=403",
     "customErrorMessage" => "",
     "jsUrl" => "http://localhost/foodie/vendor/owasp/csrf-protector-php/js/csrfprotector.js",
     "tokenLength" => 10,

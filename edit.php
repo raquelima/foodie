@@ -107,6 +107,8 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
 
         if ($mysqli->error) {
             $logger->error($mysqli->error);
+            header("location: fehlerseite.php?err=500&msg=Internal Server Error");
+
         } else {
             $logger->info("restaurant successfully edited");
         }

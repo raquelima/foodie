@@ -42,6 +42,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
 
                 if ($mysqli->error) {
                   $logger->error($mysqli->error);
+                  header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                 } else {
                   $logger->info("food selected");
                 }
@@ -54,8 +55,8 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
                     <td class='w-25'>
                       <img src='https://ais.kochbar.de/vms/5ced0e371d90da128862f2c2/24-05xcp0/1200x900/3285/burger.jpg' class='img-fluid img-thumbnail' alt='Image not found'>
                     </td>
-                    <td>" , htmlspecialchars($food['foodName']) ,"</td>
-                    <td>" , htmlspecialchars($price) , "CHF</td>
+                    <td>", htmlspecialchars($food['foodName']), "</td>
+                    <td>", htmlspecialchars($price), "CHF</td>
                     <td>
                     <form action='#' method='POST'>
                     <button type='submit' class='btn btn-danger' name='removedFood' value='{$food['foodID']}'><i class='fa fa-times'></i></button>
@@ -87,6 +88,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
 
                                                           if ($mysqli->error) {
                                                             $logger->error($mysqli->error);
+                                                            header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                                                           } else {
                                                             $logger->info("food selected");
                                                           }
@@ -119,13 +121,14 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
 
                                                           if ($mysqli->error) {
                                                             $logger->error($mysqli->error);
+                                                            header("location: fehlerseite.php?err=500&msg=Internal Server Error");
                                                           } else {
                                                             $logger->info("food selected");
                                                           }
 
                                                           $result = $stmt->get_result();
                                                           foreach ($result as $food) {
-                                                              $foodId = htmlspecialchars($food['foodID']);
+                                                            $foodId = htmlspecialchars($food['foodID']);
                                                             $ids .= "{$foodId} ";
                                                           }
                                                         }
@@ -139,16 +142,16 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
     </div>
   </div>
   <script>
-  window.onload = function() {
-    document.getElementById("checkout").disabled = <?php 
-        if($count == 0){
-          echo "true";
-        }elseif($count > 0){
-          echo "false";
-        }else{
-          echo "true";
-        }
-      ?>;
-  }
-</script>";
+    window.onload = function() {
+      document.getElementById("checkout").disabled = <?php
+                                                      if ($count == 0) {
+                                                        echo "true";
+                                                      } elseif ($count > 0) {
+                                                        echo "false";
+                                                      } else {
+                                                        echo "true";
+                                                      }
+                                                      ?>;
+    }
+  </script>";
 </div>
