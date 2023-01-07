@@ -14,6 +14,8 @@ ini_set( "session.cookie_lifetime", $timeout );
 session_start();
 
 csrfProtector::init();
+print_r($_SESSION);
+print_r($_COOKIE);
 
 //
 if (isset($_GET["err"])) {
@@ -35,6 +37,7 @@ if (isset($_GET["id"])) {
 if (!isset($_SESSION['products'])) {
     $_SESSION['products'] = array();
 }
+
 
 // Datenbankverbindung
 include('include/dbconnector.inc.php');
@@ -67,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $products[$key] = $value;
         }
+        break;
     }
     $_SESSION['products'] = $products;
 }
@@ -224,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (!empty($products) && array_key_exists(preg_replace('/\s+/', '_', $value["foodID"]), $products)) {
                             $button = "<button type='submit' class='btn btn-success' name='{$foodID}' value='{$foodName}'>Remove from Cart</button>";
                         } else {
-                            $button = "<button type='submit' class='btn btn-warning' name='{$foodID}' value='{$$value['foodName']}'>Add to shoppingcart</button>";
+                            $button = "<button type='submit' class='btn btn-warning' name='{$foodID}' value='{$foodName}'>Add to shoppingcart</button>";
                         }
                         echo '
                     <div class="col-md-12">
@@ -249,7 +253,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </form>';
                         }
                         echo '
-                                <form style="float: right; display: inline" action="" method="POST">
+                                <form style="float: right; display: inline" action="#" method="POST">
                                  ', $button, '
                                 </form>
 
