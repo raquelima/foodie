@@ -16,52 +16,65 @@ $restaurantName = $website = $description = $address = $from = $until = '';
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (isset($_POST['restaurantName'])) {
+        //trim and sanitize
         $restaurantName = trim(htmlspecialchars($_POST['restaurantName']));
-        if (empty($restaurantName) || strlen($restaurantName) > 60) {
+
+        if (empty($restaurantName) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,60}/", $restaurantName)) {
             $error .= " Invalid Restaurant Name";
         }
     } else {
         $error .= " Invalid Restaurant Name";
     }
     if (isset($_POST['website'])) {
+        //trim and sanitize
         $website = trim(htmlspecialchars($_POST['website']));
-        if (empty($website) || strlen($website) > 256) {
-            $error .= " Invalid website";
+
+        //gültige URL
+        if (empty($website) || filter_var($website, FILTER_VALIDATE_URL) === false) {
+            $error .= "Please enter a valid website.<br />";
         }
     } else {
         $error .= " Invalid website";
     }
     if (isset($_POST['description'])) {
+        //trim and sanitize
         $description = trim(htmlspecialchars($_POST['description']));
-        if (empty($description) || strlen($description) > 40) {
+
+        if (empty($description) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,130}/", $description)) {
             $error .= " Invalid description";
         }
     } else {
         $error .= " Invalid description ";
     }
     if (isset($_POST['address'])) {
+        //trim and sanitize
         $address = trim(htmlspecialchars($_POST['address']));
-        if (empty($address) || strlen($address) > 256) {
+
+        if (empty($address) || !preg_match("/[a-zA-Z]+\\s[0-9]+,\\s[0-9]{4,6}/i", $address)) {
             $error .= " Invalid address";
         }
     } else {
         $error .= " Invalid address";
     }
     if (isset($_POST['from'])) {
+        //trim and sanitize
         $from = trim(htmlspecialchars($_POST['from']));
-        if (empty($from) || !is_numeric($from)) {
-            $error .= " Invalid from";
+
+        if (empty($from) || !is_numeric($from) || $from < 0) {
+            $error .= " Invalid delivery duration.";
         }
     } else {
-        $error .= " Invalid from";
+        $error .= " Invalid delivery duration.";
     }
     if (isset($_POST['until'])) {
+        //trim and sanitize
         $until = trim(htmlspecialchars($_POST['until']));
-        if (empty($until) || !is_numeric($until)) {
-            $error .= " Invalid until";
+
+        if (empty($until) || !is_numeric($until) || $until < 0) {
+            $error .= "Invalid delivery duration. ";
         }
     } else {
-        $error .= " Invalid until";
+        $error .= "Invalid delivery duration";
     }
 
     if (empty($error)) {
@@ -105,19 +118,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 ?>
                 <form class="row" action="#" method="POST" id="addRestaurantForm">
                     <div class="form-floating col-md-6 mb-3">
-                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" placeholder="Restaurant Name" maxlength="60" required>
+                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" pattern='[A-Za-z]{3,60}' placeholder="Restaurant Name" maxlength="60" required>
                         <label class="px-4" for="restaurantName">Restaurant Name</label>
                     </div>
                     <div class="form-floating col-md-6 mb-3">
-                        <input type="text" name="website" class="form-control rounded-4" id="website" placeholder="Website (https://www.myRestaurant.com)" maxlength="256" required>
+                        <input type="text" name="website" class="form-control rounded-4" id="website" pattern='(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})' title='Example: https://www.myRestaurant.com' placeholder="Website (https://www.myRestaurant.com)" required>
                         <label class="px-4">Website</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea name="description" style="height: 300px;" class="form-control rounded-4" id="description" placeholder="Description" maxlength="40" cols="30" rows="10" required></textarea>
+                        <input name="description" class="form-control rounded-4" id="description" pattern='[A-Za-z]{3,130}' placeholder="Description" maxlength="130" required>
                         <label class="px-4" for="description">Description</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" name="address" class="form-control rounded-4" id="address" placeholder="Address" maxlength="256" required>
+                        <input type="text" name="address" class="form-control rounded-4" id="address" pattern='[a-zA-Z]+\s[0-9]+,\s[0-9]{4,6}' placeholder="Address" title='Example: Centralbahnstrasse 9, 4053' maxlength="256" required>
                         <label class="px-4">Address</label>
                     </div>
                     <div class="form-floating col-md-3 mb-3">

@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $foodName = htmlspecialchars(trim($_POST['foodName']));
 
             // Prüfung username
-            if (empty($foodName) || strlen($foodName) > 60) {
+            if (empty($foodName) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,60}/", $foodName)) {
                 $error .= "Invalid food name. ";
             }
         } else {
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $foodDescription = htmlspecialchars(trim($_POST['foodDescription']));
 
             // Prüfung username
-            if (empty($foodDescription) || strlen($foodDescription) > 512) {
+            if (empty($foodDescription) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,512}/", $foodDescription)) {
                 $error .= "Invalid food description. ";
             }
         } else {

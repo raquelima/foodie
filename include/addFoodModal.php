@@ -23,11 +23,11 @@ if (!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']) {
                 <form action="addFood.php" method="POST" id="addFoodForm">
                     
                     <div class="form-floating mb-3">
-                        <input type="text" name="foodName" class="form-control rounded-4" maxlength="60" required>
+                        <input type="text" name="foodName" pattern="[A-Za-z]{3,60}" class="form-control rounded-4" maxlength="60" required>
                         <label>Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea name="foodDescription" style="height: 300px;" class="form-control rounded-4"  maxlength="512" required cols="30" rows="10"></textarea>
+                        <input name="foodDescription" pattern="[A-Za-z]{3,512}" class="form-control rounded-4" maxlength="512"></input>
                         <label>Description</label>
                     </div>
                     <div class="form-floating mb-3">

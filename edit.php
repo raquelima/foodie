@@ -12,7 +12,7 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
         $restaurantName = htmlspecialchars(trim($_POST['restaurantName']));
 
         // Prüfung username
-        if (empty($restaurantName) || strlen($restaurantName) > 60) {
+        if (empty($restaurantName) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,60}/", $restaurantName)) {
             $editError .= "Invalid restaurant name. ";
         }
     } else {
@@ -23,7 +23,7 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
         $description = htmlspecialchars(trim($_POST['description']));
 
         // Prüfung username
-        if (empty($description) || strlen($description) > 40) {
+        if (empty($description) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,130}/", $description)) {
             $editError .= "Invalid restaurant description. ";
         }
     } else {
@@ -34,7 +34,7 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
         $address = htmlspecialchars(trim($_POST['address']));
 
         // Prüfung username
-        if (empty($address) || strlen($address) > 256) {
+        if (empty($address) || !preg_match("/[a-zA-Z]+\\s[0-9]+,\\s[0-9]{4,6}/i", $address)) {
             $editError .= "Invalid address. ";
         }
     } else {
@@ -44,9 +44,9 @@ if (isset($_POST['editedRestaurant']) && is_numeric($_POST['editedRestaurant']))
         //trim and sanitize
         $website = htmlspecialchars(trim($_POST['website']));
 
-        // Prüfung username
-        if (empty($website) || strlen($website) > 256) {
-            $editError .= "Invalid website. = {$website} ";
+        //gültige URL
+        if (empty($website) || filter_var($website, FILTER_VALIDATE_URL) === false) {
+            $error .= "Please enter a valid website.<br />";
         }
     } else {
         $editError .= "Invalid website";
