@@ -31,10 +31,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 30 Zeichen lang
             if (empty($firstname) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,30}/", $firstname)) {
-                $error .= "Please enter a valid first name.<br />";
+                $error .= "Please enter a valid first name. ";
             }
         } else {
-            $error .= "Please enter a first name.<br />";
+            $error .= "Please enter a first name. ";
         }
 
         // Nachname ausgefüllt?
@@ -44,10 +44,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 30 Zeichen lang
             if (empty($lastname) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,30}/", $lastname)) {
-                $error .= "Please enter a valid last name.<br />";
+                $error .= "Please enter a valid last name. ";
             }
         } else {
-            $error .= "Please enter a last name.<br />";
+            $error .= "Please enter a last name. ";
         }
 
         // Email ausgefüllt?
@@ -57,10 +57,10 @@ if ($row = $result->fetch_assoc()) {
 
             //gültige Emailadresse
             if (empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-                $error .= "Please enter a valid email name.<br />";
+                $error .= "Please enter a valid email name. ";
             }
         } else {
-            $error .= "Please enter an email.<br />";
+            $error .= "Please enter an email. ";
         }
 
         // Username ausgefüllt?
@@ -70,10 +70,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen , entsprich RegEX
             if (empty($username) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,30}/", $username)) {
-                $error .= "Please enter a valid username.<br />";
+                $error .= "Please enter a valid username. ";
             }
         } else {
-            $error .= "Please enter a username.<br />";
+            $error .= "Please enter a username. ";
         }
 
 
@@ -83,14 +83,14 @@ if ($row = $result->fetch_assoc()) {
             $password = htmlspecialchars(trim($_POST['password']));
             if (password_verify($password, $row['password'])) {
             } else {
-                $error .= "Please enter the correct password.<br />";
+                $error .= "Please enter the correct password. ";
             }
             //entspricht RegEX
             if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
-                $error .= "Please enter a valid password. <br />";
+                $error .= "Please enter a valid password.  ";
             }
         } else {
-            $error .= "Please enter a password.<br />";
+            $error .= "Please enter a password. ";
         }
 
         // Neues Passwort 
@@ -102,7 +102,7 @@ if ($row = $result->fetch_assoc()) {
 
         //mindestens 1 Zeichen , entsprich RegEX
         if (!empty($newPassword) && !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $newPassword)) {
-            $error .= "Please enter a NEW valid password.<br />";
+            $error .= "Please enter a NEW valid password. ";
         }
 
         // street ausgefüllt
@@ -112,10 +112,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($street) || !preg_match("/[a-zA-Z]+\\s[0-9]+/i", $street)) {
-                $error .= "Please enter a valid street.<br />";
+                $error .= "Please enter a valid street. ";
             }
         } else {
-            $error .= "Please enter a street.<br />";
+            $error .= "Please enter a street. ";
         }
 
         // city ausgefüllt
@@ -125,10 +125,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($city) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,30}/", $city)) {
-                $error .= "Please enter a valid city.<br />";
+                $error .= "Please enter a valid city. ";
             }
         } else {
-            $error .= "Please enter a city.<br />";
+            $error .= "Please enter a city. ";
         }
 
         // state ausgefüllt
@@ -138,10 +138,10 @@ if ($row = $result->fetch_assoc()) {
 
             //mindestens 1 Zeichen und maximal 100 Zeichen lang
             if (empty($state) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{3,30}/", $state)) {
-                $error .= "Please enter a valid state.<br />";
+                $error .= "Please enter a valid state. ";
             }
         } else {
-            $error .= "Please enter a state.<br />";
+            $error .= "Please enter a state. ";
         }
 
         // zip ausgefüllt
@@ -151,10 +151,10 @@ if ($row = $result->fetch_assoc()) {
 
             //maximal 4 Zeichen lang
             if (empty($zip) || !preg_match("/[0-9]{4,6}/i", $zip)) {
-                $error .= "Please enter a valid zip. <br />";
+                $error .= "Please enter a valid zip.  ";
             }
         } else {
-            $error .= "Please enter a zip.<br />";
+            $error .= "Please enter a zip. ";
         }
 
         foreach ($result as $value) {
@@ -173,17 +173,17 @@ if ($row = $result->fetch_assoc()) {
                 // Query vorbereiten
                 $stmt = $mysqli->prepare($query);
                 if ($stmt === false) {
-                    $error .= 'prepare() failed ' . $mysqli->error . '<br />';
+                    $error .= 'prepare() failed ' . $mysqli->error . ' ';
                 }
 
                 // Parameter an Query binden
                 if (!$stmt->bind_param('sssssssss', $firstname, $lastname, $username, $password_hash, $email, $street, $city, $state, $zip)) {
-                    $error .= 'bind_param() failed ' . $mysqli->error . '<br />';
+                    $error .= 'bind_param() failed ' . $mysqli->error . ' ';
                 }
 
                 // Query ausführen
                 if (!$stmt->execute()) {
-                    $error .= 'execute() failed ' . $mysqli->error . '<br />';
+                    $error .= 'execute() failed ' . $mysqli->error . ' ';
                 }
 
                 // kein Fehler!
@@ -233,9 +233,9 @@ if ($row = $result->fetch_assoc()) {
         <?php
         // fehlermeldung oder nachricht ausgeben
         if (!empty($message)) {
-            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
+            echo "<div class=\"alert alert-success\" role=\"alert\">" . htmlspecialchars($message) . "</div>";
         } else if (!empty($error)) {
-            echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+            echo "<div class=\"alert alert-danger\" role=\"alert\">" . htmlspecialchars($error) . "</div>";
         }
         ?>
 
@@ -265,14 +265,14 @@ if ($row = $result->fetch_assoc()) {
             $result = $stmt->get_result();
 
             foreach ($result as $value) {
-                $firstname = $value['firstname'];
-                $lastname = $value['lastname'];
-                $email = $value['email'];
-                $username = $value['username'];
-                $street = $value['street'];
-                $city = $value['city'];
-                $state = $value['state'];
-                $zip = $value['zip'];
+                $firstname = htmlspecialchars($value['firstname']);
+                $lastname = htmlspecialchars($value['lastname']);
+                $email = htmlspecialchars($value['email']);
+                $username = htmlspecialchars($value['username']);
+                $street = htmlspecialchars($value['street']);
+                $city = htmlspecialchars($value['city']);
+                $state = htmlspecialchars($value['state']);
+                $zip = htmlspecialchars($value['zip']);
 
                 echo "<div class='col-lg-3 col-md-4 col-sm-4'>
                 <div class='main-box clearfix'>
