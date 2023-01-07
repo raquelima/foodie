@@ -44,6 +44,7 @@ error_reporting(0);
                         $name = $value["name"];
                         $website = $value["website"];
                         $description = $value["description"];
+                        $place = $value["place"];
                         $deliveryfrom = $value["delivery-from"];
                         $deliveryuntil = $value["delivery-until"];
 
