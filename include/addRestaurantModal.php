@@ -111,9 +111,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <?php
                 // fehlermeldung oder nachricht ausgeben
                 if (!empty($message)) {
-                    echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
+                    echo "<div class=\"alert alert-success\" role=\"alert\">" . htmlspecialchars($message) . "</div>";
                 } else if (!empty($error)) {
-                    echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+                    echo "<div class=\"alert alert-danger\" role=\"alert\">" . htmlspecialchars($error) . "</div>";
                 }
                 ?>
                 <form class="row" action="#" method="POST" id="addRestaurantForm">

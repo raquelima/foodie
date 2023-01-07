@@ -10,7 +10,7 @@ if (!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']) {
     }
     </script>';
 }
-error_reporting(0);
+//error_reporting(0);
 
 
 ?>

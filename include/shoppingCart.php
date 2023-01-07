@@ -49,8 +49,8 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
                     <td class='w-25'>
                       <img src='https://ais.kochbar.de/vms/5ced0e371d90da128862f2c2/24-05xcp0/1200x900/3285/burger.jpg' class='img-fluid img-thumbnail' alt='Image not found'>
                     </td>
-                    <td>{$food['foodName']}</td>
-                    <td>{$price} CHF</td>
+                    <td>" , htmlspecialchars($food['foodName']) ,"</td>
+                    <td>" , htmlspecialchars($price) , "CHF</td>
                     <td>
                     <form action='#' method='POST'>
                     <button type='submit' class='btn btn-danger' name='removedFood' value='{$food['foodID']}'><i class='fa fa-times'></i></button>
@@ -86,7 +86,7 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
                                                           }
                                                         }
                                                       }
-                                                      echo number_format((float)$price, 2, '.', '');
+                                                      echo number_format((float)htmlspecialchars($price), 2, '.', '');
                                                       ?> CHF</span></h5>
         </div>
       </div>
@@ -108,7 +108,8 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
 
                                                           $result = $stmt->get_result();
                                                           foreach ($result as $food) {
-                                                            $ids .= "{$food['foodID']} ";
+                                                              $foodId = htmlspecialchars($food['foodID']);
+                                                            $ids .= "{$foodId} ";
                                                           }
                                                         }
                                                       }

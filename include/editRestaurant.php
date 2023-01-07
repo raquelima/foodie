@@ -41,30 +41,36 @@ error_reporting(0);
                     $result = $stmt->get_result();
                     foreach ($result as $value) {
 
+                        $name = $value["name"];
+                        $website = $value["website"];
+                        $description = $value["description"];
+                        $deliveryfrom = $value["delivery-from"];
+                        $deliveryuntil = $value["delivery-until"];
+
                         echo "
                         <form class='row' method='POST' action='edit.php'>
                             <div class='form-floating col-md-6 mb-3'>
-                                <input type='text' name='restaurantName' class='form-control rounded-4' value='{$value["name"]}' pattern='[A-Z a-z]{3,60}' placeholder='Restaurant Name' maxlength='60' required>
+                                <input type='text' name='restaurantName' class='form-control rounded-4' value='{$name}' pattern='[A-Z a-z]{3,60}' placeholder='Restaurant Name' maxlength='60' required>
                                 <label class='px-4'>Restaurant Name</label>
                             </div>
                             <div class='form-floating col-md-6 mb-3'>
-                                <input type='text' name='website' class='form-control rounded-4' value='{$value["website"]}' pattern='(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})' title='Example: https://www.myRestaurant.com' placeholder='Website (https://www.myRestaurant.com)' required>
+                                <input type='text' name='website' class='form-control rounded-4' value='{$website}' pattern='(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})' title='Example: https://www.myRestaurant.com' placeholder='Website (https://www.myRestaurant.com)' required>
                                 <label class='px-4'>Website</label>
                             </div>
                             <div class='form-floating mb-3'>
-                                <input name='description' class='form-control rounded-4' value='{$value["description"]}' pattern='[A-Z a-z]{3,130}' placeholder='Description' required>
+                                <input name='description' class='form-control rounded-4' value='{$description}' pattern='[A-Z a-z]{3,130}' placeholder='Description' required>
                                 <label class='px-4'>Description</label>
                             </div>
                             <div class='form-floating mb-3'>
-                                <input type='text' name='address' class='form-control rounded-4' value='{$value["place"]}' pattern='[a-z A-Z]+\s[0-9]+,\s[0-9]{4,6}' title='Example: Centralbahnstrasse 9, 4053' maxlength='256' placeholder='Address' required>
+                                <input type='text' name='address' class='form-control rounded-4' value='{$place}' pattern='[a-z A-Z]+\s[0-9]+,\s[0-9]{4,6}' title='Example: Centralbahnstrasse 9, 4053' maxlength='256' placeholder='Address' required>
                                 <label class='px-4'>Address</label>
                             </div>
                             <div class='form-floating col-md-3 mb-3'>
-                                <input type='number' name='deliveryFrom' class='form-control rounded-4' value='{$value["delivery-from"]}' placeholder='From' min='0' max='500' required>
+                                <input type='number' name='deliveryFrom' class='form-control rounded-4' value='{$deliveryfrom}' placeholder='From' min='0' max='500' required>
                                 <label class='px-4'>Delivery From</label>
                             </div>
                             <div class='form-floating col-md-3 mb-3'>
-                                <input type='number' name='deliveryUntil' class='form-control rounded-4' value='{$value["delivery-until"]}' placeholder='Until' min='0' max='500' required>
+                                <input type='number' name='deliveryUntil' class='form-control rounded-4' value='{$deliveryuntil}' placeholder='Until' min='0' max='500' required>
                                 <label class='px-4'>Delivery Until</label>
                             </div>
                             <div class='form-floating col-md-6' style='text-align: right;'>
