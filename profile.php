@@ -359,19 +359,19 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group'>
                                 <label for='street'>Street</label>
-                                <input type='text' class='form-control' name='street' id='street' value='{$street}' pattern='[a-zA-Z]+\s[0-9]+' placeholder='Enter Street' minlength='3' maxlength='255' disabled>
+                                <input type='text' class='form-control' name='street' id='street' value='{$street}' pattern='[a-z A-Z]+\s[0-9]+' placeholder='Enter Street' minlength='3' maxlength='255' disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group'>
                                 <label for='city'>City</label>
-                                <input type='text' class='form-control' name='city' id='city' value='{$city}' pattern='[A-Za-z]{3,30}' placeholder='Enter City' maxlength='30' disabled>
+                                <input type='text' class='form-control' name='city' id='city' value='{$city}' pattern='[A-Z a-z]{3,30}' placeholder='Enter City' maxlength='30' disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='state'>State</label>
-                                <input type='text' class='form-control' name='state' id='state' value='{$state}' pattern='[A-Za-z]{3,30}' placeholder='Enter State' maxlength='30' disabled>
+                                <input type='text' class='form-control' name='state' id='state' value='{$state}' pattern='[A-Z a-z]{3,30}' placeholder='Enter State' maxlength='30' disabled>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>

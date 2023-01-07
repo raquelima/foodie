@@ -130,7 +130,7 @@ include('include/dbconnector.inc.php');
                             echo "<div class='row g-3'>
                             <div class='col-sm-6'>
                                 <label class='form-label'>First name</label>
-                                <input type='text' class='form-control' name='firstname' value='{$firstname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required>
+                                <input type='text' class='form-control' name='firstname' value='{$firstname}' pattern='[A-Z a-z]{2,30}' placeholder='' maxlength='30' required>
                                 <div class='invalid-feedback'>
                                     Valid first name is required.
                                 </div>
@@ -138,7 +138,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-sm-6'>
                                 <label class='form-label'>Last name</label>
-                                <input type='text' class='form-control' name='lastname' value='{$lastname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required>
+                                <input type='text' class='form-control' name='lastname' value='{$lastname}' pattern='[A-Z a-z]{2,30}' placeholder='' maxlength='30' required>
                                 <div class='invalid-feedback'>
                                     Valid last name is required.
                                 </div>
@@ -146,7 +146,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-12'>
                                 <label class='form-label'>Street</label>
-                                <input type='text' class='form-control' name='street' placeholder='' value='{$street}' pattern='[a-zA-Z]+\s[0-9]+' maxlength='255' required>
+                                <input type='text' class='form-control' name='street' placeholder='' value='{$street}' pattern='[a-z A-Z]+\s[0-9]+' maxlength='255' required>
                                 <div class='invalid-feedback'>
                                     Please enter your shipping address.
                                 </div>
@@ -154,7 +154,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-md-4'>
                                 <label class='form-label'>State</label>
-                                <input type='text' class='form-control' name='state' placeholder='' value='{$state}'pattern='[A-Za-z]{3,30}'  maxlength='30' required>
+                                <input type='text' class='form-control' name='state' placeholder='' value='{$state}'pattern='[A-Z a-z]{3,30}'  maxlength='30' required>
                                 <div class='invalid-feedback'>
                                     State required.
                                 </div>
@@ -162,7 +162,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-md-4'>
                                 <label class='form-label'>City</label>
-                                <input type='text' class='form-control' name='city' placeholder='' value='{$city}' pattern='[A-Za-z]{3,30}' maxlength='30' required>
+                                <input type='text' class='form-control' name='city' placeholder='' value='{$city}' pattern='[A-Z a-z]{3,30}' maxlength='30' required>
                                 <div class='invalid-feedback'>
                                     City required.
                                 </div>

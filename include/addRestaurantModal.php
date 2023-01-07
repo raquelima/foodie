@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 ?>
                 <form class="row" action="#" method="POST" id="addRestaurantForm">
                     <div class="form-floating col-md-6 mb-3">
-                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" pattern='[A-Za-z]{3,60}' placeholder="Restaurant Name" maxlength="60" required>
+                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" pattern='[A-Z a-z]{3,60}' placeholder="Restaurant Name" maxlength="60" required>
                         <label class="px-4" for="restaurantName">Restaurant Name</label>
                     </div>
                     <div class="form-floating col-md-6 mb-3">
@@ -126,11 +126,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <label class="px-4">Website</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="description" class="form-control rounded-4" id="description" pattern='[A-Za-z]{3,130}' placeholder="Description" maxlength="130" required>
+                        <input name="description" class="form-control rounded-4" id="description" pattern='[A-Z a-z]{3,130}' placeholder="Description" maxlength="130" required>
                         <label class="px-4" for="description">Description</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" name="address" class="form-control rounded-4" id="address" pattern='[a-zA-Z]+\s[0-9]+,\s[0-9]{4,6}' placeholder="Address" title='Example: Centralbahnstrasse 9, 4053' maxlength="256" required>
+                        <input type="text" name="address" class="form-control rounded-4" id="address" pattern='[a-z A-Z]+\s[0-9]+,\s[0-9]{4,6}' placeholder="Address" title='Example: Centralbahnstrasse 9, 4053' maxlength="256" required>
                         <label class="px-4">Address</label>
                     </div>
                     <div class="form-floating col-md-3 mb-3">
