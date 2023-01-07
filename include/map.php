@@ -12,7 +12,7 @@
 
         <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
           <?php
-          error_reporting(0);
+//          error_reporting(0);
           echo "<iframe id='map' src='https://maps.google.com/maps?q={$test}&t=&z=13&ie=UTF8&iwloc=&output=embed'
             style='border:0' allowfullscreen></iframe>"
           ?>

@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_GET["id"]) && $restaurantExists) {
                 foreach ($result as $value) {
                     if ($value["id"] == $_GET["id"]) {
-                        echo "Foodie | ", $value["name"];
+                        echo "Foodie | ", htmlspecialchars($value["name"]);
                     }
                 }
             } else {
@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
                                                 foreach ($result as $value) {
                                                     if ($value["id"] == $_GET["id"]) {
-                                                        echo $value["name"];
+                                                        echo htmlspecialchars($value["name"]);
                                                     }
                                                 }
                                             } else {
@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                                 foreach ($result as $value) {
                                                     if ($value["id"] == $_GET["id"]) {
-                                                        echo $value["description"];
+                                                        echo htmlspecialchars($value["description"]);
                                                     }
                                                 }
                                             }
@@ -157,8 +157,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($_GET["id"]) && $restaurantExists) {
                         foreach ($result as $value) {
                             if ($value["id"] == $_GET["id"]) {
-                                $website = $value["website"];
-                                $address = $value["place"];
+                                $website = htmlspecialchars($value["website"]);
+                                $address = htmlspecialchars($value["place"]);
                             }
                         }
                     }
@@ -204,11 +204,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
                         $products = $_SESSION["products"];
                         $button = "";
-                        $removeBtn = "<button type='submit' class='btn btn-danger ml-2' name='deleteFood' value='{$value['foodID']}'>Remove Food</button>";
+                        $foodID = htmlspecialchars($value['foodID']);
+                        $foodName = htmlspecialchars($value['foodName']);
+                        $foodDescription = htmlspecialchars($value['foodDescription']);
+                        $price = htmlspecialchars($value['price']);
+                        $removeBtn = "<button type='submit' class='btn btn-danger ml-2' name='deleteFood' value='{$foodID}'>Remove Food</button>";
                         if (!empty($products) && array_key_exists(preg_replace('/\s+/', '_', $value["foodID"]), $products)) {
-                            $button = "<button type='submit' class='btn btn-success' name='{$value['foodID']}' value='{$value['foodName']}'>Remove from Cart</button>";
+                            $button = "<button type='submit' class='btn btn-success' name='{$foodID}' value='{$foodName}'>Remove from Cart</button>";
                         } else {
-                            $button = "<button type='submit' class='btn btn-warning' name='{$value['foodID']}' value='{$value['foodName']}'>Add to shoppingcart</button>";
+                            $button = "<button type='submit' class='btn btn-warning' name='{$foodID}' value='{$foodName}'>Add to shoppingcart</button>";
                         }
                         echo '
                     <div class="col-md-12">
@@ -221,10 +225,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             </div>
                             <div class="col p-4 d-flex flex-column position-static" >
-                                <h3 class="mb-3">', $value["foodName"], '</h3>
+                                <h3 class="mb-3">', $foodName, '</h3>
 
-                                <p class="card-text mb-auto">', $value["foodDescription"], '</p>
-                                <div class="mb-1 text-muted"  ><p style="display: inline; text-align: left;">', number_format((float)$value['price'], 2, '.', ''), ' CHF</p> 
+                                <p class="card-text mb-auto">', $foodDescription, '</p>
+                                <div class="mb-1 text-muted"  ><p style="display: inline; text-align: left;">', number_format((float)$price, 2, '.', ''), ' CHF</p> 
                                 ';
                         if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) {
                             echo '<form style="float: right; display: inline" action="removeFood.php" method="POST">
