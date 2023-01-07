@@ -14,8 +14,6 @@ ini_set( "session.cookie_lifetime", $timeout );
 session_start();
 
 csrfProtector::init();
-print_r($_SESSION);
-print_r($_COOKIE);
 
 //
 if (isset($_GET["err"])) {
