@@ -38,6 +38,12 @@ error_reporting(0);
 
                     $stmt->execute();
 
+                    if ($mysqli->error) {
+                        $logger->error($mysqli->error);
+                    } else {
+                        $logger->info("restaurant successfully edited");
+                    }
+
                     $result = $stmt->get_result();
                     foreach ($result as $value) {
 

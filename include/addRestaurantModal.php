@@ -95,6 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (!$stmt->execute()) {
             $error .= 'execute() failed ' . $mysqli->error . '<br />';
         }
+    } else {
+        $logger->error($error);
     }
 }
 

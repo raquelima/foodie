@@ -14,7 +14,12 @@ ini_set( "session.cookie_lifetime", $timeout );
 session_start();
 
 csrfProtector::init();
+include("./vendor/autoload.php");
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 //
 if (isset($_GET["err"])) {
     $err = htmlspecialchars(trim($_GET["err"]));
@@ -45,6 +50,12 @@ $query = "SELECT * FROM restaurants";
 $stmt = $mysqli->prepare($query);
 
 $stmt->execute();
+
+if ($mysqli->error) {
+    $logger->error($mysqli->error);
+} else {
+    $logger->info("restaurants selected");
+}
 
 $result = $stmt->get_result();
 
@@ -132,6 +143,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         $stmt->execute();
 
+                                        if ($mysqli->error) {
+                                            $logger->error($mysqli->error);
+                                        } else {
+                                            $logger->info("restaurants selected");
+                                        }
+
                                         $result = $stmt->get_result();
                                         if (isset($_GET["id"]) && $restaurantExists && is_numeric($_GET["id"])) {
                                             if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
@@ -211,6 +228,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt = $mysqli->prepare($query);
 
                 $stmt->execute();
+
+                if ($mysqli->error) {
+                    $logger->error($mysqli->error);
+                } else {
+                    $logger->info("restaurant and food selected");
+                }
 
                 $result = $stmt->get_result();
 

@@ -1,7 +1,11 @@
 <?php
 include_once __DIR__ .'/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 csrfProtector::init();
-
+include("./vendor/autoload.php");
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 
 include('include/dbconnector.inc.php');
 $error = '';
@@ -58,6 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt->execute();
 
+            if ($mysqli->error) {
+                $logger->error($mysqli->error);
+            } else {
+                $logger->info("food added");
+            }
+
             $stmt->close();
 
 
@@ -68,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </script>";
         }
         if (!empty($error)) {
+            $logger->error($error);
             echo "<script>
              window.onload = function() {
              window.location.href = 'http://localhost/foodie/restaurant.php?id={$restaurantID}&err=" . $error . "';

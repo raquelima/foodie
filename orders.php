@@ -21,6 +21,12 @@ if (empty($_SESSION) || !$_SESSION["loggedin"]) {
     </script>';
 }
 csrfProtector::init();
+include("./vendor/autoload.php");
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(dirname(__FILE__).'/logs/log.txt', Logger::INFO));
 
 //Datenbank verbinden
 include('include/dbconnector.inc.php');
@@ -61,6 +67,12 @@ include('include/dbconnector.inc.php');
                 $stmt = $mysqli->prepare($query);
 
                 $stmt->execute();
+
+                if ($mysqli->error) {
+                    $logger->error($mysqli->error);
+                } else {
+                    $logger->info("orders selected");
+                }
 
                 $result = $stmt->get_result();
                 $count = 0;

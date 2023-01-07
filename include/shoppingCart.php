@@ -8,7 +8,6 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
   }
    </script>";
 }
-
 ?>
 <div class="modal fade" id="modalShoppingCart" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -40,6 +39,12 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
                 $stmt = $mysqli->prepare($query);
 
                 $stmt->execute();
+
+                if ($mysqli->error) {
+                  $logger->error($mysqli->error);
+                } else {
+                  $logger->info("food selected");
+                }
 
                 $result = $stmt->get_result();
                 foreach ($result as $food) {
@@ -80,6 +85,12 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
 
                                                           $stmt->execute();
 
+                                                          if ($mysqli->error) {
+                                                            $logger->error($mysqli->error);
+                                                          } else {
+                                                            $logger->info("food selected");
+                                                          }
+
                                                           $result = $stmt->get_result();
                                                           foreach ($result as $food) {
                                                             $price += $food['price'];
@@ -105,6 +116,12 @@ if (isset($_POST['removedFood']) && array_key_exists($_POST['removedFood'], $_SE
                                                           $stmt = $mysqli->prepare($query);
 
                                                           $stmt->execute();
+
+                                                          if ($mysqli->error) {
+                                                            $logger->error($mysqli->error);
+                                                          } else {
+                                                            $logger->info("food selected");
+                                                          }
 
                                                           $result = $stmt->get_result();
                                                           foreach ($result as $food) {
