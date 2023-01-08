@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 ?>
                 <form class="row" action="#" method="POST" id="addRestaurantForm">
                     <div class="form-floating col-md-6 mb-3">
-                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" pattern='[A-Z a-z]{3,60}' placeholder="Restaurant Name" maxlength="60" required>
+                        <input type="text" name="restaurantName" class="form-control rounded-4" id="restaurantName" pattern='[A-Z a-z]{3,60}' placeholder="Restaurant Name" maxlength="60" required title="Restaurant name must contain at least one upper case letter and between 3 to 60 letters. Example: Restaurant">
                         <label class="px-4" for="restaurantName">Restaurant Name</label>
                     </div>
                     <div class="form-floating col-md-6 mb-3">
@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <label class="px-4">Website</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="description" class="form-control rounded-4" id="description" pattern='[A-Z a-z]{3,130}' placeholder="Description" maxlength="130" required>
+                        <input name="description" class="form-control rounded-4" id="description" pattern='[A-Z a-z]{3,130}' placeholder="Description" maxlength="130" required title="Description must contain at least one upper case letter and between 3 to 130 letters. Example: Description">
                         <label class="px-4" for="description">Description</label>
                     </div>
                     <div class="form-floating mb-3">
