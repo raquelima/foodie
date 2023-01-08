@@ -367,31 +367,31 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='firstname'>First Name</label>
-                                <input type='text' class='form-control' name='firstname' id='firstname' value='{$firstname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required disabled>
+                                <input type='text' class='form-control' name='firstname' id='firstname' value='{$firstname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required disabled title='Firstname name must contain at least one upper case letter and between 2 to 30 letters. Example: Elias'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='lastname'>Last Name</label>
-                                <input type='text' class='form-control' name='lastname' id='lastname' value='{$lastname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required disabled>
+                                <input type='text' class='form-control' name='lastname' id='lastname' value='{$lastname}' pattern='[A-Za-z]{2,30}' placeholder='' maxlength='30' required disabled title='Lastname name must contain at least one upper case letter and between 2 to 30 letters. Example: Mustermann'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='email'>Email</label>
-                                <input type='text' class='form-control' name='email' id='email' value='{$email}' placeholder='' maxlength='100' required disabled>
+                                <input type='text' class='form-control' name='email' id='email' value='{$email}' placeholder='' maxlength='100' required disabled title='Format: my@email.com'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='username'>Username</label>
-                                <input type='text' class='form-control' name='username' id='username' value='{$username}' pattern='[A-Za-z]{6,30}' placeholder='' maxlength='30' required disabled>
+                                <input type='text' class='form-control' name='username' id='username' value='{$username}' pattern='[A-Za-z]{6,30}' placeholder='' maxlength='30' required disabled title='Username must contain at least one upper case letter and between 6 to 30 letters. Example: Raquel'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='password'>Password</label>
-                                <input type='password' class='form-control' name='password' value='{$password}' id='password' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,255}$' placeholder='' maxlength='255' required disabled>
+                                <input type='password' class='form-control' name='password' value='{$password}' id='password' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,255}$' placeholder='' maxlength='255' required disabled title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
@@ -408,25 +408,25 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group'>
                                 <label for='street'>Street</label>
-                                <input type='text' class='form-control' name='street' id='street' value='{$street}' pattern='[a-z A-Z]+\s[0-9]+' placeholder='Enter Street' minlength='3' maxlength='255' disabled>
+                                <input type='text' class='form-control' name='street' id='street' value='{$street}' pattern='[a-z A-Z]+\s[0-9]+' placeholder='Enter Street' minlength='3' maxlength='255' required disabled title='Example: Centralbahnstrasse 9'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group'>
                                 <label for='city'>City</label>
-                                <input type='text' class='form-control' name='city' id='city' value='{$city}' pattern='[A-Z a-z]{3,30}' placeholder='Enter City' maxlength='30' disabled>
+                                <input type='text' class='form-control' name='city' id='city' value='{$city}' pattern='[A-Z a-z]{3,30}' placeholder='Enter City' maxlength='30' required disabled title='City must contain at least one upper case letter and between 3 to 30 letters. Example: Basel'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='state'>State</label>
-                                <input type='text' class='form-control' name='state' id='state' value='{$state}' pattern='[A-Z a-z]{3,30}' placeholder='Enter State' maxlength='30' disabled>
+                                <input type='text' class='form-control' name='state' id='state' value='{$state}' pattern='[A-Z a-z]{3,30}' placeholder='Enter State' maxlength='30' required disabled title='State must contain at least one upper case letter and between 3 to 30 letters. Example: Basel'>
                             </div>
                         </div>
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='zip'>Zip Code</label>
-                                <input type='text' class='form-control' name='zip' id='zip' value='{$zip}' pattern='[0-9]{4,6}' placeholder='Zip Code' minlength='4' maxlength='6' disabled>
+                                <input type='text' class='form-control' name='zip' id='zip' value='{$zip}' pattern='[0-9]{4,6}' placeholder='Zip Code' minlength='4' maxlength='6'required disabled title='Example: 4460'>
                             </div>
                         </div>
 

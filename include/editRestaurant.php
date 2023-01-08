@@ -66,7 +66,7 @@ error_reporting(0);
                         echo "
                         <form class='row' method='POST' action='edit.php'>
                             <div class='form-floating col-md-6 mb-3'>
-                                <input type='text' name='restaurantName' class='form-control rounded-4' value='{$name}' pattern='[A-Z a-z]{3,60}' placeholder='Restaurant Name' maxlength='60' required>
+                                <input type='text' name='restaurantName' class='form-control rounded-4' value='{$name}' pattern='[A-Z a-z]{3,60}' placeholder='Restaurant Name' maxlength='60' required title='Restaurant name must contain at least one upper case letter and between 3 to 60 letters. Example: Restaurant'>
                                 <label class='px-4'>Restaurant Name</label>
                             </div>
                             <div class='form-floating col-md-6 mb-3'>
@@ -74,7 +74,7 @@ error_reporting(0);
                                 <label class='px-4'>Website</label>
                             </div>
                             <div class='form-floating mb-3'>
-                                <input name='description' class='form-control rounded-4' value='{$description}' pattern='[A-Z a-z]{3,130}' placeholder='Description' required>
+                                <input name='description' class='form-control rounded-4' value='{$description}' pattern='[A-Z a-z]{3,130}' placeholder='Description' required title='Description must contain at least one upper case letter and between 3 to 130 letters. Example: Description'>
                                 <label class='px-4'>Description</label>
                             </div>
                             <div class='form-floating mb-3'>
