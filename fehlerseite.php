@@ -59,7 +59,7 @@ $logger->pushHandler(new StreamHandler(dirname(__FILE__) . '/logs/log.txt', Logg
 </head>
 
 <body>
-    <?php include('include/nav.php'); ?>
+    <?php include('include/errorNav.php'); ?>
 
     <div class="text-center bgimg">
         <div class="row py-lg-5 mx-auto">
