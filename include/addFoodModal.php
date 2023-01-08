@@ -39,7 +39,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                             <label>Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input name="foodDescription" pattern="[A-Z a-z]{3,512}" title="Must contain only letters and 3 to 512 characters" class="form-control rounded-4" maxlength="512"></input>
+                            <input name="foodDescription" pattern="[A-Z a-z]{3,512}" title="Must contain only letters and 3 to 512 characters" class="form-control rounded-4" maxlength="512">
                             <label>Description</label>
                         </div>
                         <div class="form-floating mb-3">
