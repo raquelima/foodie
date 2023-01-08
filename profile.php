@@ -434,7 +434,7 @@ if ($row = $result->fetch_assoc()) {
                         <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                             <div class='form-group' style='margin-top: 10px;'>
                                 <label for='zip'>Zip Code</label>
-                                <input type='text' class='form-control' name='zip' id='zip' value='{$zip}' pattern='[0-9]{4,6}' placeholder='Zip Code' minlength='4' maxlength='6'required disabled title='Example: 4460'>
+                                <input type='text' class='form-control' name='zip' id='zip' value='{$zip}' pattern='[0-9]{4,6}' placeholder='Zip Code' minlength='4' maxlength='6' required disabled title='Example: 4460'>
                             </div>
                         </div>
 

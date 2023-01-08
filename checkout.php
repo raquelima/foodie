@@ -183,7 +183,7 @@ include('include/dbconnector.inc.php');
 
                             <div class='col-md-4'>
                                 <label class='form-label'>State</label>
-                                <input type='text' class='form-control' name='state' placeholder='' value='{$state}'pattern='[A-Z a-z]{3,30}'  maxlength='30' required title='State must contain at least one upper case letter and between 3 to 30 letters. Example: Basel'>
+                                <input type='text' class='form-control' name='state' placeholder='' value='{$state}' pattern='[A-Z a-z]{3,30}'  maxlength='30' required title='State must contain at least one upper case letter and between 3 to 30 letters. Example: Basel'>
                                 <div class='invalid-feedback'>
                                     State required.
                                 </div>
