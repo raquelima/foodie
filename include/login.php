@@ -126,12 +126,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label>Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control rounded-4" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                        <input type="password" name="password" class="form-control rounded-4" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255" required>
                         <label>Password</label>
                         <input type="text" hidden name="loginErr" value="1">
                     </div>
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-warning btn btn-info" name="button" value="submit" type="submit">Log in</button>
-                    <small class="text-muted">Use your Foodie account.<br>Don't have a Foodie account? <a href="" class="" data-toggle="modal" data-target="#modalSignup">Create one</a></small>
+                    <small class="text-muted">Use your Foodie account.</small>
                 </form>
             </div>
         </div>

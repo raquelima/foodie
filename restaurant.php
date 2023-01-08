@@ -11,7 +11,7 @@ ini_set("session.gc_maxlifetime", $timeout);
 ini_set("session.cookie_lifetime", $timeout);
 
 //Set cookie to http only
-ini_set( 'session.cookie_httponly', 1 );
+ini_set('session.cookie_httponly', 1);
 
 // Sessionhandling starten
 session_start();
@@ -164,11 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     }
                                                 }
                                             } else {
-                                                echo "<script>
-                                                window.onload = function() {
-                                                    window.location.href = 'http://localhost/foodie/index.php';
-                                                }
-                                                 </script>";
+                                                header("location: fehlerseite.php?err=403&msg=Log in for restaurant access");
                                             }
                                         } else {
                                             header("location: fehlerseite.php?err=404&msg=Restaurant Not Found");

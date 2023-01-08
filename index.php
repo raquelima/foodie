@@ -1,7 +1,6 @@
 <?php
 include_once __DIR__ . '/vendor/owasp/csrf-protector-php/libs/csrf/csrfprotector.php';
 
-
 //Set the session timeout
 $timeout = 900;
 
