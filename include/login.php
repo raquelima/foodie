@@ -3,7 +3,9 @@
 $error = '';
 $message = '';
 $username = $password = '';
-
+if (strcmp($_SERVER['REQUEST_URI'], "/foodie/index.php")) {
+    header("location: ../fehlerseite.php?err=403&msg=Access denied");
+}
 // Formular wurde gesendet und Besucher ist noch nicht angemeldet.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

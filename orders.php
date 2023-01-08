@@ -15,11 +15,12 @@ ini_set( 'session.cookie_httponly', 1 );
 
 // Sessionhandling starten
 session_start();
+error_reporting(0);
 
 if (empty($_SESSION) || !$_SESSION["loggedin"]) {
     echo '<script>
     window.onload = function() {
-        window.location.href = "http://localhost/foodie/index.php";
+        window.location.href = "http://localhost/foodie/fehlerseite.php?err=403&msg=Access denied";
     }
     </script>';
 }

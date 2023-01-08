@@ -24,7 +24,6 @@ if (isset($_GET["err"])) {
             }
             </script>";
 }
-
 csrfProtector::init();
 
 ini_set("error_log", dirname(__FILE__) . "/logs/error_log.txt");

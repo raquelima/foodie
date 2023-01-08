@@ -15,6 +15,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
     // Sessionhandling starten
     session_start();
+
+    if (strcmp($_SERVER['SCRIPT_NAME'], "/foodie/restaurant.php") != 0 and !$_SESSION['isAdmin']) {
+        header("location: ../fehlerseite.php?err=403&msg=Access denied");
+    }
 }
 
 ?>

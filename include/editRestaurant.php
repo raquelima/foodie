@@ -19,6 +19,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 }
 
 error_reporting(0);
+if (strcmp($_SERVER['SCRIPT_NAME'], "/foodie/restaurant.php") != 0 and !$_SESSION['isAdmin']) {
+    header("location: ../fehlerseite.php?err=403&msg=Access denied");
+}
 ?>
 <?php if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin']) : ?>
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalEditRestaurant" aria-hidden="true">
