@@ -205,8 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="col-md-8">
                 <?php
                 if (empty($_POST)) {
-                    echo "<strong style='color: #9C3848;'>Error: </strong>No order found! <br>";
-                    echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
+                    header("location: fehlerseite.php?err=404&msg=Order not found");
                     die();
                 }
                 if (!empty($error)) {

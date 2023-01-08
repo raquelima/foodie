@@ -64,8 +64,7 @@ include('include/dbconnector.inc.php');
                 <p class='lead'>All the items you would like to purchase</p>
             </div>
             <?php if (empty($_POST["orderText"])) {
-                echo "<strong style='color: #9C3848;'>Error: </strong>No Items found! <br>";
-                echo "<a href='index.php' class='btn btn-primary my-2'>Home</a>";
+                header("location: fehlerseite.php?err=404&msg=Items not found");
                 die();
             } ?>
             <div class='row g-5'>
